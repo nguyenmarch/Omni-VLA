@@ -1,0 +1,33 @@
+{
+  "source_archive": "bc_outputs.zip",
+  "archive_sha256": "20f080f8898ee01584c9616dcccf0f2fc13fac8367530c3cefea79a7567f7f29",
+  "checkpoint": "weights/bc_kaggle/best.pt",
+  "checkpoint_sha256": "ea822c5c3be8cfe724199bb79375ecb96c2d2a1bf8ac972ae27df2a3ed073c26",
+  "dataset_sha256": "5ca7ea2947611019f6b0e9355699366f54ced885b88d718f71822b37bd461311",
+  "matches_local_dataset": true,
+  "epochs_logged": 150,
+  "best_epoch": 138,
+  "best_val_sample_mse": 0.00189280233775767,
+  "torch_version": "2.11.0+cu128",
+  "model_config": {
+    "action_dim": 14,
+    "chunk_size": 1,
+    "cond_dim": 67,
+    "hidden_dim": 128,
+    "phase_heads": true,
+    "euler_steps": 1,
+    "execute_horizon": 1
+  },
+  "train_config": {
+    "seed": 42,
+    "batch_size": 256,
+    "epochs": 150,
+    "learning_rate": 0.0005,
+    "weight_decay": 0.0001,
+    "mixed_precision": true,
+    "num_workers": 0,
+    "first_action_weight": 1.0
+  },
+  "local_onnx_parity_max_abs_error": 3.5762786865234375e-07,
+  "evaluation_report": "artifacts/bc_kaggle_eval.json"
+}

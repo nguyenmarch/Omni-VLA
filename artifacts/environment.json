@@ -1,0 +1,9 @@
+{
+  "python": "3.12.3",
+  "torch": "2.14.1+cpu",
+  "mujoco": "3.15.0",
+  "numpy": "2.5.3",
+  "h5py": "3.16.0",
+  "onnxruntime": "1.31.0",
+  "gymnasium": "1.4.0"
+}

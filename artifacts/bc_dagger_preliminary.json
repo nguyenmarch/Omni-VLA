@@ -1,0 +1,66 @@
+{
+  "mode": "learned_state_oracle_context",
+  "checkpoint": "weights/bc_dagger/best.pt",
+  "episodes": [
+    {
+      "seed": 2100,
+      "steps": 351,
+      "phase": "approach",
+      "failure_reason": "timeout_approach",
+      "recovery_attempts": 0,
+      "injected_slip": false,
+      "success": false,
+      "drawer_open": false,
+      "bottle_placed": false,
+      "drawer_position": 0.0,
+      "max_drawer": 0.0,
+      "step": 351,
+      "physics_valid": true
+    },
+    {
+      "seed": 2101,
+      "steps": 351,
+      "phase": "approach",
+      "failure_reason": "timeout_approach",
+      "recovery_attempts": 0,
+      "injected_slip": false,
+      "success": false,
+      "drawer_open": false,
+      "bottle_placed": false,
+      "drawer_position": 0.0,
+      "max_drawer": 0.0,
+      "step": 351,
+      "physics_valid": true
+    },
+    {
+      "seed": 2102,
+      "steps": 351,
+      "phase": "approach",
+      "failure_reason": "timeout_approach",
+      "recovery_attempts": 0,
+      "injected_slip": false,
+      "success": false,
+      "drawer_open": false,
+      "bottle_placed": false,
+      "drawer_position": 0.0,
+      "max_drawer": 0.0,
+      "step": 351,
+      "physics_valid": true
+    }
+  ],
+  "successes": 0,
+  "attempted": 3,
+  "success_rate": 0.0,
+  "wilson_95": [
+    0.0,
+    0.5615060804490177
+  ],
+  "wall_seconds": 8.40982048099977,
+  "simulation_seconds": 42.120000000004076,
+  "real_time_factor": 5.008430333937021,
+  "sampler_ms_p50": 0.6947989995751414,
+  "sampler_ms_p95": 0.8934262003094773,
+  "cpu_threads": 2,
+  "execute_horizon": 1,
+  "euler_steps": 6
+}

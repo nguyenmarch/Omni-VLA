@@ -1,0 +1,8 @@
+env:
+  xml_path: simulation/assets/bottle_drawer_scene.xml
+  physics_dt: 0.002
+  controller_hz: 250
+  action_hz: 25
+  max_episode_steps: 1500
+  images: false
+  image_size: 128

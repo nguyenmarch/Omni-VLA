@@ -1,0 +1,91 @@
+{
+  "attempted": 6,
+  "successes": 5,
+  "wall_seconds": 402.8233526799995,
+  "episodes": [
+    {
+      "episode": 0,
+      "seed": 100,
+      "steps": 558,
+      "phase": "place",
+      "success": false,
+      "drawer_open": true,
+      "bottle_placed": false,
+      "drawer_position": 0.21264662656461175,
+      "max_drawer": 0.21264662656461175,
+      "step": 558,
+      "physics_valid": true,
+      "reason": "timeout_place"
+    },
+    {
+      "episode": 1,
+      "seed": 101,
+      "steps": 534,
+      "phase": "close",
+      "success": true,
+      "drawer_open": true,
+      "bottle_placed": true,
+      "drawer_position": 0.03487207541373009,
+      "max_drawer": 0.21181330178626534,
+      "step": 534,
+      "physics_valid": true,
+      "reason": "success"
+    },
+    {
+      "episode": 2,
+      "seed": 102,
+      "steps": 535,
+      "phase": "close",
+      "success": true,
+      "drawer_open": true,
+      "bottle_placed": true,
+      "drawer_position": 0.03482789717440967,
+      "max_drawer": 0.21172224151080923,
+      "step": 535,
+      "physics_valid": true,
+      "reason": "success"
+    },
+    {
+      "episode": 3,
+      "seed": 103,
+      "steps": 499,
+      "phase": "finish",
+      "success": true,
+      "drawer_open": true,
+      "bottle_placed": true,
+      "drawer_position": 0.0215823902812044,
+      "max_drawer": 0.21180001630247733,
+      "step": 499,
+      "physics_valid": true,
+      "reason": "success"
+    },
+    {
+      "episode": 4,
+      "seed": 104,
+      "steps": 536,
+      "phase": "close",
+      "success": true,
+      "drawer_open": true,
+      "bottle_placed": true,
+      "drawer_position": 0.03491182999819839,
+      "max_drawer": 0.21182769789525233,
+      "step": 536,
+      "physics_valid": true,
+      "reason": "success"
+    },
+    {
+      "episode": 5,
+      "seed": 105,
+      "steps": 528,
+      "phase": "close",
+      "success": true,
+      "drawer_open": true,
+      "bottle_placed": true,
+      "drawer_position": 0.03477120861049651,
+      "max_drawer": 0.211714827450502,
+      "step": 528,
+      "physics_valid": true,
+      "reason": "success"
+    }
+  ]
+}

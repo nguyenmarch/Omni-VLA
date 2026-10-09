@@ -1,0 +1,12 @@
+.venv/
+__pycache__/
+*.h5
+*.pkl
+*.pt
+
+*.onnx
+*.tmp
+*.egg-info/
+.pytest_cache/
+artifacts/*.zip
+artifacts/*trace*.jsonl

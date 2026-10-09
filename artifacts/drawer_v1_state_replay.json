@@ -1,0 +1,180 @@
+{
+  "passed": true,
+  "dataset_sha256": "5ca7ea2947611019f6b0e9355699366f54ced885b88d718f71822b37bd461311",
+  "legacy_scene_sha256": "7198350e9d3a0b1cfb7398a16a73d5c744b16dc357e65b7bcd135684f537a778",
+  "current_scene_sha256": "39ace7ab82faf501a502e3429bc1d1b87a5be61a51b7bb93e7388fdf9adc7f9f",
+  "scope": "all recorded state-only trajectories; no image compatibility claim",
+  "tolerance": 1e-05,
+  "max_errors": {
+    "condition": 0.0,
+    "obs/q": 0.0,
+    "obs/dq": 0.0,
+    "obs/gripper": 0.0,
+    "obs/wrench": 0.0,
+    "obs/ee": 0.0,
+    "obs/object": 0.0,
+    "obs/time": 0.0
+  },
+  "episodes": [
+    {
+      "episode": "000000",
+      "steps": 533,
+      "max_error": 0.0
+    },
+    {
+      "episode": "000001",
+      "steps": 530,
+      "max_error": 0.0
+    },
+    {
+      "episode": "000002",
+      "steps": 532,
+      "max_error": 0.0
+    },
+    {
+      "episode": "000003",
+      "steps": 529,
+      "max_error": 0.0
+    },
+    {
+      "episode": "000004",
+      "steps": 529,
+      "max_error": 0.0
+    },
+    {
+      "episode": "000005",
+      "steps": 627,
+      "max_error": 0.0
+    },
+    {
+      "episode": "000006",
+      "steps": 535,
+      "max_error": 0.0
+    },
+    {
+      "episode": "000007",
+      "steps": 526,
+      "max_error": 0.0
+    },
+    {
+      "episode": "000008",
+      "steps": 526,
+      "max_error": 0.0
+    },
+    {
+      "episode": "000009",
+      "steps": 497,
+      "max_error": 0.0
+    },
+    {
+      "episode": "000010",
+      "steps": 476,
+      "max_error": 0.0
+    },
+    {
+      "episode": "000011",
+      "steps": 569,
+      "max_error": 0.0
+    },
+    {
+      "episode": "000012",
+      "steps": 535,
+      "max_error": 0.0
+    },
+    {
+      "episode": "000013",
+      "steps": 546,
+      "max_error": 0.0
+    },
+    {
+      "episode": "000014",
+      "steps": 531,
+      "max_error": 0.0
+    },
+    {
+      "episode": "000015",
+      "steps": 526,
+      "max_error": 0.0
+    },
+    {
+      "episode": "000016",
+      "steps": 531,
+      "max_error": 0.0
+    },
+    {
+      "episode": "000017",
+      "steps": 536,
+      "max_error": 0.0
+    },
+    {
+      "episode": "000018",
+      "steps": 527,
+      "max_error": 0.0
+    },
+    {
+      "episode": "000019",
+      "steps": 533,
+      "max_error": 0.0
+    },
+    {
+      "episode": "correction_000000",
+      "steps": 540,
+      "max_error": 0.0
+    },
+    {
+      "episode": "correction_000001",
+      "steps": 483,
+      "max_error": 0.0
+    },
+    {
+      "episode": "correction_000002",
+      "steps": 487,
+      "max_error": 0.0
+    },
+    {
+      "episode": "correction_000003",
+      "steps": 489,
+      "max_error": 0.0
+    },
+    {
+      "episode": "correction_000004",
+      "steps": 493,
+      "max_error": 0.0
+    },
+    {
+      "episode": "correction_000005",
+      "steps": 560,
+      "max_error": 0.0
+    },
+    {
+      "episode": "correction_000006",
+      "steps": 510,
+      "max_error": 0.0
+    },
+    {
+      "episode": "correction_000007",
+      "steps": 497,
+      "max_error": 0.0
+    },
+    {
+      "episode": "correction_000008",
+      "steps": 496,
+      "max_error": 0.0
+    },
+    {
+      "episode": "correction_000009",
+      "steps": 557,
+      "max_error": 0.0
+    },
+    {
+      "episode": "correction_000010",
+      "steps": 491,
+      "max_error": 0.0
+    },
+    {
+      "episode": "correction_000011",
+      "steps": 494,
+      "max_error": 0.0
+    }
+  ]
+}

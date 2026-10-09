@@ -1,0 +1,73 @@
+{
+  "mode": "learned_state_oracle_context",
+  "checkpoint": "weights/bc_kaggle_v2/best.pt",
+  "episodes": [
+    {
+      "seed": 5000,
+      "steps": 526,
+      "phase": "close",
+      "failure_reason": null,
+      "recovery_attempts": 0,
+      "injected_slip": false,
+      "success": true,
+      "drawer_open": true,
+      "bottle_placed": true,
+      "drawer_position": 0.03281298496713856,
+      "max_drawer": 0.2100323746703873,
+      "step": 526,
+      "physics_valid": true
+    },
+    {
+      "seed": 5006,
+      "steps": 351,
+      "phase": "approach",
+      "failure_reason": "timeout_approach",
+      "recovery_attempts": 0,
+      "injected_slip": false,
+      "success": false,
+      "drawer_open": false,
+      "bottle_placed": false,
+      "drawer_position": 0.0,
+      "max_drawer": 0.0,
+      "step": 351,
+      "physics_valid": true
+    },
+    {
+      "seed": 5026,
+      "steps": 804,
+      "phase": "retreat",
+      "failure_reason": "timeout_retreat",
+      "recovery_attempts": 0,
+      "injected_slip": false,
+      "success": false,
+      "drawer_open": true,
+      "bottle_placed": true,
+      "drawer_position": 0.18402797332632134,
+      "max_drawer": 0.21177551470289968,
+      "step": 804,
+      "physics_valid": true
+    }
+  ],
+  "successes": 1,
+  "attempted": 3,
+  "success_rate": 0.3333333333333333,
+  "wilson_95": [
+    0.0614903152761605,
+    0.7923450448735121
+  ],
+  "interrupted": false,
+  "seeds_requested": [
+    5000,
+    5006,
+    5026
+  ],
+  "gui_speed": 1.0,
+  "wall_seconds": 68.17066293600146,
+  "simulation_seconds": 67.23999999999391,
+  "real_time_factor": 0.9863480433382135,
+  "sampler_ms_p50": 1.244742001290433,
+  "sampler_ms_p95": 2.337137000722578,
+  "cpu_threads": 2,
+  "execute_horizon": 1,
+  "euler_steps": 6
+}

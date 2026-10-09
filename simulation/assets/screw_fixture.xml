@@ -1,0 +1,19 @@
+<mujoco model="screw_fixture_approximation">
+  <option timestep="0.001" gravity="0 0 0" integrator="implicitfast"/>
+  <worldbody>
+    <light pos="0 0 1"/>
+    <body name="cap" pos="0 0 .2">
+      <joint name="rotation" type="hinge" axis="0 0 1" damping=".02"/>
+      <joint name="axial" type="slide" axis="0 0 1" damping=".1"/>
+      <geom type="cylinder" size=".025 .012" mass=".03" rgba=".8 .3 .2 1"/>
+      <site name="cap_center" size=".003"/>
+    </body>
+  </worldbody>
+  <equality>
+    <joint name="thread" joint1="axial" joint2="rotation" polycoef="0 .00095492966 0 0 0" solref=".002 1"/>
+  </equality>
+  <actuator>
+    <motor name="twist" joint="rotation" ctrlrange="-.05 .05"/>
+    <motor name="lift" joint="axial" ctrlrange="-1 1"/>
+  </actuator>
+</mujoco>

@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "omni-vla"
+version = "0.1.0"
+description = "CPU MuJoCo bimanual manipulation and Kaggle imitation learning"
+requires-python = ">=3.10"
+dependencies = ["numpy>=1.26", "mujoco>=3.2,<4", "gymnasium>=1,<2", "h5py>=3.10", "PyYAML>=6"]
+
+[project.optional-dependencies]
+train = ["torch>=2.3"]
+deploy = ["torch>=2.3", "onnx>=1.16", "onnxruntime>=1.18"]
+test = ["pytest>=8"]
+
+[tool.setuptools.packages.find]
+include = ["models*", "simulation*", "utils*", "scripts*"]
+
+[tool.setuptools.package-data]
+simulation = ["assets/*.xml", "assets/panda/*.xml", "assets/panda/LICENSE", "assets/panda/assets/*"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]

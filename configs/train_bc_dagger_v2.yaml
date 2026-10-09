@@ -1,0 +1,18 @@
+train:
+  seed: 42
+  batch_size: 256
+  epochs: 150
+  learning_rate: 0.0005
+  weight_decay: 0.0001
+  mixed_precision: true
+  num_workers: 0
+  phase_balanced: true
+  phase_sampling_min_count: 100
+model:
+  action_dim: 14
+  chunk_size: 1
+  cond_dim: 67
+  hidden_dim: 128
+  phase_heads: true
+  euler_steps: 1
+  execute_horizon: 1

@@ -1,0 +1,45 @@
+{
+  "source_archive": "bc_dagger_v2_outputs.zip",
+  "archive_sha256": "bf7d76c1baf83fdb236d71ce4c975cc15ecb3afbdff055bc79fa9d2e6feb367a",
+  "checkpoint_sha256": "1c31dafe6ff1731ceb99a07c5da2e187dcb61db27ca76029a995d5c0905b27a3",
+  "dataset_sha256": "8da71c521af7192d1952567343fb7a6aa2c95b19f52056463110a5bf8679b47d",
+  "dataset_matches": true,
+  "epochs_logged": 300,
+  "best_epoch": 136,
+  "best_val_sample_mse": 0.0007427769865339192,
+  "train_config": {
+    "seed": 42,
+    "batch_size": 256,
+    "epochs": 150,
+    "learning_rate": 0.0005,
+    "weight_decay": 0.0001,
+    "mixed_precision": true,
+    "num_workers": 0,
+    "phase_balanced": true,
+    "phase_sampling_min_count": 100,
+    "first_action_weight": 1.0
+  },
+  "model_config": {
+    "action_dim": 14,
+    "chunk_size": 1,
+    "cond_dim": 67,
+    "hidden_dim": 128,
+    "phase_heads": true,
+    "euler_steps": 1,
+    "execute_horizon": 1
+  },
+  "torch_version": "2.11.0+cu128",
+  "local_onnx_parity_max_abs_error": 4.76837158203125e-07,
+  "metrics_log_segments": [
+    {
+      "first_row": 1,
+      "first_epoch": 1,
+      "last_epoch": 150
+    },
+    {
+      "first_row": 151,
+      "first_epoch": 1,
+      "last_epoch": 150
+    }
+  ]
+}

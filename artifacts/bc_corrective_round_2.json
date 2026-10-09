@@ -1,0 +1,47 @@
+{
+  "dataset": "data/drawer_dagger_v2.h5",
+  "dataset_sha256": "8da71c521af7192d1952567343fb7a6aa2c95b19f52056463110a5bf8679b47d",
+  "episodes": 57,
+  "steps": 30902,
+  "splits": {
+    "train": 49,
+    "val": 4,
+    "test": 4
+  },
+  "original_heldout_arrays_unchanged": true,
+  "diagnosis": "artifacts/bc_kaggle_diagnosis.json",
+  "scene_replay_audit": "artifacts/drawer_v1_state_replay.json",
+  "pilot_mixed_successes": 23,
+  "pilot_attempted": 25,
+  "pilot_success_is_not_pure_policy": true,
+  "train_config": "configs/train_bc_dagger_v2.yaml",
+  "cpu_smoke_epochs": 3,
+  "cpu_smoke_metrics": [
+    {
+      "epoch": 1,
+      "train_loss": 0.16966113997401489,
+      "val_sample_mse": 0.037748937910565966,
+      "seconds": 1.040179364999858
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.028261205903608793,
+      "val_sample_mse": 0.021738768576716,
+      "seconds": 1.003525203999743
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.022073212948829093,
+      "val_sample_mse": 0.018645766269988737,
+      "seconds": 1.186021735000395
+    }
+  ],
+  "smoke_onnx_max_abs_error": 2.384185791015625e-07,
+  "phase_balanced_resume_model_bitwise_identical": true,
+  "tests_passed": 14,
+  "gpu_v2_training_executed": true,
+  "candidate_v2_cpu_benchmark_executed": true,
+  "handoff_notebook": "notebooks/kaggle_train_dagger_v2.ipynb",
+  "candidate_import_metadata": "artifacts/bc_kaggle_v2_import.json",
+  "candidate_comparison": "artifacts/bc_kaggle_v2_comparison.json"
+}
