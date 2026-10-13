@@ -1,0 +1,92 @@
+{
+  "source_sha256": "92068af075d7b2977ecafb2496525076cb400ea25e01f7072122dfb234ea9e75",
+  "dataset_sha256": "ce73cfce01d504dce74eea20685cd41d84f5dd223bf44f7c56e2592f0f79abaa",
+  "decoder_config": {
+    "patch_size": 7,
+    "quantile": 0.5,
+    "min_support": 6,
+    "min_fraction": 0.2,
+    "max_iqr": 0.1,
+    "depth_range": [
+      0.05,
+      5.0
+    ],
+    "workspace": [
+      [
+        -0.1,
+        -0.75,
+        0.4
+      ],
+      [
+        0.95,
+        0.75,
+        1.5
+      ]
+    ]
+  },
+  "targets": 2588,
+  "eligible": 2549,
+  "coverage": 0.9849304482225657,
+  "episodes": {
+    "000000": {
+      "targets": 216,
+      "eligible": 212,
+      "coverage": 0.9814814814814815
+    },
+    "000001": {
+      "targets": 214,
+      "eligible": 211,
+      "coverage": 0.985981308411215
+    },
+    "000002": {
+      "targets": 208,
+      "eligible": 205,
+      "coverage": 0.9855769230769231
+    },
+    "000003": {
+      "targets": 212,
+      "eligible": 209,
+      "coverage": 0.9858490566037735
+    },
+    "000004": {
+      "targets": 214,
+      "eligible": 211,
+      "coverage": 0.985981308411215
+    },
+    "000005": {
+      "targets": 210,
+      "eligible": 206,
+      "coverage": 0.9809523809523809
+    },
+    "000006": {
+      "targets": 214,
+      "eligible": 211,
+      "coverage": 0.985981308411215
+    },
+    "000007": {
+      "targets": 242,
+      "eligible": 240,
+      "coverage": 0.9917355371900827
+    },
+    "000008": {
+      "targets": 214,
+      "eligible": 211,
+      "coverage": 0.985981308411215
+    },
+    "000009": {
+      "targets": 214,
+      "eligible": 210,
+      "coverage": 0.9813084112149533
+    },
+    "000010": {
+      "targets": 214,
+      "eligible": 211,
+      "coverage": 0.985981308411215
+    },
+    "000011": {
+      "targets": 216,
+      "eligible": 212,
+      "coverage": 0.9814814814814815
+    }
+  }
+}

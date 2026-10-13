@@ -1,0 +1,160 @@
+{
+  "checkpoint_sha256": "b17be25ca2260b3402b9cc0098b923533dfc74eca58b1389c4dca9ff9e469e2e",
+  "baseline_checkpoint_sha256": "1c31dafe6ff1731ceb99a07c5da2e187dcb61db27ca76029a995d5c0905b27a3",
+  "dataset_sha256": "8da71c521af7192d1952567343fb7a6aa2c95b19f52056463110a5bf8679b47d",
+  "archive_sha256": "7f16c2a35c1a481372215b1ca7cd11e571007ace23b3d38a3dcd82aea8695e26",
+  "benchmark_complete": true,
+  "baseline": {
+    "same": {
+      "successes": 46,
+      "attempted": 50,
+      "success_rate": 0.92,
+      "wilson_95": [
+        0.8116149745493629,
+        0.9684509967442093
+      ],
+      "sampler_ms_p50": 0.46499299969582353,
+      "sampler_ms_p95": 0.8394855505684972
+    },
+    "fresh": {
+      "successes": 42,
+      "attempted": 50,
+      "success_rate": 0.84,
+      "wilson_95": [
+        0.7148551903823401,
+        0.9166267863791231
+      ],
+      "sampler_ms_p50": 0.4760904994327575,
+      "sampler_ms_p95": 0.8986041005300648
+    }
+  },
+  "cfm": [
+    {
+      "euler_steps": 4,
+      "set": "same",
+      "successes": 25,
+      "attempted": 50,
+      "success_rate": 0.5,
+      "wilson_95": [
+        0.36644286412332855,
+        0.6335571358766714
+      ],
+      "sampler_ms_p50": 1.4351849986269372,
+      "sampler_ms_p95": 2.5175532984576416,
+      "difference_vs_bc_percentage_points": -42.00000000000001,
+      "failures": {
+        "timeout_approach": 20,
+        "timeout_descend": 1,
+        "timeout_place": 3,
+        "timeout_transfer": 1
+      }
+    },
+    {
+      "euler_steps": 4,
+      "set": "fresh",
+      "successes": 25,
+      "attempted": 50,
+      "success_rate": 0.5,
+      "wilson_95": [
+        0.36644286412332855,
+        0.6335571358766714
+      ],
+      "sampler_ms_p50": 1.4738089994352777,
+      "sampler_ms_p95": 2.5901390999933938,
+      "difference_vs_bc_percentage_points": -34.0,
+      "failures": {
+        "timeout_approach": 21,
+        "timeout_place": 3,
+        "timeout_retreat": 1
+      }
+    },
+    {
+      "euler_steps": 6,
+      "set": "same",
+      "successes": 26,
+      "attempted": 50,
+      "success_rate": 0.52,
+      "wilson_95": [
+        0.3851151225880844,
+        0.6520308760449429
+      ],
+      "sampler_ms_p50": 1.972665000721463,
+      "sampler_ms_p95": 3.3029064989023027,
+      "difference_vs_bc_percentage_points": -40.0,
+      "failures": {
+        "timeout_approach": 20,
+        "timeout_descend": 1,
+        "timeout_place": 2,
+        "timeout_retreat": 1
+      }
+    },
+    {
+      "euler_steps": 6,
+      "set": "fresh",
+      "successes": 23,
+      "attempted": 50,
+      "success_rate": 0.46,
+      "wilson_95": [
+        0.3296943460178263,
+        0.5960136567161192
+      ],
+      "sampler_ms_p50": 1.9767859994317405,
+      "sampler_ms_p95": 3.3164069516715244,
+      "difference_vs_bc_percentage_points": -37.99999999999999,
+      "failures": {
+        "timeout_approach": 22,
+        "timeout_place": 3,
+        "timeout_retreat": 1,
+        "timeout_transfer": 1
+      }
+    },
+    {
+      "euler_steps": 8,
+      "set": "same",
+      "successes": 30,
+      "attempted": 50,
+      "success_rate": 0.6,
+      "wilson_95": [
+        0.4618118910275937,
+        0.7239181021375425
+      ],
+      "sampler_ms_p50": 2.617769001517445,
+      "sampler_ms_p95": 4.2454942005861085,
+      "difference_vs_bc_percentage_points": -32.00000000000001,
+      "failures": {
+        "timeout_approach": 19,
+        "timeout_descend": 1
+      }
+    },
+    {
+      "euler_steps": 8,
+      "set": "fresh",
+      "successes": 26,
+      "attempted": 50,
+      "success_rate": 0.52,
+      "wilson_95": [
+        0.3851151225880844,
+        0.6520308760449429
+      ],
+      "sampler_ms_p50": 2.606399997603148,
+      "sampler_ms_p95": 4.181938200053993,
+      "difference_vs_bc_percentage_points": -31.999999999999996,
+      "failures": {
+        "timeout_approach": 22,
+        "timeout_place": 2
+      }
+    }
+  ],
+  "onnx_euler_parity": {
+    "4": 1.1920928955078125e-06,
+    "6": 8.344650268554688e-07,
+    "8": 9.5367431640625e-07
+  },
+  "target_80_percent_both_sets_by_euler": {
+    "4": false,
+    "6": false,
+    "8": false
+  },
+  "scope": "Torch CPU, 2 threads; state/oracle context; no teacher/recovery; execute horizon 1 for BC and CFM; BC chunk 1, CFM chunk 16",
+  "noise_protocol": "numpy_default_rng(episode_seed + action_step); same starting noise at matching seed/action-step for 4/6/8"
+}

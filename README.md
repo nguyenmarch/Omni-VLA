@@ -9,6 +9,12 @@ Cartesian impedance torque control, scripted expert và pipeline HDF5 → BC/CFM
 → checkpoint/ONNX → CPU rollout. Expert kẹp/vận chuyển chai bằng tiếp xúc vật lý;
 không teleport vật thể hoặc dùng weld giả để nắm chai.
 
+Pilot mới: [Patch grounding v3](docs/PATCH_GROUNDING_V3.md) — đã migrate nhãn,
+train CPU và đo coverage; test accepted error 10.23cm, closed-loop 0/5.
+Kaggle notebook/input sẵn; wrist224 + MuJoCo FK mask đang ở mức audit.
+Mốc code, config, hash dữ liệu/checkpoint, report và seed đã chốt tại
+[reproducible baseline](docs/REPRO_BASELINE.md).
+
 ## Trạng thái đã kiểm chứng
 
 - Expert drawer benchmark: **99/100** trials, seeds 3000–3099, random vị trí chai
@@ -123,6 +129,33 @@ DAgger thực thi learner 4/8 steps, còn lại expert; lưu `action` là expert
 và `executed_action` riêng. Corrective episodes thêm vào train, giữ nguyên held-out
 split của dataset gốc. Kết quả rollout trộn teacher/learner không phải pure policy success.
 
+## CFM Kaggle vòng v2
+
+Import [notebook CFM](notebooks/kaggle_train_cfm_v2.ipynb), upload source ZIP mới
+và `drawer_dagger_v2.h5`; config riêng `configs/train_cfm_dagger_v2.yaml`.
+Sau khi lấy `cfm_dagger_v2_outputs.zip` về Dell:
+
+```bash
+.venv/bin/python -m scripts.evaluate_cfm_candidate --archive cfm_dagger_v2_outputs.zip
+```
+
+Chạy 300 CPU trials (hai bộ seed × 4/6/8 Euler × 50), so với frozen BC v2.
+GPU training và đủ 300 CPU trials đã hoàn tất: CFM Euler 4 **50%/50%**,
+Euler 6 **52%/46%**, Euler 8 **60%/52%** trên same/fresh seeds. CFM hiện tại
+chưa đạt 80%; giữ BC v2 **92%/84%** làm baseline.
+[Report](artifacts/cfm_kaggle_v2/comparison.md), [chi tiết](docs/CFM_KAGGLE_V2.md).
+
+## CFM H1 ablation
+
+Đã chẩn đoán first-action theo phase trên validation và rollout H16; notebook
+`notebooks/kaggle_train_cfm_h1_v2.ipynb` thử chunk1 với các settings khác giữ nguyên.
+Source ZIP mới + dataset v2, rồi import/eval vào paths riêng khi nhận output.
+GPU H1 và 300 CPU trials đã hoàn tất: Euler 4 **70%/78%**,
+6 **74%/64%**, 8 **60%/44%** same/fresh. Chưa đạt 80% trên cả hai sets;
+giữ BC v2 làm policy chính.
+[Report](artifacts/cfm_h1_kaggle_v2/comparison.md),
+[hướng dẫn và chẩn đoán](docs/CFM_H1_V2.md).
+
 ## Xem BC v2 trên Dell
 
 ```bash
@@ -160,8 +193,12 @@ python -m scripts.eval_closed_loop --expert --recovery --inject-slip --episodes 
 
 Grounding train dùng ảnh, finite text instructions và simulator center labels;
 metric là pixel error trên các target visible. Module yêu cầu depth thật và
-camera extrinsics khi unproject 3D. Chưa tích hợp latent này vào policy state
-baseline. Recovery hiện dùng oracle geometry cho regrasp và phải benchmark thêm.
+camera extrinsics khi unproject 3D. Pilot mới nối predicted landmarks vào BC v2,
+thay oracle object/phase bằng camera và finite-task manager; xem
+[Vision-language CPU pilot](docs/VISION_LANGUAGE_PILOT.md) để xem kết quả
+3D, closed-loop và image/text ablations; [pilot 256×256](docs/GROUNDING_256_PILOT.md)
+thu lại RGB-D và train grounding mới, giữ BC v2 làm baseline. Recovery hiện dùng oracle geometry
+cho regrasp và phải benchmark thêm.
 `--inject-slip` mở gripper tạm thời và perturb velocity để gây mất grasp; không
 đổi object position. Screw fixture dùng hinge/slide approximation; release vẫn
 còn articulated DOFs, chưa phải cap free-body rời chai.

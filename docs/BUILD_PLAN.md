@@ -1,5 +1,28 @@
 # Omni-VLA — build plan
 
+## Advanced migration — 10/10/2026
+
+Pilot mới: [PATCH_GROUNDING_V3.md](PATCH_GROUNDING_V3.md).
+
+Đặc tả/gates: [ADVANCED_CONTROL_DESIGN.md](ADVANCED_CONTROL_DESIGN.md).
+Mục tiêu >=90% là target mới, chưa đạt. BC giữ làm baseline kiểm soát khi
+migration; production target dùng correlated OT-CFM được nghiệm thu.
+
+| Stage | Công việc | Trạng thái |
+|---|---|---|
+| A1 | Patch depth, workspace/invalid gates; migrate offset labels/schema, train/eval | Nhãn v3, CPU retrain, coverage/loop audit và runtime gates đã có; chất lượng chưa đạt, Kaggle handoff sẵn |
+| A2 | Head 256 + wrist 224 riêng; async render snapshots; Pinocchio/CAD self-mask, fusion | Sync head256/wrist224 + MuJoCo FK mask audit có; Pinocchio, per-camera training/fusion và async còn thiếu |
+| A3 | Learned semantic predicates; tách perception/monitor lỗi; loại oracle task phase | Chưa làm |
+| A4 | Correlated Gaussian H16/A14, OT matching/conditioning; visual-language policy, Euler 2/4/6 | Chưa làm; không đổi tên CFM cũ thành OT |
+| A5 | Perturbation/recovery data + policy; force feedback adaptive impedance/cap torque stop | Chưa tích hợp đầy đủ |
+| A6 | ONNX full-path parity <1e-5; CPU latency/deadline gates; ROS2 contracts/packages | Export state-policy cũ có; advanced path chưa có |
+
+Chuyển stage theo correctness/coverage và rollout gates, không dựa vào loss
+hay module unit tests. Gate >=90% đo riêng từng task và held-out seed set;
+không dùng success oracle/expert fallback trong production benchmark.
+
+Các milestone P0–P6 bên dưới giữ lại làm lịch sử kế hoạch ban đầu.
+
 > Tài liệu thiết kế/khảo sát trước implementation. Xem [trạng thái hiện tại](IMPLEMENTATION_STATUS.md) và README cho code, commands và kết quả đo mới.
 Kế hoạch dựa trên khảo sát ngày 09/10/2026 và [architecture](ARCHITECTURE.md). Phần lớn repository hiện là scaffold; khối lượng đầu tiên là dựng simulation/controller/data đúng, không phải chỉ chạy training.
 

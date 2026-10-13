@@ -1,0 +1,314 @@
+[
+  {
+    "mode": "modular_finite_language_vision_bc_bridge",
+    "instruction": "stow the bottle in the drawer then close it",
+    "ablation": "none",
+    "grounding_sha256": "dd2026bbbae4f9310aa0ea8c688821419f4ae22c73fb59b5e56bc45ee88ceefb",
+    "policy_sha256": "1c31dafe6ff1731ceb99a07c5da2e187dcb61db27ca76029a995d5c0905b27a3",
+    "episodes": [
+      {
+        "seed": 9000,
+        "success": false,
+        "steps": 351,
+        "phase": "approach",
+        "failure_reason": "visual_timeout_approach",
+        "visual_completed": false,
+        "landmark_mean_error_m": [
+          0.0707765445113182,
+          0.18167775869369507
+        ]
+      },
+      {
+        "seed": 9001,
+        "success": false,
+        "steps": 351,
+        "phase": "approach",
+        "failure_reason": "visual_timeout_approach",
+        "visual_completed": false,
+        "landmark_mean_error_m": [
+          0.08319408446550369,
+          0.1865961253643036
+        ]
+      },
+      {
+        "seed": 9002,
+        "success": false,
+        "steps": 351,
+        "phase": "approach",
+        "failure_reason": "visual_timeout_approach",
+        "visual_completed": false,
+        "landmark_mean_error_m": [
+          0.07913167774677277,
+          0.25525158643722534
+        ]
+      },
+      {
+        "seed": 9003,
+        "success": false,
+        "steps": 351,
+        "phase": "approach",
+        "failure_reason": "visual_timeout_approach",
+        "visual_completed": false,
+        "landmark_mean_error_m": [
+          0.0787258893251419,
+          0.19065812230110168
+        ]
+      },
+      {
+        "seed": 9004,
+        "success": false,
+        "steps": 351,
+        "phase": "approach",
+        "failure_reason": "visual_timeout_approach",
+        "visual_completed": false,
+        "landmark_mean_error_m": [
+          0.07908360660076141,
+          0.2086554616689682
+        ]
+      }
+    ],
+    "successes": 0,
+    "attempted": 5,
+    "success_rate": 0.0,
+    "perception_every_actions": 5,
+    "perception_capture_and_infer_ms_p50": 48.049635000097624,
+    "policy_ms_p50": 0.37118599993846146,
+    "perception_capture_and_infer_ms_p95": 57.68163159973483,
+    "policy_ms_p95": 0.7704364998062371,
+    "limitations": "Frozen state BC with estimated landmarks; finite task grammar and known fixture geometry. Not jointly trained VLA. No object or phase oracle is passed to policy/manager."
+  },
+  {
+    "mode": "modular_finite_language_vision_bc_bridge",
+    "instruction": "stow the bottle in the drawer then close it",
+    "ablation": "drop-image",
+    "grounding_sha256": "dd2026bbbae4f9310aa0ea8c688821419f4ae22c73fb59b5e56bc45ee88ceefb",
+    "policy_sha256": "1c31dafe6ff1731ceb99a07c5da2e187dcb61db27ca76029a995d5c0905b27a3",
+    "episodes": [
+      {
+        "seed": 9000,
+        "success": false,
+        "steps": 351,
+        "phase": "approach",
+        "failure_reason": "visual_timeout_approach",
+        "visual_completed": false,
+        "landmark_mean_error_m": [
+          0.4676394462585449,
+          0.6577144265174866
+        ]
+      },
+      {
+        "seed": 9001,
+        "success": false,
+        "steps": 351,
+        "phase": "approach",
+        "failure_reason": "visual_timeout_approach",
+        "visual_completed": false,
+        "landmark_mean_error_m": [
+          0.48551493883132935,
+          0.6577144265174866
+        ]
+      },
+      {
+        "seed": 9002,
+        "success": false,
+        "steps": 351,
+        "phase": "approach",
+        "failure_reason": "visual_timeout_approach",
+        "visual_completed": false,
+        "landmark_mean_error_m": [
+          0.4871167540550232,
+          0.6577144265174866
+        ]
+      },
+      {
+        "seed": 9003,
+        "success": false,
+        "steps": 351,
+        "phase": "approach",
+        "failure_reason": "visual_timeout_approach",
+        "visual_completed": false,
+        "landmark_mean_error_m": [
+          0.48403340578079224,
+          0.6577144265174866
+        ]
+      },
+      {
+        "seed": 9004,
+        "success": false,
+        "steps": 351,
+        "phase": "approach",
+        "failure_reason": "visual_timeout_approach",
+        "visual_completed": false,
+        "landmark_mean_error_m": [
+          0.47874870896339417,
+          0.6577144265174866
+        ]
+      }
+    ],
+    "successes": 0,
+    "attempted": 5,
+    "success_rate": 0.0,
+    "perception_every_actions": 5,
+    "perception_capture_and_infer_ms_p50": 46.98578700026701,
+    "policy_ms_p50": 0.37371399957919493,
+    "perception_capture_and_infer_ms_p95": 53.149927600225055,
+    "policy_ms_p95": 0.695457800065924,
+    "limitations": "Frozen state BC with estimated landmarks; finite task grammar and known fixture geometry. Not jointly trained VLA. No object or phase oracle is passed to policy/manager."
+  },
+  {
+    "mode": "modular_finite_language_vision_bc_bridge",
+    "instruction": "stow the bottle in the drawer then close it",
+    "ablation": "swap-text",
+    "grounding_sha256": "dd2026bbbae4f9310aa0ea8c688821419f4ae22c73fb59b5e56bc45ee88ceefb",
+    "policy_sha256": "1c31dafe6ff1731ceb99a07c5da2e187dcb61db27ca76029a995d5c0905b27a3",
+    "episodes": [
+      {
+        "seed": 9000,
+        "success": false,
+        "steps": 351,
+        "phase": "approach",
+        "failure_reason": "visual_timeout_approach",
+        "visual_completed": false,
+        "landmark_mean_error_m": [
+          0.4207727611064911,
+          0.25776222348213196
+        ]
+      },
+      {
+        "seed": 9001,
+        "success": false,
+        "steps": 351,
+        "phase": "approach",
+        "failure_reason": "visual_timeout_approach",
+        "visual_completed": false,
+        "landmark_mean_error_m": [
+          0.40387433767318726,
+          0.23051227629184723
+        ]
+      },
+      {
+        "seed": 9002,
+        "success": false,
+        "steps": 351,
+        "phase": "approach",
+        "failure_reason": "visual_timeout_approach",
+        "visual_completed": false,
+        "landmark_mean_error_m": [
+          0.4041285812854767,
+          0.22173148393630981
+        ]
+      },
+      {
+        "seed": 9003,
+        "success": false,
+        "steps": 351,
+        "phase": "approach",
+        "failure_reason": "visual_timeout_approach",
+        "visual_completed": false,
+        "landmark_mean_error_m": [
+          0.4064559042453766,
+          0.22765834629535675
+        ]
+      },
+      {
+        "seed": 9004,
+        "success": false,
+        "steps": 351,
+        "phase": "approach",
+        "failure_reason": "visual_timeout_approach",
+        "visual_completed": false,
+        "landmark_mean_error_m": [
+          0.4170551002025604,
+          0.22915294766426086
+        ]
+      }
+    ],
+    "successes": 0,
+    "attempted": 5,
+    "success_rate": 0.0,
+    "perception_every_actions": 5,
+    "perception_capture_and_infer_ms_p50": 49.20195899921964,
+    "policy_ms_p50": 0.37885899928369327,
+    "perception_capture_and_infer_ms_p95": 58.296634700491275,
+    "policy_ms_p95": 0.6704577998789317,
+    "limitations": "Frozen state BC with estimated landmarks; finite task grammar and known fixture geometry. Not jointly trained VLA. No object or phase oracle is passed to policy/manager."
+  },
+  {
+    "mode": "modular_finite_language_vision_bc_bridge",
+    "instruction": "open the drawer",
+    "ablation": "none",
+    "grounding_sha256": "dd2026bbbae4f9310aa0ea8c688821419f4ae22c73fb59b5e56bc45ee88ceefb",
+    "policy_sha256": "1c31dafe6ff1731ceb99a07c5da2e187dcb61db27ca76029a995d5c0905b27a3",
+    "episodes": [
+      {
+        "seed": 9000,
+        "success": false,
+        "steps": 351,
+        "phase": "approach",
+        "failure_reason": "visual_timeout_approach",
+        "visual_completed": false,
+        "landmark_mean_error_m": [
+          0.20319437980651855,
+          0.27969980239868164
+        ]
+      },
+      {
+        "seed": 9001,
+        "success": false,
+        "steps": 351,
+        "phase": "approach",
+        "failure_reason": "visual_timeout_approach",
+        "visual_completed": false,
+        "landmark_mean_error_m": [
+          0.21882350742816925,
+          0.2933042645454407
+        ]
+      },
+      {
+        "seed": 9002,
+        "success": false,
+        "steps": 351,
+        "phase": "approach",
+        "failure_reason": "visual_timeout_approach",
+        "visual_completed": false,
+        "landmark_mean_error_m": [
+          0.20287521183490753,
+          0.279426246881485
+        ]
+      },
+      {
+        "seed": 9003,
+        "success": false,
+        "steps": 351,
+        "phase": "approach",
+        "failure_reason": "visual_timeout_approach",
+        "visual_completed": false,
+        "landmark_mean_error_m": [
+          0.2094447761774063,
+          0.27469655871391296
+        ]
+      },
+      {
+        "seed": 9004,
+        "success": false,
+        "steps": 351,
+        "phase": "approach",
+        "failure_reason": "visual_timeout_approach",
+        "visual_completed": false,
+        "landmark_mean_error_m": [
+          0.20743200182914734,
+          0.2798832952976227
+        ]
+      }
+    ],
+    "successes": 0,
+    "attempted": 5,
+    "success_rate": 0.0,
+    "perception_every_actions": 5,
+    "perception_capture_and_infer_ms_p50": 49.58679899937124,
+    "policy_ms_p50": 0.3615039995565894,
+    "perception_capture_and_infer_ms_p95": 54.11466039995503,
+    "policy_ms_p95": 0.6104571004470926,
+    "limitations": "Frozen state BC with estimated landmarks; finite task grammar and known fixture geometry. Not jointly trained VLA. No object or phase oracle is passed to policy/manager."
+  }
+]

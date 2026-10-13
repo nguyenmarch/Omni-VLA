@@ -1,0 +1,2568 @@
+{
+  "mode": "modular_finite_language_vision_bc_bridge",
+  "instruction": "stow the bottle in the drawer then close it",
+  "ablation": "swap-text",
+  "grounding_sha256": "1c0708b7bf9788e812253daaff02b52e805e234e21d78a3d5ddab0a999a1b3fb",
+  "policy_sha256": "1c31dafe6ff1731ceb99a07c5da2e187dcb61db27ca76029a995d5c0905b27a3",
+  "episodes": [
+    {
+      "seed": 9000,
+      "success": false,
+      "steps": 351,
+      "phase": "approach",
+      "failure_reason": "visual_timeout_approach",
+      "visual_completed": false,
+      "landmark_mean_error_m": [
+        0.3968477249145508,
+        0.26305240392684937
+      ]
+    },
+    {
+      "seed": 9001,
+      "success": false,
+      "steps": 351,
+      "phase": "approach",
+      "failure_reason": "visual_timeout_approach",
+      "visual_completed": false,
+      "landmark_mean_error_m": [
+        0.4360775351524353,
+        0.2712899446487427
+      ]
+    },
+    {
+      "seed": 9002,
+      "success": false,
+      "steps": 351,
+      "phase": "approach",
+      "failure_reason": "visual_timeout_approach",
+      "visual_completed": false,
+      "landmark_mean_error_m": [
+        0.3901940584182739,
+        0.2782970070838928
+      ]
+    },
+    {
+      "seed": 9003,
+      "success": false,
+      "steps": 351,
+      "phase": "approach",
+      "failure_reason": "visual_timeout_approach",
+      "visual_completed": false,
+      "landmark_mean_error_m": [
+        0.4497968554496765,
+        0.27479156851768494
+      ]
+    },
+    {
+      "seed": 9004,
+      "success": false,
+      "steps": 351,
+      "phase": "approach",
+      "failure_reason": "visual_timeout_approach",
+      "visual_completed": false,
+      "landmark_mean_error_m": [
+        0.42274752259254456,
+        0.2527020275592804
+      ]
+    }
+  ],
+  "successes": 0,
+  "attempted": 5,
+  "success_rate": 0.0,
+  "loop": false,
+  "stop_reason": "episode_limit",
+  "retention": "All completed episodes and samples",
+  "perception_every_actions": 5,
+  "perception_capture_and_infer_ms_p50": 51.225106999481795,
+  "policy_ms_p50": 0.443923001512303,
+  "perception_capture_and_infer_ms_p95": 64.68895330126543,
+  "policy_ms_p95": 0.7446619008987907,
+  "perception_diagnostics": [
+    {
+      "seed": 9000,
+      "step": 0,
+      "phase": "approach",
+      "bottle_error_m": 0.29375284910202026,
+      "handle_error_m": 0.25274091958999634
+    },
+    {
+      "seed": 9000,
+      "step": 5,
+      "phase": "approach",
+      "bottle_error_m": 0.28297168016433716,
+      "handle_error_m": 0.25273287296295166
+    },
+    {
+      "seed": 9000,
+      "step": 10,
+      "phase": "approach",
+      "bottle_error_m": 0.5782201290130615,
+      "handle_error_m": 0.25272366404533386
+    },
+    {
+      "seed": 9000,
+      "step": 15,
+      "phase": "approach",
+      "bottle_error_m": 0.5783504843711853,
+      "handle_error_m": 0.25271761417388916
+    },
+    {
+      "seed": 9000,
+      "step": 20,
+      "phase": "approach",
+      "bottle_error_m": 0.5784682035446167,
+      "handle_error_m": 0.25270819664001465
+    },
+    {
+      "seed": 9000,
+      "step": 25,
+      "phase": "approach",
+      "bottle_error_m": 0.5785669684410095,
+      "handle_error_m": 0.25270065665245056
+    },
+    {
+      "seed": 9000,
+      "step": 30,
+      "phase": "approach",
+      "bottle_error_m": 0.2833400368690491,
+      "handle_error_m": 0.3343277871608734
+    },
+    {
+      "seed": 9000,
+      "step": 35,
+      "phase": "approach",
+      "bottle_error_m": 0.28335514664649963,
+      "handle_error_m": 0.33432528376579285
+    },
+    {
+      "seed": 9000,
+      "step": 40,
+      "phase": "approach",
+      "bottle_error_m": 0.2833355665206909,
+      "handle_error_m": 0.252687007188797
+    },
+    {
+      "seed": 9000,
+      "step": 45,
+      "phase": "approach",
+      "bottle_error_m": 0.2833753526210785,
+      "handle_error_m": 0.25267475843429565
+    },
+    {
+      "seed": 9000,
+      "step": 50,
+      "phase": "approach",
+      "bottle_error_m": 0.578889787197113,
+      "handle_error_m": 0.25265926122665405
+    },
+    {
+      "seed": 9000,
+      "step": 55,
+      "phase": "approach",
+      "bottle_error_m": 0.5789341330528259,
+      "handle_error_m": 0.2526576519012451
+    },
+    {
+      "seed": 9000,
+      "step": 60,
+      "phase": "approach",
+      "bottle_error_m": 0.5789059996604919,
+      "handle_error_m": 0.25265994668006897
+    },
+    {
+      "seed": 9000,
+      "step": 65,
+      "phase": "approach",
+      "bottle_error_m": 0.5788704752922058,
+      "handle_error_m": 0.2526637613773346
+    },
+    {
+      "seed": 9000,
+      "step": 70,
+      "phase": "approach",
+      "bottle_error_m": 0.5788634419441223,
+      "handle_error_m": 0.2526673674583435
+    },
+    {
+      "seed": 9000,
+      "step": 75,
+      "phase": "approach",
+      "bottle_error_m": 0.2834392786026001,
+      "handle_error_m": 0.25267064571380615
+    },
+    {
+      "seed": 9000,
+      "step": 80,
+      "phase": "approach",
+      "bottle_error_m": 0.5788353085517883,
+      "handle_error_m": 0.2526693344116211
+    },
+    {
+      "seed": 9000,
+      "step": 85,
+      "phase": "approach",
+      "bottle_error_m": 0.5788683891296387,
+      "handle_error_m": 0.25267013907432556
+    },
+    {
+      "seed": 9000,
+      "step": 90,
+      "phase": "approach",
+      "bottle_error_m": 0.5788341760635376,
+      "handle_error_m": 0.33431726694107056
+    },
+    {
+      "seed": 9000,
+      "step": 95,
+      "phase": "approach",
+      "bottle_error_m": 0.5787918567657471,
+      "handle_error_m": 0.3343192934989929
+    },
+    {
+      "seed": 9000,
+      "step": 100,
+      "phase": "approach",
+      "bottle_error_m": 0.5787551403045654,
+      "handle_error_m": 0.3343212306499481
+    },
+    {
+      "seed": 9000,
+      "step": 105,
+      "phase": "approach",
+      "bottle_error_m": 0.5787369608879089,
+      "handle_error_m": 0.3343217968940735
+    },
+    {
+      "seed": 9000,
+      "step": 110,
+      "phase": "approach",
+      "bottle_error_m": 0.5787382125854492,
+      "handle_error_m": 0.3343217968940735
+    },
+    {
+      "seed": 9000,
+      "step": 115,
+      "phase": "approach",
+      "bottle_error_m": 0.5787228941917419,
+      "handle_error_m": 0.33432161808013916
+    },
+    {
+      "seed": 9000,
+      "step": 120,
+      "phase": "approach",
+      "bottle_error_m": 0.5787241458892822,
+      "handle_error_m": 0.25268009305000305
+    },
+    {
+      "seed": 9000,
+      "step": 125,
+      "phase": "approach",
+      "bottle_error_m": 0.5787149667739868,
+      "handle_error_m": 0.3343210220336914
+    },
+    {
+      "seed": 9000,
+      "step": 130,
+      "phase": "approach",
+      "bottle_error_m": 0.5787110328674316,
+      "handle_error_m": 0.2526799440383911
+    },
+    {
+      "seed": 9000,
+      "step": 135,
+      "phase": "approach",
+      "bottle_error_m": 0.578717827796936,
+      "handle_error_m": 0.2526797950267792
+    },
+    {
+      "seed": 9000,
+      "step": 140,
+      "phase": "approach",
+      "bottle_error_m": 0.5787091255187988,
+      "handle_error_m": 0.2526804804801941
+    },
+    {
+      "seed": 9000,
+      "step": 145,
+      "phase": "approach",
+      "bottle_error_m": 0.5786862969398499,
+      "handle_error_m": 0.2526809275150299
+    },
+    {
+      "seed": 9000,
+      "step": 150,
+      "phase": "approach",
+      "bottle_error_m": 0.5786759257316589,
+      "handle_error_m": 0.25268226861953735
+    },
+    {
+      "seed": 9000,
+      "step": 155,
+      "phase": "approach",
+      "bottle_error_m": 0.5786514282226562,
+      "handle_error_m": 0.2526845633983612
+    },
+    {
+      "seed": 9000,
+      "step": 160,
+      "phase": "approach",
+      "bottle_error_m": 0.29423028230667114,
+      "handle_error_m": 0.2526872456073761
+    },
+    {
+      "seed": 9000,
+      "step": 165,
+      "phase": "approach",
+      "bottle_error_m": 0.5827260613441467,
+      "handle_error_m": 0.25269046425819397
+    },
+    {
+      "seed": 9000,
+      "step": 170,
+      "phase": "approach",
+      "bottle_error_m": 0.5827094316482544,
+      "handle_error_m": 0.25269433856010437
+    },
+    {
+      "seed": 9000,
+      "step": 175,
+      "phase": "approach",
+      "bottle_error_m": 0.2941935658454895,
+      "handle_error_m": 0.2526974678039551
+    },
+    {
+      "seed": 9000,
+      "step": 180,
+      "phase": "approach",
+      "bottle_error_m": 0.2942104935646057,
+      "handle_error_m": 0.25269582867622375
+    },
+    {
+      "seed": 9000,
+      "step": 185,
+      "phase": "approach",
+      "bottle_error_m": 0.2941925823688507,
+      "handle_error_m": 0.2526944875717163
+    },
+    {
+      "seed": 9000,
+      "step": 190,
+      "phase": "approach",
+      "bottle_error_m": 0.29419463872909546,
+      "handle_error_m": 0.25269198417663574
+    },
+    {
+      "seed": 9000,
+      "step": 195,
+      "phase": "approach",
+      "bottle_error_m": 0.29415926337242126,
+      "handle_error_m": 0.2526945471763611
+    },
+    {
+      "seed": 9000,
+      "step": 200,
+      "phase": "approach",
+      "bottle_error_m": 0.2941046953201294,
+      "handle_error_m": 0.2527003884315491
+    },
+    {
+      "seed": 9000,
+      "step": 205,
+      "phase": "approach",
+      "bottle_error_m": 0.2831287980079651,
+      "handle_error_m": 0.25270912051200867
+    },
+    {
+      "seed": 9000,
+      "step": 210,
+      "phase": "approach",
+      "bottle_error_m": 0.2831062972545624,
+      "handle_error_m": 0.252710223197937
+    },
+    {
+      "seed": 9000,
+      "step": 215,
+      "phase": "approach",
+      "bottle_error_m": 0.2830785810947418,
+      "handle_error_m": 0.25271350145339966
+    },
+    {
+      "seed": 9000,
+      "step": 220,
+      "phase": "approach",
+      "bottle_error_m": 0.28306999802589417,
+      "handle_error_m": 0.25271543860435486
+    },
+    {
+      "seed": 9000,
+      "step": 225,
+      "phase": "approach",
+      "bottle_error_m": 0.2830135226249695,
+      "handle_error_m": 0.2527186870574951
+    },
+    {
+      "seed": 9000,
+      "step": 230,
+      "phase": "approach",
+      "bottle_error_m": 0.2830009460449219,
+      "handle_error_m": 0.25272148847579956
+    },
+    {
+      "seed": 9000,
+      "step": 235,
+      "phase": "approach",
+      "bottle_error_m": 0.2829619348049164,
+      "handle_error_m": 0.2527250051498413
+    },
+    {
+      "seed": 9000,
+      "step": 240,
+      "phase": "approach",
+      "bottle_error_m": 0.28294217586517334,
+      "handle_error_m": 0.25272801518440247
+    },
+    {
+      "seed": 9000,
+      "step": 245,
+      "phase": "approach",
+      "bottle_error_m": 0.28294792771339417,
+      "handle_error_m": 0.252729207277298
+    },
+    {
+      "seed": 9000,
+      "step": 250,
+      "phase": "approach",
+      "bottle_error_m": 0.2829577326774597,
+      "handle_error_m": 0.2527298331260681
+    },
+    {
+      "seed": 9000,
+      "step": 255,
+      "phase": "approach",
+      "bottle_error_m": 0.2829672694206238,
+      "handle_error_m": 0.2527301609516144
+    },
+    {
+      "seed": 9000,
+      "step": 260,
+      "phase": "approach",
+      "bottle_error_m": 0.282956600189209,
+      "handle_error_m": 0.2527298331260681
+    },
+    {
+      "seed": 9000,
+      "step": 265,
+      "phase": "approach",
+      "bottle_error_m": 0.28295639157295227,
+      "handle_error_m": 0.25272947549819946
+    },
+    {
+      "seed": 9000,
+      "step": 270,
+      "phase": "approach",
+      "bottle_error_m": 0.282963365316391,
+      "handle_error_m": 0.2527296841144562
+    },
+    {
+      "seed": 9000,
+      "step": 275,
+      "phase": "approach",
+      "bottle_error_m": 0.28297218680381775,
+      "handle_error_m": 0.2527293562889099
+    },
+    {
+      "seed": 9000,
+      "step": 280,
+      "phase": "approach",
+      "bottle_error_m": 0.2829954922199249,
+      "handle_error_m": 0.25272923707962036
+    },
+    {
+      "seed": 9000,
+      "step": 285,
+      "phase": "approach",
+      "bottle_error_m": 0.2830084264278412,
+      "handle_error_m": 0.2527293562889099
+    },
+    {
+      "seed": 9000,
+      "step": 290,
+      "phase": "approach",
+      "bottle_error_m": 0.2829841673374176,
+      "handle_error_m": 0.25272923707962036
+    },
+    {
+      "seed": 9000,
+      "step": 295,
+      "phase": "approach",
+      "bottle_error_m": 0.2830081880092621,
+      "handle_error_m": 0.252729207277298
+    },
+    {
+      "seed": 9000,
+      "step": 300,
+      "phase": "approach",
+      "bottle_error_m": 0.28300169110298157,
+      "handle_error_m": 0.2527298331260681
+    },
+    {
+      "seed": 9000,
+      "step": 305,
+      "phase": "approach",
+      "bottle_error_m": 0.282998263835907,
+      "handle_error_m": 0.25272953510284424
+    },
+    {
+      "seed": 9000,
+      "step": 310,
+      "phase": "approach",
+      "bottle_error_m": 0.28300538659095764,
+      "handle_error_m": 0.2527296841144562
+    },
+    {
+      "seed": 9000,
+      "step": 315,
+      "phase": "approach",
+      "bottle_error_m": 0.28298214077949524,
+      "handle_error_m": 0.25272998213768005
+    },
+    {
+      "seed": 9000,
+      "step": 320,
+      "phase": "approach",
+      "bottle_error_m": 0.2830003499984741,
+      "handle_error_m": 0.2527303993701935
+    },
+    {
+      "seed": 9000,
+      "step": 325,
+      "phase": "approach",
+      "bottle_error_m": 0.2829946279525757,
+      "handle_error_m": 0.2527305483818054
+    },
+    {
+      "seed": 9000,
+      "step": 330,
+      "phase": "approach",
+      "bottle_error_m": 0.2829834222793579,
+      "handle_error_m": 0.2527308166027069
+    },
+    {
+      "seed": 9000,
+      "step": 335,
+      "phase": "approach",
+      "bottle_error_m": 0.2829954922199249,
+      "handle_error_m": 0.2527308762073517
+    },
+    {
+      "seed": 9000,
+      "step": 340,
+      "phase": "approach",
+      "bottle_error_m": 0.2830023467540741,
+      "handle_error_m": 0.252731055021286
+    },
+    {
+      "seed": 9000,
+      "step": 345,
+      "phase": "approach",
+      "bottle_error_m": 0.2829781174659729,
+      "handle_error_m": 0.2527315616607666
+    },
+    {
+      "seed": 9000,
+      "step": 350,
+      "phase": "approach",
+      "bottle_error_m": 0.28299179673194885,
+      "handle_error_m": 0.25273171067237854
+    },
+    {
+      "seed": 9001,
+      "step": 0,
+      "phase": "approach",
+      "bottle_error_m": 0.2599724233150482,
+      "handle_error_m": 0.27147185802459717
+    },
+    {
+      "seed": 9001,
+      "step": 5,
+      "phase": "approach",
+      "bottle_error_m": 0.2601485550403595,
+      "handle_error_m": 0.27144283056259155
+    },
+    {
+      "seed": 9001,
+      "step": 10,
+      "phase": "approach",
+      "bottle_error_m": 0.5611070990562439,
+      "handle_error_m": 0.2714155614376068
+    },
+    {
+      "seed": 9001,
+      "step": 15,
+      "phase": "approach",
+      "bottle_error_m": 0.5612735152244568,
+      "handle_error_m": 0.27138903737068176
+    },
+    {
+      "seed": 9001,
+      "step": 20,
+      "phase": "approach",
+      "bottle_error_m": 0.5613998174667358,
+      "handle_error_m": 0.2713671028614044
+    },
+    {
+      "seed": 9001,
+      "step": 25,
+      "phase": "approach",
+      "bottle_error_m": 0.5614576935768127,
+      "handle_error_m": 0.2713436782360077
+    },
+    {
+      "seed": 9001,
+      "step": 30,
+      "phase": "approach",
+      "bottle_error_m": 0.5615935921669006,
+      "handle_error_m": 0.27131444215774536
+    },
+    {
+      "seed": 9001,
+      "step": 35,
+      "phase": "approach",
+      "bottle_error_m": 0.26057758927345276,
+      "handle_error_m": 0.27128663659095764
+    },
+    {
+      "seed": 9001,
+      "step": 40,
+      "phase": "approach",
+      "bottle_error_m": 0.2605687379837036,
+      "handle_error_m": 0.27128303050994873
+    },
+    {
+      "seed": 9001,
+      "step": 45,
+      "phase": "approach",
+      "bottle_error_m": 0.2605327069759369,
+      "handle_error_m": 0.2712889313697815
+    },
+    {
+      "seed": 9001,
+      "step": 50,
+      "phase": "approach",
+      "bottle_error_m": 0.2605688273906708,
+      "handle_error_m": 0.27126097679138184
+    },
+    {
+      "seed": 9001,
+      "step": 55,
+      "phase": "approach",
+      "bottle_error_m": 0.5617551803588867,
+      "handle_error_m": 0.2712368965148926
+    },
+    {
+      "seed": 9001,
+      "step": 60,
+      "phase": "approach",
+      "bottle_error_m": 0.2606217861175537,
+      "handle_error_m": 0.27123865485191345
+    },
+    {
+      "seed": 9001,
+      "step": 65,
+      "phase": "approach",
+      "bottle_error_m": 0.26059913635253906,
+      "handle_error_m": 0.2712448537349701
+    },
+    {
+      "seed": 9001,
+      "step": 70,
+      "phase": "approach",
+      "bottle_error_m": 0.26057353615760803,
+      "handle_error_m": 0.271270215511322
+    },
+    {
+      "seed": 9001,
+      "step": 75,
+      "phase": "approach",
+      "bottle_error_m": 0.5616662502288818,
+      "handle_error_m": 0.27128350734710693
+    },
+    {
+      "seed": 9001,
+      "step": 80,
+      "phase": "approach",
+      "bottle_error_m": 0.260570228099823,
+      "handle_error_m": 0.27128085494041443
+    },
+    {
+      "seed": 9001,
+      "step": 85,
+      "phase": "approach",
+      "bottle_error_m": 0.2605602443218231,
+      "handle_error_m": 0.27128151059150696
+    },
+    {
+      "seed": 9001,
+      "step": 90,
+      "phase": "approach",
+      "bottle_error_m": 0.2605535686016083,
+      "handle_error_m": 0.2712877094745636
+    },
+    {
+      "seed": 9001,
+      "step": 95,
+      "phase": "approach",
+      "bottle_error_m": 0.2605499029159546,
+      "handle_error_m": 0.27129673957824707
+    },
+    {
+      "seed": 9001,
+      "step": 100,
+      "phase": "approach",
+      "bottle_error_m": 0.2605389952659607,
+      "handle_error_m": 0.2713063359260559
+    },
+    {
+      "seed": 9001,
+      "step": 105,
+      "phase": "approach",
+      "bottle_error_m": 0.2605608105659485,
+      "handle_error_m": 0.27130207419395447
+    },
+    {
+      "seed": 9001,
+      "step": 110,
+      "phase": "approach",
+      "bottle_error_m": 0.2605709731578827,
+      "handle_error_m": 0.27129724621772766
+    },
+    {
+      "seed": 9001,
+      "step": 115,
+      "phase": "approach",
+      "bottle_error_m": 0.2605375647544861,
+      "handle_error_m": 0.27129632234573364
+    },
+    {
+      "seed": 9001,
+      "step": 120,
+      "phase": "approach",
+      "bottle_error_m": 0.26058027148246765,
+      "handle_error_m": 0.2712852656841278
+    },
+    {
+      "seed": 9001,
+      "step": 125,
+      "phase": "approach",
+      "bottle_error_m": 0.26057547330856323,
+      "handle_error_m": 0.2712833285331726
+    },
+    {
+      "seed": 9001,
+      "step": 130,
+      "phase": "approach",
+      "bottle_error_m": 0.2605620324611664,
+      "handle_error_m": 0.271276593208313
+    },
+    {
+      "seed": 9001,
+      "step": 135,
+      "phase": "approach",
+      "bottle_error_m": 0.26058468222618103,
+      "handle_error_m": 0.27126309275627136
+    },
+    {
+      "seed": 9001,
+      "step": 140,
+      "phase": "approach",
+      "bottle_error_m": 0.561709463596344,
+      "handle_error_m": 0.2712610363960266
+    },
+    {
+      "seed": 9001,
+      "step": 145,
+      "phase": "approach",
+      "bottle_error_m": 0.5617156624794006,
+      "handle_error_m": 0.27125561237335205
+    },
+    {
+      "seed": 9001,
+      "step": 150,
+      "phase": "approach",
+      "bottle_error_m": 0.5617151856422424,
+      "handle_error_m": 0.27125173807144165
+    },
+    {
+      "seed": 9001,
+      "step": 155,
+      "phase": "approach",
+      "bottle_error_m": 0.5617207884788513,
+      "handle_error_m": 0.27124831080436707
+    },
+    {
+      "seed": 9001,
+      "step": 160,
+      "phase": "approach",
+      "bottle_error_m": 0.26057982444763184,
+      "handle_error_m": 0.27125418186187744
+    },
+    {
+      "seed": 9001,
+      "step": 165,
+      "phase": "approach",
+      "bottle_error_m": 0.26056796312332153,
+      "handle_error_m": 0.2712583839893341
+    },
+    {
+      "seed": 9001,
+      "step": 170,
+      "phase": "approach",
+      "bottle_error_m": 0.260590523481369,
+      "handle_error_m": 0.2712526023387909
+    },
+    {
+      "seed": 9001,
+      "step": 175,
+      "phase": "approach",
+      "bottle_error_m": 0.5656509399414062,
+      "handle_error_m": 0.2712540030479431
+    },
+    {
+      "seed": 9001,
+      "step": 180,
+      "phase": "approach",
+      "bottle_error_m": 0.5656477808952332,
+      "handle_error_m": 0.27126067876815796
+    },
+    {
+      "seed": 9001,
+      "step": 185,
+      "phase": "approach",
+      "bottle_error_m": 0.5656388998031616,
+      "handle_error_m": 0.2712613344192505
+    },
+    {
+      "seed": 9001,
+      "step": 190,
+      "phase": "approach",
+      "bottle_error_m": 0.5656316876411438,
+      "handle_error_m": 0.2712620198726654
+    },
+    {
+      "seed": 9001,
+      "step": 195,
+      "phase": "approach",
+      "bottle_error_m": 0.5656238198280334,
+      "handle_error_m": 0.2712663412094116
+    },
+    {
+      "seed": 9001,
+      "step": 200,
+      "phase": "approach",
+      "bottle_error_m": 0.5656236410140991,
+      "handle_error_m": 0.27126970887184143
+    },
+    {
+      "seed": 9001,
+      "step": 205,
+      "phase": "approach",
+      "bottle_error_m": 0.5656207203865051,
+      "handle_error_m": 0.2712704539299011
+    },
+    {
+      "seed": 9001,
+      "step": 210,
+      "phase": "approach",
+      "bottle_error_m": 0.5656093955039978,
+      "handle_error_m": 0.27127179503440857
+    },
+    {
+      "seed": 9001,
+      "step": 215,
+      "phase": "approach",
+      "bottle_error_m": 0.5656419396400452,
+      "handle_error_m": 0.2712654769420624
+    },
+    {
+      "seed": 9001,
+      "step": 220,
+      "phase": "approach",
+      "bottle_error_m": 0.5656171441078186,
+      "handle_error_m": 0.27127301692962646
+    },
+    {
+      "seed": 9001,
+      "step": 225,
+      "phase": "approach",
+      "bottle_error_m": 0.5656165480613708,
+      "handle_error_m": 0.27127403020858765
+    },
+    {
+      "seed": 9001,
+      "step": 230,
+      "phase": "approach",
+      "bottle_error_m": 0.5656140446662903,
+      "handle_error_m": 0.2712806463241577
+    },
+    {
+      "seed": 9001,
+      "step": 235,
+      "phase": "approach",
+      "bottle_error_m": 0.5656241178512573,
+      "handle_error_m": 0.27127814292907715
+    },
+    {
+      "seed": 9001,
+      "step": 240,
+      "phase": "approach",
+      "bottle_error_m": 0.5617135763168335,
+      "handle_error_m": 0.2712908089160919
+    },
+    {
+      "seed": 9001,
+      "step": 245,
+      "phase": "approach",
+      "bottle_error_m": 0.5617189407348633,
+      "handle_error_m": 0.27129462361335754
+    },
+    {
+      "seed": 9001,
+      "step": 250,
+      "phase": "approach",
+      "bottle_error_m": 0.5616999864578247,
+      "handle_error_m": 0.27129995822906494
+    },
+    {
+      "seed": 9001,
+      "step": 255,
+      "phase": "approach",
+      "bottle_error_m": 0.5617170929908752,
+      "handle_error_m": 0.2712966203689575
+    },
+    {
+      "seed": 9001,
+      "step": 260,
+      "phase": "approach",
+      "bottle_error_m": 0.5616998076438904,
+      "handle_error_m": 0.27129480242729187
+    },
+    {
+      "seed": 9001,
+      "step": 265,
+      "phase": "approach",
+      "bottle_error_m": 0.5617125034332275,
+      "handle_error_m": 0.2712879478931427
+    },
+    {
+      "seed": 9001,
+      "step": 270,
+      "phase": "approach",
+      "bottle_error_m": 0.561698317527771,
+      "handle_error_m": 0.2712823152542114
+    },
+    {
+      "seed": 9001,
+      "step": 275,
+      "phase": "approach",
+      "bottle_error_m": 0.5616814494132996,
+      "handle_error_m": 0.2712811827659607
+    },
+    {
+      "seed": 9001,
+      "step": 280,
+      "phase": "approach",
+      "bottle_error_m": 0.2605971395969391,
+      "handle_error_m": 0.2712751626968384
+    },
+    {
+      "seed": 9001,
+      "step": 285,
+      "phase": "approach",
+      "bottle_error_m": 0.26060017943382263,
+      "handle_error_m": 0.27126747369766235
+    },
+    {
+      "seed": 9001,
+      "step": 290,
+      "phase": "approach",
+      "bottle_error_m": 0.5617341995239258,
+      "handle_error_m": 0.2712797522544861
+    },
+    {
+      "seed": 9001,
+      "step": 295,
+      "phase": "approach",
+      "bottle_error_m": 0.5617345571517944,
+      "handle_error_m": 0.2712751030921936
+    },
+    {
+      "seed": 9001,
+      "step": 300,
+      "phase": "approach",
+      "bottle_error_m": 0.561714768409729,
+      "handle_error_m": 0.27127477526664734
+    },
+    {
+      "seed": 9001,
+      "step": 305,
+      "phase": "approach",
+      "bottle_error_m": 0.5655971765518188,
+      "handle_error_m": 0.2712758183479309
+    },
+    {
+      "seed": 9001,
+      "step": 310,
+      "phase": "approach",
+      "bottle_error_m": 0.5655965209007263,
+      "handle_error_m": 0.2712755799293518
+    },
+    {
+      "seed": 9001,
+      "step": 315,
+      "phase": "approach",
+      "bottle_error_m": 0.5655542612075806,
+      "handle_error_m": 0.27127793431282043
+    },
+    {
+      "seed": 9001,
+      "step": 320,
+      "phase": "approach",
+      "bottle_error_m": 0.5655094385147095,
+      "handle_error_m": 0.27129051089286804
+    },
+    {
+      "seed": 9001,
+      "step": 325,
+      "phase": "approach",
+      "bottle_error_m": 0.5654394030570984,
+      "handle_error_m": 0.2713037431240082
+    },
+    {
+      "seed": 9001,
+      "step": 330,
+      "phase": "approach",
+      "bottle_error_m": 0.5653738975524902,
+      "handle_error_m": 0.2713313102722168
+    },
+    {
+      "seed": 9001,
+      "step": 335,
+      "phase": "approach",
+      "bottle_error_m": 0.27137693762779236,
+      "handle_error_m": 0.27133432030677795
+    },
+    {
+      "seed": 9001,
+      "step": 340,
+      "phase": "approach",
+      "bottle_error_m": 0.27137988805770874,
+      "handle_error_m": 0.2713153064250946
+    },
+    {
+      "seed": 9001,
+      "step": 345,
+      "phase": "approach",
+      "bottle_error_m": 0.27137917280197144,
+      "handle_error_m": 0.2713036835193634
+    },
+    {
+      "seed": 9001,
+      "step": 350,
+      "phase": "approach",
+      "bottle_error_m": 0.2713507413864136,
+      "handle_error_m": 0.27131494879722595
+    },
+    {
+      "seed": 9002,
+      "step": 0,
+      "phase": "approach",
+      "bottle_error_m": 0.2725073993206024,
+      "handle_error_m": 0.2784126400947571
+    },
+    {
+      "seed": 9002,
+      "step": 5,
+      "phase": "approach",
+      "bottle_error_m": 0.2726846933364868,
+      "handle_error_m": 0.2783716320991516
+    },
+    {
+      "seed": 9002,
+      "step": 10,
+      "phase": "approach",
+      "bottle_error_m": 0.5781311988830566,
+      "handle_error_m": 0.2783387303352356
+    },
+    {
+      "seed": 9002,
+      "step": 15,
+      "phase": "approach",
+      "bottle_error_m": 0.5782532691955566,
+      "handle_error_m": 0.2783087491989136
+    },
+    {
+      "seed": 9002,
+      "step": 20,
+      "phase": "approach",
+      "bottle_error_m": 0.5783836841583252,
+      "handle_error_m": 0.2782905697822571
+    },
+    {
+      "seed": 9002,
+      "step": 25,
+      "phase": "approach",
+      "bottle_error_m": 0.5784615278244019,
+      "handle_error_m": 0.27825841307640076
+    },
+    {
+      "seed": 9002,
+      "step": 30,
+      "phase": "approach",
+      "bottle_error_m": 0.5785943865776062,
+      "handle_error_m": 0.27822548151016235
+    },
+    {
+      "seed": 9002,
+      "step": 35,
+      "phase": "approach",
+      "bottle_error_m": 0.5786852836608887,
+      "handle_error_m": 0.2781837284564972
+    },
+    {
+      "seed": 9002,
+      "step": 40,
+      "phase": "approach",
+      "bottle_error_m": 0.2731556296348572,
+      "handle_error_m": 0.27817291021347046
+    },
+    {
+      "seed": 9002,
+      "step": 45,
+      "phase": "approach",
+      "bottle_error_m": 0.2731247842311859,
+      "handle_error_m": 0.278164267539978
+    },
+    {
+      "seed": 9002,
+      "step": 50,
+      "phase": "approach",
+      "bottle_error_m": 0.2731587886810303,
+      "handle_error_m": 0.278163343667984
+    },
+    {
+      "seed": 9002,
+      "step": 55,
+      "phase": "approach",
+      "bottle_error_m": 0.27311307191848755,
+      "handle_error_m": 0.2781742215156555
+    },
+    {
+      "seed": 9002,
+      "step": 60,
+      "phase": "approach",
+      "bottle_error_m": 0.2731580138206482,
+      "handle_error_m": 0.278155118227005
+    },
+    {
+      "seed": 9002,
+      "step": 65,
+      "phase": "approach",
+      "bottle_error_m": 0.5787473320960999,
+      "handle_error_m": 0.27813926339149475
+    },
+    {
+      "seed": 9002,
+      "step": 70,
+      "phase": "approach",
+      "bottle_error_m": 0.5787323117256165,
+      "handle_error_m": 0.27815520763397217
+    },
+    {
+      "seed": 9002,
+      "step": 75,
+      "phase": "approach",
+      "bottle_error_m": 0.5786907076835632,
+      "handle_error_m": 0.27817195653915405
+    },
+    {
+      "seed": 9002,
+      "step": 80,
+      "phase": "approach",
+      "bottle_error_m": 0.5786517858505249,
+      "handle_error_m": 0.27818235754966736
+    },
+    {
+      "seed": 9002,
+      "step": 85,
+      "phase": "approach",
+      "bottle_error_m": 0.5786460638046265,
+      "handle_error_m": 0.2781809866428375
+    },
+    {
+      "seed": 9002,
+      "step": 90,
+      "phase": "approach",
+      "bottle_error_m": 0.5786184072494507,
+      "handle_error_m": 0.2781790792942047
+    },
+    {
+      "seed": 9002,
+      "step": 95,
+      "phase": "approach",
+      "bottle_error_m": 0.5786381363868713,
+      "handle_error_m": 0.2781742215156555
+    },
+    {
+      "seed": 9002,
+      "step": 100,
+      "phase": "approach",
+      "bottle_error_m": 0.5786257982254028,
+      "handle_error_m": 0.2781776487827301
+    },
+    {
+      "seed": 9002,
+      "step": 105,
+      "phase": "approach",
+      "bottle_error_m": 0.5786428451538086,
+      "handle_error_m": 0.27817657589912415
+    },
+    {
+      "seed": 9002,
+      "step": 110,
+      "phase": "approach",
+      "bottle_error_m": 0.5786270499229431,
+      "handle_error_m": 0.27818140387535095
+    },
+    {
+      "seed": 9002,
+      "step": 115,
+      "phase": "approach",
+      "bottle_error_m": 0.5786182880401611,
+      "handle_error_m": 0.27817898988723755
+    },
+    {
+      "seed": 9002,
+      "step": 120,
+      "phase": "approach",
+      "bottle_error_m": 0.5786136984825134,
+      "handle_error_m": 0.2781780958175659
+    },
+    {
+      "seed": 9002,
+      "step": 125,
+      "phase": "approach",
+      "bottle_error_m": 0.5785852074623108,
+      "handle_error_m": 0.27817800641059875
+    },
+    {
+      "seed": 9002,
+      "step": 130,
+      "phase": "approach",
+      "bottle_error_m": 0.5824116468429565,
+      "handle_error_m": 0.278205007314682
+    },
+    {
+      "seed": 9002,
+      "step": 135,
+      "phase": "approach",
+      "bottle_error_m": 0.5824003219604492,
+      "handle_error_m": 0.2782064974308014
+    },
+    {
+      "seed": 9002,
+      "step": 140,
+      "phase": "approach",
+      "bottle_error_m": 0.2841430604457855,
+      "handle_error_m": 0.27822840213775635
+    },
+    {
+      "seed": 9002,
+      "step": 145,
+      "phase": "approach",
+      "bottle_error_m": 0.28411629796028137,
+      "handle_error_m": 0.2782403528690338
+    },
+    {
+      "seed": 9002,
+      "step": 150,
+      "phase": "approach",
+      "bottle_error_m": 0.2841143310070038,
+      "handle_error_m": 0.2782377600669861
+    },
+    {
+      "seed": 9002,
+      "step": 155,
+      "phase": "approach",
+      "bottle_error_m": 0.2841049134731293,
+      "handle_error_m": 0.27821987867355347
+    },
+    {
+      "seed": 9002,
+      "step": 160,
+      "phase": "approach",
+      "bottle_error_m": 0.2840620279312134,
+      "handle_error_m": 0.278238981962204
+    },
+    {
+      "seed": 9002,
+      "step": 165,
+      "phase": "approach",
+      "bottle_error_m": 0.28399422764778137,
+      "handle_error_m": 0.27826157212257385
+    },
+    {
+      "seed": 9002,
+      "step": 170,
+      "phase": "approach",
+      "bottle_error_m": 0.2839326858520508,
+      "handle_error_m": 0.278266578912735
+    },
+    {
+      "seed": 9002,
+      "step": 175,
+      "phase": "approach",
+      "bottle_error_m": 0.2728372812271118,
+      "handle_error_m": 0.27827054262161255
+    },
+    {
+      "seed": 9002,
+      "step": 180,
+      "phase": "approach",
+      "bottle_error_m": 0.2728269696235657,
+      "handle_error_m": 0.27827274799346924
+    },
+    {
+      "seed": 9002,
+      "step": 185,
+      "phase": "approach",
+      "bottle_error_m": 0.2728006839752197,
+      "handle_error_m": 0.278285413980484
+    },
+    {
+      "seed": 9002,
+      "step": 190,
+      "phase": "approach",
+      "bottle_error_m": 0.27277877926826477,
+      "handle_error_m": 0.27830541133880615
+    },
+    {
+      "seed": 9002,
+      "step": 195,
+      "phase": "approach",
+      "bottle_error_m": 0.5781086087226868,
+      "handle_error_m": 0.27829599380493164
+    },
+    {
+      "seed": 9002,
+      "step": 200,
+      "phase": "approach",
+      "bottle_error_m": 0.2727638781070709,
+      "handle_error_m": 0.278309166431427
+    },
+    {
+      "seed": 9002,
+      "step": 205,
+      "phase": "approach",
+      "bottle_error_m": 0.27272364497184753,
+      "handle_error_m": 0.27832847833633423
+    },
+    {
+      "seed": 9002,
+      "step": 210,
+      "phase": "approach",
+      "bottle_error_m": 0.2726882994174957,
+      "handle_error_m": 0.27835288643836975
+    },
+    {
+      "seed": 9002,
+      "step": 215,
+      "phase": "approach",
+      "bottle_error_m": 0.5779884457588196,
+      "handle_error_m": 0.2783588171005249
+    },
+    {
+      "seed": 9002,
+      "step": 220,
+      "phase": "approach",
+      "bottle_error_m": 0.5779922008514404,
+      "handle_error_m": 0.27836573123931885
+    },
+    {
+      "seed": 9002,
+      "step": 225,
+      "phase": "approach",
+      "bottle_error_m": 0.5779821276664734,
+      "handle_error_m": 0.2783607542514801
+    },
+    {
+      "seed": 9002,
+      "step": 230,
+      "phase": "approach",
+      "bottle_error_m": 0.5779764652252197,
+      "handle_error_m": 0.278372585773468
+    },
+    {
+      "seed": 9002,
+      "step": 235,
+      "phase": "approach",
+      "bottle_error_m": 0.5779684782028198,
+      "handle_error_m": 0.2783743143081665
+    },
+    {
+      "seed": 9002,
+      "step": 240,
+      "phase": "approach",
+      "bottle_error_m": 0.27267178893089294,
+      "handle_error_m": 0.2783842086791992
+    },
+    {
+      "seed": 9002,
+      "step": 245,
+      "phase": "approach",
+      "bottle_error_m": 0.27266594767570496,
+      "handle_error_m": 0.2783738374710083
+    },
+    {
+      "seed": 9002,
+      "step": 250,
+      "phase": "approach",
+      "bottle_error_m": 0.2726830840110779,
+      "handle_error_m": 0.27837032079696655
+    },
+    {
+      "seed": 9002,
+      "step": 255,
+      "phase": "approach",
+      "bottle_error_m": 0.2726597785949707,
+      "handle_error_m": 0.2783689498901367
+    },
+    {
+      "seed": 9002,
+      "step": 260,
+      "phase": "approach",
+      "bottle_error_m": 0.2726442515850067,
+      "handle_error_m": 0.2783685326576233
+    },
+    {
+      "seed": 9002,
+      "step": 265,
+      "phase": "approach",
+      "bottle_error_m": 0.27264097332954407,
+      "handle_error_m": 0.2783709764480591
+    },
+    {
+      "seed": 9002,
+      "step": 270,
+      "phase": "approach",
+      "bottle_error_m": 0.2726193964481354,
+      "handle_error_m": 0.2783793807029724
+    },
+    {
+      "seed": 9002,
+      "step": 275,
+      "phase": "approach",
+      "bottle_error_m": 0.2725946605205536,
+      "handle_error_m": 0.2783859968185425
+    },
+    {
+      "seed": 9002,
+      "step": 280,
+      "phase": "approach",
+      "bottle_error_m": 0.27258455753326416,
+      "handle_error_m": 0.2783953845500946
+    },
+    {
+      "seed": 9002,
+      "step": 285,
+      "phase": "approach",
+      "bottle_error_m": 0.2725844383239746,
+      "handle_error_m": 0.278393030166626
+    },
+    {
+      "seed": 9002,
+      "step": 290,
+      "phase": "approach",
+      "bottle_error_m": 0.2725842297077179,
+      "handle_error_m": 0.27838554978370667
+    },
+    {
+      "seed": 9002,
+      "step": 295,
+      "phase": "approach",
+      "bottle_error_m": 0.27255958318710327,
+      "handle_error_m": 0.2784038186073303
+    },
+    {
+      "seed": 9002,
+      "step": 300,
+      "phase": "approach",
+      "bottle_error_m": 0.2725405693054199,
+      "handle_error_m": 0.2784075140953064
+    },
+    {
+      "seed": 9002,
+      "step": 305,
+      "phase": "approach",
+      "bottle_error_m": 0.2725284993648529,
+      "handle_error_m": 0.27841392159461975
+    },
+    {
+      "seed": 9002,
+      "step": 310,
+      "phase": "approach",
+      "bottle_error_m": 0.2725183665752411,
+      "handle_error_m": 0.2784251868724823
+    },
+    {
+      "seed": 9002,
+      "step": 315,
+      "phase": "approach",
+      "bottle_error_m": 0.2725047767162323,
+      "handle_error_m": 0.27843308448791504
+    },
+    {
+      "seed": 9002,
+      "step": 320,
+      "phase": "approach",
+      "bottle_error_m": 0.27250397205352783,
+      "handle_error_m": 0.2784386873245239
+    },
+    {
+      "seed": 9002,
+      "step": 325,
+      "phase": "approach",
+      "bottle_error_m": 0.2725194990634918,
+      "handle_error_m": 0.27843448519706726
+    },
+    {
+      "seed": 9002,
+      "step": 330,
+      "phase": "approach",
+      "bottle_error_m": 0.2725331783294678,
+      "handle_error_m": 0.27842316031455994
+    },
+    {
+      "seed": 9002,
+      "step": 335,
+      "phase": "approach",
+      "bottle_error_m": 0.2725311517715454,
+      "handle_error_m": 0.2784227430820465
+    },
+    {
+      "seed": 9002,
+      "step": 340,
+      "phase": "approach",
+      "bottle_error_m": 0.27251848578453064,
+      "handle_error_m": 0.27842599153518677
+    },
+    {
+      "seed": 9002,
+      "step": 345,
+      "phase": "approach",
+      "bottle_error_m": 0.2725178301334381,
+      "handle_error_m": 0.2784292995929718
+    },
+    {
+      "seed": 9002,
+      "step": 350,
+      "phase": "approach",
+      "bottle_error_m": 0.27250435948371887,
+      "handle_error_m": 0.27842167019844055
+    },
+    {
+      "seed": 9003,
+      "step": 0,
+      "phase": "approach",
+      "bottle_error_m": 0.2755889892578125,
+      "handle_error_m": 0.27500826120376587
+    },
+    {
+      "seed": 9003,
+      "step": 5,
+      "phase": "approach",
+      "bottle_error_m": 0.2757669985294342,
+      "handle_error_m": 0.27495235204696655
+    },
+    {
+      "seed": 9003,
+      "step": 10,
+      "phase": "approach",
+      "bottle_error_m": 0.5799791812896729,
+      "handle_error_m": 0.27493080496788025
+    },
+    {
+      "seed": 9003,
+      "step": 15,
+      "phase": "approach",
+      "bottle_error_m": 0.5801222324371338,
+      "handle_error_m": 0.27491310238838196
+    },
+    {
+      "seed": 9003,
+      "step": 20,
+      "phase": "approach",
+      "bottle_error_m": 0.5802419185638428,
+      "handle_error_m": 0.27488183975219727
+    },
+    {
+      "seed": 9003,
+      "step": 25,
+      "phase": "approach",
+      "bottle_error_m": 0.5803319215774536,
+      "handle_error_m": 0.27484187483787537
+    },
+    {
+      "seed": 9003,
+      "step": 30,
+      "phase": "approach",
+      "bottle_error_m": 0.580441415309906,
+      "handle_error_m": 0.27482345700263977
+    },
+    {
+      "seed": 9003,
+      "step": 35,
+      "phase": "approach",
+      "bottle_error_m": 0.2762015163898468,
+      "handle_error_m": 0.27479761838912964
+    },
+    {
+      "seed": 9003,
+      "step": 40,
+      "phase": "approach",
+      "bottle_error_m": 0.27619194984436035,
+      "handle_error_m": 0.27478861808776855
+    },
+    {
+      "seed": 9003,
+      "step": 45,
+      "phase": "approach",
+      "bottle_error_m": 0.27618610858917236,
+      "handle_error_m": 0.2747798562049866
+    },
+    {
+      "seed": 9003,
+      "step": 50,
+      "phase": "approach",
+      "bottle_error_m": 0.27619874477386475,
+      "handle_error_m": 0.27475792169570923
+    },
+    {
+      "seed": 9003,
+      "step": 55,
+      "phase": "approach",
+      "bottle_error_m": 0.5806258916854858,
+      "handle_error_m": 0.27473732829093933
+    },
+    {
+      "seed": 9003,
+      "step": 60,
+      "phase": "approach",
+      "bottle_error_m": 0.5806496143341064,
+      "handle_error_m": 0.2747107744216919
+    },
+    {
+      "seed": 9003,
+      "step": 65,
+      "phase": "approach",
+      "bottle_error_m": 0.2762407064437866,
+      "handle_error_m": 0.27473732829093933
+    },
+    {
+      "seed": 9003,
+      "step": 70,
+      "phase": "approach",
+      "bottle_error_m": 0.2762499451637268,
+      "handle_error_m": 0.27472859621047974
+    },
+    {
+      "seed": 9003,
+      "step": 75,
+      "phase": "approach",
+      "bottle_error_m": 0.2762274444103241,
+      "handle_error_m": 0.2747611403465271
+    },
+    {
+      "seed": 9003,
+      "step": 80,
+      "phase": "approach",
+      "bottle_error_m": 0.27621063590049744,
+      "handle_error_m": 0.27477338910102844
+    },
+    {
+      "seed": 9003,
+      "step": 85,
+      "phase": "approach",
+      "bottle_error_m": 0.27619215846061707,
+      "handle_error_m": 0.2747742533683777
+    },
+    {
+      "seed": 9003,
+      "step": 90,
+      "phase": "approach",
+      "bottle_error_m": 0.276187002658844,
+      "handle_error_m": 0.2747833728790283
+    },
+    {
+      "seed": 9003,
+      "step": 95,
+      "phase": "approach",
+      "bottle_error_m": 0.2761712670326233,
+      "handle_error_m": 0.2747948467731476
+    },
+    {
+      "seed": 9003,
+      "step": 100,
+      "phase": "approach",
+      "bottle_error_m": 0.2761802673339844,
+      "handle_error_m": 0.27480611205101013
+    },
+    {
+      "seed": 9003,
+      "step": 105,
+      "phase": "approach",
+      "bottle_error_m": 0.2761763632297516,
+      "handle_error_m": 0.27480775117874146
+    },
+    {
+      "seed": 9003,
+      "step": 110,
+      "phase": "approach",
+      "bottle_error_m": 0.2761852443218231,
+      "handle_error_m": 0.27480122447013855
+    },
+    {
+      "seed": 9003,
+      "step": 115,
+      "phase": "approach",
+      "bottle_error_m": 0.2761794626712799,
+      "handle_error_m": 0.2747957408428192
+    },
+    {
+      "seed": 9003,
+      "step": 120,
+      "phase": "approach",
+      "bottle_error_m": 0.2761894166469574,
+      "handle_error_m": 0.27479639649391174
+    },
+    {
+      "seed": 9003,
+      "step": 125,
+      "phase": "approach",
+      "bottle_error_m": 0.2762121558189392,
+      "handle_error_m": 0.27477946877479553
+    },
+    {
+      "seed": 9003,
+      "step": 130,
+      "phase": "approach",
+      "bottle_error_m": 0.2762295603752136,
+      "handle_error_m": 0.2747577726840973
+    },
+    {
+      "seed": 9003,
+      "step": 135,
+      "phase": "approach",
+      "bottle_error_m": 0.5805557370185852,
+      "handle_error_m": 0.27477186918258667
+    },
+    {
+      "seed": 9003,
+      "step": 140,
+      "phase": "approach",
+      "bottle_error_m": 0.5805867910385132,
+      "handle_error_m": 0.2747582495212555
+    },
+    {
+      "seed": 9003,
+      "step": 145,
+      "phase": "approach",
+      "bottle_error_m": 0.5805695056915283,
+      "handle_error_m": 0.2747516334056854
+    },
+    {
+      "seed": 9003,
+      "step": 150,
+      "phase": "approach",
+      "bottle_error_m": 0.5805994868278503,
+      "handle_error_m": 0.2747364044189453
+    },
+    {
+      "seed": 9003,
+      "step": 155,
+      "phase": "approach",
+      "bottle_error_m": 0.5805860757827759,
+      "handle_error_m": 0.27475056052207947
+    },
+    {
+      "seed": 9003,
+      "step": 160,
+      "phase": "approach",
+      "bottle_error_m": 0.27619558572769165,
+      "handle_error_m": 0.27477338910102844
+    },
+    {
+      "seed": 9003,
+      "step": 165,
+      "phase": "approach",
+      "bottle_error_m": 0.276202917098999,
+      "handle_error_m": 0.27476364374160767
+    },
+    {
+      "seed": 9003,
+      "step": 170,
+      "phase": "approach",
+      "bottle_error_m": 0.5844423770904541,
+      "handle_error_m": 0.27477094531059265
+    },
+    {
+      "seed": 9003,
+      "step": 175,
+      "phase": "approach",
+      "bottle_error_m": 0.5844475626945496,
+      "handle_error_m": 0.27477383613586426
+    },
+    {
+      "seed": 9003,
+      "step": 180,
+      "phase": "approach",
+      "bottle_error_m": 0.5844351053237915,
+      "handle_error_m": 0.27477696537971497
+    },
+    {
+      "seed": 9003,
+      "step": 185,
+      "phase": "approach",
+      "bottle_error_m": 0.5844359397888184,
+      "handle_error_m": 0.274777352809906
+    },
+    {
+      "seed": 9003,
+      "step": 190,
+      "phase": "approach",
+      "bottle_error_m": 0.5844255089759827,
+      "handle_error_m": 0.27479320764541626
+    },
+    {
+      "seed": 9003,
+      "step": 195,
+      "phase": "approach",
+      "bottle_error_m": 0.5844240784645081,
+      "handle_error_m": 0.27478232979774475
+    },
+    {
+      "seed": 9003,
+      "step": 200,
+      "phase": "approach",
+      "bottle_error_m": 0.5844175219535828,
+      "handle_error_m": 0.2747786045074463
+    },
+    {
+      "seed": 9003,
+      "step": 205,
+      "phase": "approach",
+      "bottle_error_m": 0.5844326019287109,
+      "handle_error_m": 0.27477559447288513
+    },
+    {
+      "seed": 9003,
+      "step": 210,
+      "phase": "approach",
+      "bottle_error_m": 0.5844352841377258,
+      "handle_error_m": 0.27477630972862244
+    },
+    {
+      "seed": 9003,
+      "step": 215,
+      "phase": "approach",
+      "bottle_error_m": 0.5844636559486389,
+      "handle_error_m": 0.27475982904434204
+    },
+    {
+      "seed": 9003,
+      "step": 220,
+      "phase": "approach",
+      "bottle_error_m": 0.5844696760177612,
+      "handle_error_m": 0.27476540207862854
+    },
+    {
+      "seed": 9003,
+      "step": 225,
+      "phase": "approach",
+      "bottle_error_m": 0.5844783782958984,
+      "handle_error_m": 0.2747645378112793
+    },
+    {
+      "seed": 9003,
+      "step": 230,
+      "phase": "approach",
+      "bottle_error_m": 0.5844758152961731,
+      "handle_error_m": 0.2747637927532196
+    },
+    {
+      "seed": 9003,
+      "step": 235,
+      "phase": "approach",
+      "bottle_error_m": 0.5805891156196594,
+      "handle_error_m": 0.2747698128223419
+    },
+    {
+      "seed": 9003,
+      "step": 240,
+      "phase": "approach",
+      "bottle_error_m": 0.5805870890617371,
+      "handle_error_m": 0.27478042244911194
+    },
+    {
+      "seed": 9003,
+      "step": 245,
+      "phase": "approach",
+      "bottle_error_m": 0.5805856585502625,
+      "handle_error_m": 0.2747902274131775
+    },
+    {
+      "seed": 9003,
+      "step": 250,
+      "phase": "approach",
+      "bottle_error_m": 0.5805925130844116,
+      "handle_error_m": 0.27479463815689087
+    },
+    {
+      "seed": 9003,
+      "step": 255,
+      "phase": "approach",
+      "bottle_error_m": 0.5805934071540833,
+      "handle_error_m": 0.27479782700538635
+    },
+    {
+      "seed": 9003,
+      "step": 260,
+      "phase": "approach",
+      "bottle_error_m": 0.5805819630622864,
+      "handle_error_m": 0.27480223774909973
+    },
+    {
+      "seed": 9003,
+      "step": 265,
+      "phase": "approach",
+      "bottle_error_m": 0.5805885195732117,
+      "handle_error_m": 0.2747911214828491
+    },
+    {
+      "seed": 9003,
+      "step": 270,
+      "phase": "approach",
+      "bottle_error_m": 0.5805918574333191,
+      "handle_error_m": 0.2747797667980194
+    },
+    {
+      "seed": 9003,
+      "step": 275,
+      "phase": "approach",
+      "bottle_error_m": 0.5805935263633728,
+      "handle_error_m": 0.27477705478668213
+    },
+    {
+      "seed": 9003,
+      "step": 280,
+      "phase": "approach",
+      "bottle_error_m": 0.5805814862251282,
+      "handle_error_m": 0.2747754752635956
+    },
+    {
+      "seed": 9003,
+      "step": 285,
+      "phase": "approach",
+      "bottle_error_m": 0.5805649161338806,
+      "handle_error_m": 0.2747766077518463
+    },
+    {
+      "seed": 9003,
+      "step": 290,
+      "phase": "approach",
+      "bottle_error_m": 0.5805560350418091,
+      "handle_error_m": 0.2747832238674164
+    },
+    {
+      "seed": 9003,
+      "step": 295,
+      "phase": "approach",
+      "bottle_error_m": 0.5805478096008301,
+      "handle_error_m": 0.2747782766819
+    },
+    {
+      "seed": 9003,
+      "step": 300,
+      "phase": "approach",
+      "bottle_error_m": 0.5805424451828003,
+      "handle_error_m": 0.2747771143913269
+    },
+    {
+      "seed": 9003,
+      "step": 305,
+      "phase": "approach",
+      "bottle_error_m": 0.5844285488128662,
+      "handle_error_m": 0.27479004859924316
+    },
+    {
+      "seed": 9003,
+      "step": 310,
+      "phase": "approach",
+      "bottle_error_m": 0.2872913181781769,
+      "handle_error_m": 0.27477431297302246
+    },
+    {
+      "seed": 9003,
+      "step": 315,
+      "phase": "approach",
+      "bottle_error_m": 0.28726664185523987,
+      "handle_error_m": 0.274777352809906
+    },
+    {
+      "seed": 9003,
+      "step": 320,
+      "phase": "approach",
+      "bottle_error_m": 0.2872367203235626,
+      "handle_error_m": 0.2747797667980194
+    },
+    {
+      "seed": 9003,
+      "step": 325,
+      "phase": "approach",
+      "bottle_error_m": 0.28721386194229126,
+      "handle_error_m": 0.2748200595378876
+    },
+    {
+      "seed": 9003,
+      "step": 330,
+      "phase": "approach",
+      "bottle_error_m": 0.28715336322784424,
+      "handle_error_m": 0.2748264968395233
+    },
+    {
+      "seed": 9003,
+      "step": 335,
+      "phase": "approach",
+      "bottle_error_m": 0.2871498763561249,
+      "handle_error_m": 0.27482232451438904
+    },
+    {
+      "seed": 9003,
+      "step": 340,
+      "phase": "approach",
+      "bottle_error_m": 0.28715184330940247,
+      "handle_error_m": 0.2748138904571533
+    },
+    {
+      "seed": 9003,
+      "step": 345,
+      "phase": "approach",
+      "bottle_error_m": 0.2871142625808716,
+      "handle_error_m": 0.27479737997055054
+    },
+    {
+      "seed": 9003,
+      "step": 350,
+      "phase": "approach",
+      "bottle_error_m": 0.2870393991470337,
+      "handle_error_m": 0.27484041452407837
+    },
+    {
+      "seed": 9004,
+      "step": 0,
+      "phase": "approach",
+      "bottle_error_m": 0.28085410594940186,
+      "handle_error_m": 0.25274255871772766
+    },
+    {
+      "seed": 9004,
+      "step": 5,
+      "phase": "approach",
+      "bottle_error_m": 0.2810167372226715,
+      "handle_error_m": 0.2527347207069397
+    },
+    {
+      "seed": 9004,
+      "step": 10,
+      "phase": "approach",
+      "bottle_error_m": 0.5831565260887146,
+      "handle_error_m": 0.2527255415916443
+    },
+    {
+      "seed": 9004,
+      "step": 15,
+      "phase": "approach",
+      "bottle_error_m": 0.583304762840271,
+      "handle_error_m": 0.25271931290626526
+    },
+    {
+      "seed": 9004,
+      "step": 20,
+      "phase": "approach",
+      "bottle_error_m": 0.583439826965332,
+      "handle_error_m": 0.2527099847793579
+    },
+    {
+      "seed": 9004,
+      "step": 25,
+      "phase": "approach",
+      "bottle_error_m": 0.5835301280021667,
+      "handle_error_m": 0.2527022361755371
+    },
+    {
+      "seed": 9004,
+      "step": 30,
+      "phase": "approach",
+      "bottle_error_m": 0.281401664018631,
+      "handle_error_m": 0.25269269943237305
+    },
+    {
+      "seed": 9004,
+      "step": 35,
+      "phase": "approach",
+      "bottle_error_m": 0.2814709544181824,
+      "handle_error_m": 0.2526884973049164
+    },
+    {
+      "seed": 9004,
+      "step": 40,
+      "phase": "approach",
+      "bottle_error_m": 0.28139767050743103,
+      "handle_error_m": 0.2526880204677582
+    },
+    {
+      "seed": 9004,
+      "step": 45,
+      "phase": "approach",
+      "bottle_error_m": 0.2814764380455017,
+      "handle_error_m": 0.2526739239692688
+    },
+    {
+      "seed": 9004,
+      "step": 50,
+      "phase": "approach",
+      "bottle_error_m": 0.5838574171066284,
+      "handle_error_m": 0.2526601552963257
+    },
+    {
+      "seed": 9004,
+      "step": 55,
+      "phase": "approach",
+      "bottle_error_m": 0.583893358707428,
+      "handle_error_m": 0.2526589334011078
+    },
+    {
+      "seed": 9004,
+      "step": 60,
+      "phase": "approach",
+      "bottle_error_m": 0.5838899612426758,
+      "handle_error_m": 0.2526605427265167
+    },
+    {
+      "seed": 9004,
+      "step": 65,
+      "phase": "approach",
+      "bottle_error_m": 0.5838586688041687,
+      "handle_error_m": 0.25266337394714355
+    },
+    {
+      "seed": 9004,
+      "step": 70,
+      "phase": "approach",
+      "bottle_error_m": 0.5838513970375061,
+      "handle_error_m": 0.25266575813293457
+    },
+    {
+      "seed": 9004,
+      "step": 75,
+      "phase": "approach",
+      "bottle_error_m": 0.5838249325752258,
+      "handle_error_m": 0.25266900658607483
+    },
+    {
+      "seed": 9004,
+      "step": 80,
+      "phase": "approach",
+      "bottle_error_m": 0.5838068723678589,
+      "handle_error_m": 0.25267142057418823
+    },
+    {
+      "seed": 9004,
+      "step": 85,
+      "phase": "approach",
+      "bottle_error_m": 0.5837867259979248,
+      "handle_error_m": 0.25267478823661804
+    },
+    {
+      "seed": 9004,
+      "step": 90,
+      "phase": "approach",
+      "bottle_error_m": 0.5837754011154175,
+      "handle_error_m": 0.2526777684688568
+    },
+    {
+      "seed": 9004,
+      "step": 95,
+      "phase": "approach",
+      "bottle_error_m": 0.5837586522102356,
+      "handle_error_m": 0.25268152356147766
+    },
+    {
+      "seed": 9004,
+      "step": 100,
+      "phase": "approach",
+      "bottle_error_m": 0.5837498903274536,
+      "handle_error_m": 0.2526834011077881
+    },
+    {
+      "seed": 9004,
+      "step": 105,
+      "phase": "approach",
+      "bottle_error_m": 0.5837229490280151,
+      "handle_error_m": 0.2526843845844269
+    },
+    {
+      "seed": 9004,
+      "step": 110,
+      "phase": "approach",
+      "bottle_error_m": 0.5836805105209351,
+      "handle_error_m": 0.2526847720146179
+    },
+    {
+      "seed": 9004,
+      "step": 115,
+      "phase": "approach",
+      "bottle_error_m": 0.5836653709411621,
+      "handle_error_m": 0.252685546875
+    },
+    {
+      "seed": 9004,
+      "step": 120,
+      "phase": "approach",
+      "bottle_error_m": 0.5836583375930786,
+      "handle_error_m": 0.25268545746803284
+    },
+    {
+      "seed": 9004,
+      "step": 125,
+      "phase": "approach",
+      "bottle_error_m": 0.5836384892463684,
+      "handle_error_m": 0.25268521904945374
+    },
+    {
+      "seed": 9004,
+      "step": 130,
+      "phase": "approach",
+      "bottle_error_m": 0.5836388468742371,
+      "handle_error_m": 0.2526843249797821
+    },
+    {
+      "seed": 9004,
+      "step": 135,
+      "phase": "approach",
+      "bottle_error_m": 0.5836334824562073,
+      "handle_error_m": 0.2526838183403015
+    },
+    {
+      "seed": 9004,
+      "step": 140,
+      "phase": "approach",
+      "bottle_error_m": 0.5836561918258667,
+      "handle_error_m": 0.252683162689209
+    },
+    {
+      "seed": 9004,
+      "step": 145,
+      "phase": "approach",
+      "bottle_error_m": 0.5836625695228577,
+      "handle_error_m": 0.2526828646659851
+    },
+    {
+      "seed": 9004,
+      "step": 150,
+      "phase": "approach",
+      "bottle_error_m": 0.5836740136146545,
+      "handle_error_m": 0.2526836395263672
+    },
+    {
+      "seed": 9004,
+      "step": 155,
+      "phase": "approach",
+      "bottle_error_m": 0.5836701989173889,
+      "handle_error_m": 0.25268495082855225
+    },
+    {
+      "seed": 9004,
+      "step": 160,
+      "phase": "approach",
+      "bottle_error_m": 0.5836579203605652,
+      "handle_error_m": 0.25268590450286865
+    },
+    {
+      "seed": 9004,
+      "step": 165,
+      "phase": "approach",
+      "bottle_error_m": 0.5836450457572937,
+      "handle_error_m": 0.25268569588661194
+    },
+    {
+      "seed": 9004,
+      "step": 170,
+      "phase": "approach",
+      "bottle_error_m": 0.5836355090141296,
+      "handle_error_m": 0.25268658995628357
+    },
+    {
+      "seed": 9004,
+      "step": 175,
+      "phase": "approach",
+      "bottle_error_m": 0.5836374163627625,
+      "handle_error_m": 0.2526875138282776
+    },
+    {
+      "seed": 9004,
+      "step": 180,
+      "phase": "approach",
+      "bottle_error_m": 0.5835921168327332,
+      "handle_error_m": 0.25268980860710144
+    },
+    {
+      "seed": 9004,
+      "step": 185,
+      "phase": "approach",
+      "bottle_error_m": 0.5835810303688049,
+      "handle_error_m": 0.25269219279289246
+    },
+    {
+      "seed": 9004,
+      "step": 190,
+      "phase": "approach",
+      "bottle_error_m": 0.2924386262893677,
+      "handle_error_m": 0.25269386172294617
+    },
+    {
+      "seed": 9004,
+      "step": 195,
+      "phase": "approach",
+      "bottle_error_m": 0.5875435471534729,
+      "handle_error_m": 0.25269702076911926
+    },
+    {
+      "seed": 9004,
+      "step": 200,
+      "phase": "approach",
+      "bottle_error_m": 0.2924211323261261,
+      "handle_error_m": 0.25269845128059387
+    },
+    {
+      "seed": 9004,
+      "step": 205,
+      "phase": "approach",
+      "bottle_error_m": 0.2924257814884186,
+      "handle_error_m": 0.2526974678039551
+    },
+    {
+      "seed": 9004,
+      "step": 210,
+      "phase": "approach",
+      "bottle_error_m": 0.29243168234825134,
+      "handle_error_m": 0.25269678235054016
+    },
+    {
+      "seed": 9004,
+      "step": 215,
+      "phase": "approach",
+      "bottle_error_m": 0.2924269735813141,
+      "handle_error_m": 0.252694308757782
+    },
+    {
+      "seed": 9004,
+      "step": 220,
+      "phase": "approach",
+      "bottle_error_m": 0.2923816442489624,
+      "handle_error_m": 0.25269830226898193
+    },
+    {
+      "seed": 9004,
+      "step": 225,
+      "phase": "approach",
+      "bottle_error_m": 0.2812642455101013,
+      "handle_error_m": 0.25270530581474304
+    },
+    {
+      "seed": 9004,
+      "step": 230,
+      "phase": "approach",
+      "bottle_error_m": 0.28120481967926025,
+      "handle_error_m": 0.2527097463607788
+    },
+    {
+      "seed": 9004,
+      "step": 235,
+      "phase": "approach",
+      "bottle_error_m": 0.2811828553676605,
+      "handle_error_m": 0.2527098059654236
+    },
+    {
+      "seed": 9004,
+      "step": 240,
+      "phase": "approach",
+      "bottle_error_m": 0.2811473608016968,
+      "handle_error_m": 0.25271299481391907
+    },
+    {
+      "seed": 9004,
+      "step": 245,
+      "phase": "approach",
+      "bottle_error_m": 0.28113022446632385,
+      "handle_error_m": 0.252716600894928
+    },
+    {
+      "seed": 9004,
+      "step": 250,
+      "phase": "approach",
+      "bottle_error_m": 0.2810934782028198,
+      "handle_error_m": 0.2527175843715668
+    },
+    {
+      "seed": 9004,
+      "step": 255,
+      "phase": "approach",
+      "bottle_error_m": 0.28105875849723816,
+      "handle_error_m": 0.25272101163864136
+    },
+    {
+      "seed": 9004,
+      "step": 260,
+      "phase": "approach",
+      "bottle_error_m": 0.2810329794883728,
+      "handle_error_m": 0.25272446870803833
+    },
+    {
+      "seed": 9004,
+      "step": 265,
+      "phase": "approach",
+      "bottle_error_m": 0.2810007333755493,
+      "handle_error_m": 0.2527276575565338
+    },
+    {
+      "seed": 9004,
+      "step": 270,
+      "phase": "approach",
+      "bottle_error_m": 0.28100883960723877,
+      "handle_error_m": 0.2527301609516144
+    },
+    {
+      "seed": 9004,
+      "step": 275,
+      "phase": "approach",
+      "bottle_error_m": 0.28100720047950745,
+      "handle_error_m": 0.25273120403289795
+    },
+    {
+      "seed": 9004,
+      "step": 280,
+      "phase": "approach",
+      "bottle_error_m": 0.2810230255126953,
+      "handle_error_m": 0.2527310252189636
+    },
+    {
+      "seed": 9004,
+      "step": 285,
+      "phase": "approach",
+      "bottle_error_m": 0.2810238301753998,
+      "handle_error_m": 0.2527310848236084
+    },
+    {
+      "seed": 9004,
+      "step": 290,
+      "phase": "approach",
+      "bottle_error_m": 0.28101640939712524,
+      "handle_error_m": 0.2527308166027069
+    },
+    {
+      "seed": 9004,
+      "step": 295,
+      "phase": "approach",
+      "bottle_error_m": 0.2810344696044922,
+      "handle_error_m": 0.2527306377887726
+    },
+    {
+      "seed": 9004,
+      "step": 300,
+      "phase": "approach",
+      "bottle_error_m": 0.28105780482292175,
+      "handle_error_m": 0.2527308166027069
+    },
+    {
+      "seed": 9004,
+      "step": 305,
+      "phase": "approach",
+      "bottle_error_m": 0.28103840351104736,
+      "handle_error_m": 0.25273051857948303
+    },
+    {
+      "seed": 9004,
+      "step": 310,
+      "phase": "approach",
+      "bottle_error_m": 0.2810573875904083,
+      "handle_error_m": 0.25273051857948303
+    },
+    {
+      "seed": 9004,
+      "step": 315,
+      "phase": "approach",
+      "bottle_error_m": 0.28105998039245605,
+      "handle_error_m": 0.2527303993701935
+    },
+    {
+      "seed": 9004,
+      "step": 320,
+      "phase": "approach",
+      "bottle_error_m": 0.2810441553592682,
+      "handle_error_m": 0.2527305483818054
+    },
+    {
+      "seed": 9004,
+      "step": 325,
+      "phase": "approach",
+      "bottle_error_m": 0.2810629606246948,
+      "handle_error_m": 0.25273051857948303
+    },
+    {
+      "seed": 9004,
+      "step": 330,
+      "phase": "approach",
+      "bottle_error_m": 0.28108131885528564,
+      "handle_error_m": 0.2527303695678711
+    },
+    {
+      "seed": 9004,
+      "step": 335,
+      "phase": "approach",
+      "bottle_error_m": 0.2810556888580322,
+      "handle_error_m": 0.2527303993701935
+    },
+    {
+      "seed": 9004,
+      "step": 340,
+      "phase": "approach",
+      "bottle_error_m": 0.281061053276062,
+      "handle_error_m": 0.2527310252189636
+    },
+    {
+      "seed": 9004,
+      "step": 345,
+      "phase": "approach",
+      "bottle_error_m": 0.281036913394928,
+      "handle_error_m": 0.2527312934398651
+    },
+    {
+      "seed": 9004,
+      "step": 350,
+      "phase": "approach",
+      "bottle_error_m": 0.2810728847980499,
+      "handle_error_m": 0.252731055021286
+    }
+  ],
+  "limitations": "Frozen state BC with estimated landmarks; finite task grammar and known fixture geometry. Not jointly trained VLA. No object or phase oracle is passed to policy/manager."
+}

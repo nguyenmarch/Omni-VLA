@@ -1,0 +1,83 @@
+{
+  "none": {
+    "targets": 423,
+    "invalid_predictions": 0,
+    "mean_3d_error_m": 0.20443604258824818,
+    "p95_3d_error_m": 0.4498806446790695,
+    "mean_pixel_error": 5.909971477292109,
+    "mean_abs_camera_depth_error_m": 0.17780429956197175,
+    "within_1_5cm_fraction": 0.004728132387706856,
+    "per_phase_mean_3d_m": {
+      "0": 0.2249257906805724,
+      "1": 0.09913257706082529,
+      "2": 0.09352830098941922,
+      "3": 0.12605699187363772,
+      "4": 0.3595086878120172,
+      "5": 0.20874386130493472,
+      "6": 0.2202551094815135,
+      "7": 0.23213141737505794,
+      "8": 0.17803713050670922
+    },
+    "per_target_mean_3d_m": {
+      "grasp the bottle body": 0.12110529824760612,
+      "grasp the drawer handle": 0.2897603454059391
+    }
+  },
+  "drop-image": {
+    "targets": 423,
+    "invalid_predictions": 0,
+    "mean_3d_error_m": 0.5825352902671688,
+    "p95_3d_error_m": 0.6579668939113616,
+    "mean_pixel_error": 43.99115440242397,
+    "mean_abs_camera_depth_error_m": 0.13469245755080636,
+    "within_1_5cm_fraction": 0.0,
+    "per_phase_mean_3d_m": {
+      "0": 0.5656949743628502,
+      "1": 0.5653613698151376,
+      "2": 0.5654959864914417,
+      "3": 0.5297173156457788,
+      "4": 0.5424173030911422,
+      "5": 0.5952871458774264,
+      "6": 0.597297191619873,
+      "7": 0.5996807515621185,
+      "8": 0.6442846488207579
+    },
+    "per_target_mean_3d_m": {
+      "grasp the bottle body": 0.5844350351351444,
+      "grasp the drawer handle": 0.5805900969573755
+    }
+  },
+  "swap-text": {
+    "targets": 423,
+    "invalid_predictions": 0,
+    "mean_3d_error_m": 0.3740231237653863,
+    "p95_3d_error_m": 0.6673475444316864,
+    "mean_pixel_error": 16.498867734949638,
+    "mean_abs_camera_depth_error_m": 0.276647908467773,
+    "within_1_5cm_fraction": 0.0,
+    "per_phase_mean_3d_m": {
+      "0": 0.46410735994577407,
+      "1": 0.29793546928299797,
+      "2": 0.29594586230814457,
+      "3": 0.33611809067866383,
+      "4": 0.4816100899039245,
+      "5": 0.36594662764533,
+      "6": 0.3839111924171448,
+      "7": 0.38037943514063954,
+      "8": 0.3216037508100271
+    },
+    "per_target_mean_3d_m": {
+      "grasp the bottle body": 0.4749067223099905,
+      "grasp the drawer handle": 0.2707260420020117
+    }
+  },
+  "split": "test",
+  "episodes": [
+    "000006",
+    "000009"
+  ],
+  "skipped_targets": 5,
+  "checkpoint_sha256": "dd2026bbbae4f9310aa0ea8c688821419f4ae22c73fb59b5e56bc45ee88ceefb",
+  "dataset_sha256": "b1f346d8f0f0f32689d3f7d556fa53f09765363fb70ff5758ccb44ec9374e692",
+  "scope": "Current scene/camera; depth-visibility heuristic <=8cm; excluded targets are not evaluated. Drop-image zeros RGB only; depth/calibration remain available."
+}

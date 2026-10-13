@@ -1,0 +1,33 @@
+{
+  "archive": "cfm_h1_v2_outputs.zip",
+  "archive_sha256": "1973e85e7b02d2c6c5c7b7e39ac6e6bc8765361bb0e693b942e87c2e7ae666ae",
+  "checkpoint_sha256": "dd0a502b25f0adb4752502b2982057cb4c9901e55cbc6813e44c6286370ab225",
+  "dataset_sha256": "8da71c521af7192d1952567343fb7a6aa2c95b19f52056463110a5bf8679b47d",
+  "dataset_matches": true,
+  "model_config": {
+    "action_dim": 14,
+    "chunk_size": 1,
+    "cond_dim": 67,
+    "hidden_dim": 256,
+    "direct_skip": true,
+    "euler_steps": 6,
+    "execute_horizon": 1
+  },
+  "train_config": {
+    "seed": 42,
+    "batch_size": 128,
+    "epochs": 150,
+    "learning_rate": 0.0002,
+    "weight_decay": 0.0001,
+    "mixed_precision": true,
+    "num_workers": 0,
+    "phase_balanced": true,
+    "phase_sampling_min_count": 100,
+    "first_action_weight": 1.0
+  },
+  "best_epoch": 144,
+  "best_val_sample_mse": 0.00186706207638893,
+  "metrics_rows": 150,
+  "last_logged_epoch": 150,
+  "torch_version": "2.11.0+cu128"
+}

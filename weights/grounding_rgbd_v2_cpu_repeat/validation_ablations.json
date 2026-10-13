@@ -1,0 +1,78 @@
+{
+  "none": {
+    "targets": 454,
+    "invalid_predictions": 0,
+    "mean_3d_error_m": 0.20895825079457614,
+    "p95_3d_error_m": 0.4498356178402901,
+    "mean_pixel_error": 6.080210242765065,
+    "mean_abs_camera_depth_error_m": 0.1807095093349003,
+    "within_1_5cm_fraction": 0.004405286343612335,
+    "per_phase_mean_3d_m": {
+      "0": 0.21511160340160132,
+      "1": 0.08786544581461284,
+      "2": 0.0907038125442341,
+      "3": 0.1349722983534722,
+      "4": 0.3508448721375316,
+      "5": 0.2257526125035529,
+      "6": 0.19082589261233807,
+      "7": 0.23115277802571654,
+      "8": 0.181481875712052,
+      "9": 0.13137513399124146
+    },
+    "per_target_mean_3d_m": {
+      "grasp the bottle body": 0.13484290891274095,
+      "grasp the drawer handle": 0.2843911987543106
+    }
+  },
+  "drop-image": {
+    "targets": 454,
+    "invalid_predictions": 0,
+    "mean_3d_error_m": 0.5871368579664945,
+    "p95_3d_error_m": 0.6877562284469604,
+    "mean_pixel_error": 44.125231301732,
+    "mean_abs_camera_depth_error_m": 0.1416986820981366,
+    "within_1_5cm_fraction": 0.0,
+    "per_phase_mean_3d_m": {
+      "0": 0.5673369586467742,
+      "1": 0.5669656867782275,
+      "2": 0.5664247293025255,
+      "3": 0.5323840379714966,
+      "4": 0.5441752031445504,
+      "5": 0.597596837478934,
+      "6": 0.6077894642949104,
+      "7": 0.6129012703895569,
+      "8": 0.6472313366830349,
+      "9": 0.685602992773056
+    },
+    "per_target_mean_3d_m": {
+      "grasp the bottle body": 0.5953112202960852,
+      "grasp the drawer handle": 0.5788171736399332
+    }
+  },
+  "swap-text": {
+    "targets": 454,
+    "invalid_predictions": 0,
+    "mean_3d_error_m": 0.36155630513566184,
+    "p95_3d_error_m": 0.6484439611434937,
+    "mean_pixel_error": 16.39429336497437,
+    "mean_abs_camera_depth_error_m": 0.26074466805100965,
+    "within_1_5cm_fraction": 0.0,
+    "per_phase_mean_3d_m": {
+      "0": 0.44027649201452734,
+      "1": 0.2695222364531623,
+      "2": 0.2850573379546404,
+      "3": 0.3165443061905749,
+      "4": 0.4763305030763149,
+      "5": 0.3631693492236647,
+      "6": 0.3456979747861624,
+      "7": 0.37626289622858167,
+      "8": 0.30318227084353566,
+      "9": 0.18487975746393204
+    },
+    "per_target_mean_3d_m": {
+      "grasp the bottle body": 0.45220021213766787,
+      "grasp the drawer handle": 0.2693009508980645
+    }
+  },
+  "scope": "Visible-by-depth-heuristic validation targets; finite queries, current camera, no OOD/paraphrase guarantee"
+}

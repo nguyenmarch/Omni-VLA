@@ -1,0 +1,38 @@
+{
+  "archive": "cfm_dagger_v2_outputs.zip",
+  "archive_sha256": "7f16c2a35c1a481372215b1ca7cd11e571007ace23b3d38a3dcd82aea8695e26",
+  "checkpoint_sha256": "b17be25ca2260b3402b9cc0098b923533dfc74eca58b1389c4dca9ff9e469e2e",
+  "dataset_sha256": "8da71c521af7192d1952567343fb7a6aa2c95b19f52056463110a5bf8679b47d",
+  "matches_dataset_v2": true,
+  "best_epoch": 133,
+  "best_val_sample_mse": 0.021087183377060753,
+  "epochs_logged": 150,
+  "log_segments": [
+    {
+      "first_epoch": 1,
+      "last_epoch": 150
+    }
+  ],
+  "model_config": {
+    "action_dim": 14,
+    "chunk_size": 16,
+    "cond_dim": 67,
+    "hidden_dim": 256,
+    "direct_skip": true,
+    "euler_steps": 6,
+    "execute_horizon": 1
+  },
+  "train_config": {
+    "seed": 42,
+    "batch_size": 128,
+    "epochs": 150,
+    "learning_rate": 0.0002,
+    "weight_decay": 0.0001,
+    "mixed_precision": true,
+    "num_workers": 0,
+    "phase_balanced": true,
+    "phase_sampling_min_count": 100,
+    "first_action_weight": 1.0
+  },
+  "torch_version": "2.11.0+cu128"
+}

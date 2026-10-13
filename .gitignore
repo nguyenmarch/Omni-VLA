@@ -3,10 +3,37 @@ __pycache__/
 *.h5
 *.pkl
 *.pt
-
+artifacts/
 *.onnx
 *.tmp
 *.egg-info/
 .pytest_cache/
 artifacts/*.zip
 artifacts/*trace*.jsonl
+# Build output chung
+build/
+dist/
+out/
+target/
+*.o
+*.so
+*.dll
+*.exe
+
+# Python / ML artifacts
+__pycache__/
+*.py[cod]
+*.pkl
+*.pt
+*.pth
+*.onnx
+*.safetensors
+*.bin
+artifacts/
+checkpoints/
+
+# Node.js / Frontend
+.next/
+dist/
+coverage/
+/*_outputs.zip

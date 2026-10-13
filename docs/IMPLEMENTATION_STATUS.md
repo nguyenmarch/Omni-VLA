@@ -1,7 +1,7 @@
-# Trạng thái implementation — 09/10/2026
+# Trạng thái implementation — 10/10/2026
 
 Đã chuyển scaffold sang pipeline simulation/data/training/export/evaluation chạy
-được local. **Chưa hoàn tất toàn bộ mục tiêu VLA contact-rich**: BC Kaggle đã train và kiểm tra trên Dell, nhưng BC drawer đạt target 80% theo tỷ lệ quan sát trên hai bộ seed; CFM gate chưa đạt, grounding chưa nối vào policy,
+được local. **Chưa hoàn tất toàn bộ mục tiêu VLA contact-rich**: BC Kaggle đã train và kiểm tra trên Dell, nhưng BC drawer đạt target 80% theo tỷ lệ quan sát trên hai bộ seed; CFM gate chưa đạt, grounding đã nối thử vào BC nhưng gate 3D/closed-loop chưa đạt,
 uncapping hai tay chưa tích hợp và recovery cần cải thiện.
 
 ## Những gì đã triển khai
@@ -14,10 +14,10 @@ uncapping hai tay chưa tích hợp và recovery cần cải thiện.
 | Expert | Approach/grasp/pull/lift/transfer/place/release/close FSM | 99/100 full drawer task, seeds 3000–3099 |
 | Data | Streaming HDF5, clean vs executed actions, split episode, train-only stats, chunk tail masks | 20 expert episodes và 12 corrective episodes; validation scripts pass |
 | BC | MLP, optional phase heads, baseline một action; DAgger hỗ trợ | BC Kaggle v2: 46/50 same seeds, 42/50 fresh seeds |
-| CFM | Vector field, time embedding, optional noise/condition skips, Euler sampler | Train/export chạy; 0/5 full tasks ở checkpoint thử nghiệm |
+| CFM | Vector field, time embedding, optional noise/condition skips, Euler sampler | CFM Kaggle v2: Euler 4 50%/50%, 6 52%/46%, 8 60%/52% same/fresh |
 | Export | BC action output / CFM vector field ONNX, JSON normalizer metadata | Deterministic forward parity max abs error khoảng 1e-7–1.6e-6 |
 | Kaggle | Notebook BC → CFM → ONNX, source ZIP, resumable artifacts | BC v2 outputs đã import; CPU evaluation 92%/84% trên hai bộ seeds |
-| Grounding | Registered CNN, hashed-word text embeddings, spatial cross-attention head, depth-based 3D API | 5-epoch CPU pilot: pixel error 10.17 → 5.96 trên validation visible targets |
+| Grounding | RGB/query CNN, learned depth offset, calibrated 3D landmarks nối frozen BC; finite-language manager không dùng object/phase oracle | CPU 10 epochs: paired test mean 3D 128px 20.44 cm → 256px 15.40 cm; normal closed-loop cả hai 0/5; P5 chưa đạt gate. Bản 256 drop-RGB bị invalid depth trước action |
 | Screw fixture | Hinge/slide, pitch constraint 6 mm/vòng, disable constraint sau 2 vòng | Max thread error ~0.0204 mm, release pose jump 0 |
 | Recovery | Slip debounce, hold/reground/regrasp, bounded retry, chunk preemption | Tilted regrasp experiment 1/3 full tasks sau forced slip |
 
@@ -126,7 +126,7 @@ cho kết quả full task.
 
 ## Verification
 
-- **14 tests pass**, gồm Gym reset/timing, long-rollout stability, tracking,
+- **20 tests pass**, gồm Gym reset/timing, long-rollout stability, tracking,
   camera projection/unprojection và wrist direction, expert physical rollout,
   dataset split/statistics/tail masks/cache parity, CFM determinism, spatial
   grounding shape/depth requirement, recovery debounce/retry và config timing.
@@ -167,3 +167,54 @@ notebook và candidate evaluation CLI đã chuẩn bị. GPU outputs v2 đã imp
 
 README chứa các lệnh runnable. Architecture/build plan vẫn mô tả roadmap và
 các gate, không phải mọi milestone đã đạt.
+
+## CFM v2 handoff
+
+Đã thêm config phase-balanced 150 epochs và notebook riêng CFM/dataset v2.
+Candidate CLI giữ BC frozen, kiểm tra import/parity và benchmark hai sets với
+4/6/8 Euler (300 episodes), có resume completed reports. Noise được cố định
+theo seed/action step giữa settings/backends. CPU 3-epoch smoke kiểm tra pipeline;
+GPU outputs đã import; full benchmark 300 episodes hoàn tất. [Kết quả](CFM_KAGGLE_V2.md).
+
+## CFM v2: kết quả thực nghiệm
+
+GPU train 150 epochs; checkpoint chọn epoch 133. Import hash/config pass;
+ONNX/PyTorch 4/6/8 Euler parity đạt tolerance. CFM 4 Euler same/fresh 25/50 và
+25/50; 6 Euler 26/50 và 23/50; 8 Euler 30/50 và 26/50. Không setting nào đạt
+80% hoặc hơn BC v2; sampler p50 khoảng 1.44–2.62 ms, p95 2.52–4.25 ms trên
+CPU 2 threads. Giữ BC v2 unchanged. [Report](../artifacts/cfm_kaggle_v2/comparison.md).
+
+Đây là một seed training và hai cấu hình model/chunk khác nhau. Không suy
+rộng kết quả thành kết luận CFM nói chung kém BC. Nếu tuning tiếp: CFM H=1
+ablation và diagnostics first-action/phase; chưa thực hiện. VLA end-to-end vẫn
+chưa tích hợp.
+
+## CFM H1 ablation handoff
+
+Đã chẩn đoán first-action của BC/H16 trên 2,080 validation states với fixed
+noise, và trace 6 selected rollouts (success/steps khớp benchmark). Lỗi early
+phases tăng mạnh ngoài expert trajectories; chưa chứng minh chunk là nguyên
+nhân. Config/notebook H1 chỉ đổi chunk; smoke local kiểm tra pipeline. Candidate
+CLI hỗ trợ expected chunk và reference comparison để giữ BC/H16 frozen.
+GPU H1/full benchmark hoàn tất. [Chi tiết](CFM_H1_V2.md).
+
+## CFM H1: kết quả
+
+Checkpoint Kaggle đúng chunk1, 150 epochs, best epoch 144. Full benchmark
+300 trials: Euler 4 same/fresh 35/50 và 39/50; 6 37/50 và 32/50;
+8 30/50 và 22/50. Cải thiện H16 ở 4/6, không nhất quán ở 8; chưa đạt 80%
+trên cả hai sets. Sampler p50 1.21–2.48 ms, p95 1.97–3.76 ms. BC/H16
+weights unchanged. Full first-action validation comparison bổ sung: H1 có
+error thấp hơn H16 nhưng còn cao hơn BC ở approach; place error trên validation
+giảm theo Euler steps trong khi place failures closed-loop tăng. Không suy
+rộng thành root cause chunk hoặc kết luận CFM nói chung. Giữ BC v2 cho
+vision-language integration. [Report](../artifacts/cfm_h1_kaggle_v2/comparison.md).
+
+## Patch grounding v3 — 11/10/2026
+
+Đã migrate median-patch supervision, CPU pilot10epochs, all-target coverage
+val/test, runtime invalid gates và Kaggle handoff. Test candidate epoch10:144/428
+accepted, mean10.23cm/P95 25.21cm,3/428within1.5cm; loop0/5 từ chối perception
+trước action. Chưa cải thiện định vị. Sync head256/wrist224 + MuJoCo MJCF FK
+mask audit có; Pinocchio, masked per-camera training/fusion, async còn thiếu.
+[Report và selection pitfall](PATCH_GROUNDING_V3.md).

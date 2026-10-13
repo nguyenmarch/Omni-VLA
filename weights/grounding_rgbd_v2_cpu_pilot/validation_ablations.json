@@ -1,0 +1,36 @@
+{
+  "none": {
+    "targets": 454,
+    "mean_3d_error_m": 0.20895825079457614,
+    "p95_3d_error_m": 0.4498356178402901,
+    "mean_pixel_error": 6.080210242765065,
+    "within_1_5cm_fraction": 0.004405286343612335,
+    "per_target_mean_3d_m": {
+      "grasp the bottle body": 0.13484290891274095,
+      "grasp the drawer handle": 0.2843911987543106
+    }
+  },
+  "drop-image": {
+    "targets": 454,
+    "mean_3d_error_m": 0.5871368579664945,
+    "p95_3d_error_m": 0.6877562284469604,
+    "mean_pixel_error": 44.125231301732,
+    "within_1_5cm_fraction": 0.0,
+    "per_target_mean_3d_m": {
+      "grasp the bottle body": 0.5953112202960852,
+      "grasp the drawer handle": 0.5788171736399332
+    }
+  },
+  "swap-text": {
+    "targets": 454,
+    "mean_3d_error_m": 0.36155630513566184,
+    "p95_3d_error_m": 0.6484439611434937,
+    "mean_pixel_error": 16.39429336497437,
+    "within_1_5cm_fraction": 0.0,
+    "per_target_mean_3d_m": {
+      "grasp the bottle body": 0.45220021213766787,
+      "grasp the drawer handle": 0.2693009508980645
+    }
+  },
+  "scope": "Visible-by-depth-heuristic validation targets; finite queries, current camera, no OOD/paraphrase guarantee"
+}

@@ -1,0 +1,99 @@
+{
+  "baselines_preserved": {
+    "weights/grounding_rgbd_v2_cpu_pilot/best.pt": "dd2026bbbae4f9310aa0ea8c688821419f4ae22c73fb59b5e56bc45ee88ceefb",
+    "weights/bc_kaggle_v2/best.pt": "1c31dafe6ff1731ceb99a07c5da2e187dcb61db27ca76029a995d5c0905b27a3",
+    "data/grounding_rgbd_v2.h5": "b1f346d8f0f0f32689d3f7d556fa53f09765363fb70ff5758ccb44ec9374e692"
+  },
+  "paired_offline_report": "paired_grounding.json",
+  "closed_loop": [
+    {
+      "resolution": 128,
+      "setting": "normal",
+      "successes": 0,
+      "attempted": 5,
+      "failures": {
+        "visual_timeout_approach": 5
+      },
+      "capture_grounding_p50_ms": 48.049635000097624,
+      "capture_grounding_p95_ms": 57.68163159973483
+    },
+    {
+      "resolution": 128,
+      "setting": "drop RGB",
+      "successes": 0,
+      "attempted": 5,
+      "failures": {
+        "visual_timeout_approach": 5
+      },
+      "capture_grounding_p50_ms": 46.98578700026701,
+      "capture_grounding_p95_ms": 53.149927600225055
+    },
+    {
+      "resolution": 128,
+      "setting": "swap queries",
+      "successes": 0,
+      "attempted": 5,
+      "failures": {
+        "visual_timeout_approach": 5
+      },
+      "capture_grounding_p50_ms": 49.20195899921964,
+      "capture_grounding_p95_ms": 58.296634700491275
+    },
+    {
+      "resolution": 128,
+      "setting": "open-only",
+      "successes": 0,
+      "attempted": 5,
+      "failures": {
+        "visual_timeout_approach": 5
+      },
+      "capture_grounding_p50_ms": 49.58679899937124,
+      "capture_grounding_p95_ms": 54.11466039995503
+    },
+    {
+      "resolution": 256,
+      "setting": "normal",
+      "successes": 0,
+      "attempted": 5,
+      "failures": {
+        "visual_timeout_approach": 5
+      },
+      "capture_grounding_p50_ms": 49.12256299940054,
+      "capture_grounding_p95_ms": 55.834323999806664
+    },
+    {
+      "resolution": 256,
+      "setting": "drop RGB",
+      "successes": 0,
+      "attempted": 5,
+      "failures": {
+        "perception_failed: Invalid visual depth estimate; no oracle fallback": 5
+      },
+      "capture_grounding_p50_ms": null,
+      "capture_grounding_p95_ms": null
+    },
+    {
+      "resolution": 256,
+      "setting": "swap queries",
+      "successes": 0,
+      "attempted": 5,
+      "failures": {
+        "visual_timeout_approach": 5
+      },
+      "capture_grounding_p50_ms": 51.225106999481795,
+      "capture_grounding_p95_ms": 64.68895330126543
+    },
+    {
+      "resolution": 256,
+      "setting": "open-only",
+      "successes": 0,
+      "attempted": 5,
+      "failures": {
+        "visual_timeout_approach": 5
+      },
+      "capture_grounding_p50_ms": 54.570816000705236,
+      "capture_grounding_p95_ms": 65.10217690029094
+    }
+  ],
+  "scope": "Archived 128 pilot vs newly trained 256, same seeds, BC and phase manager. Timings are from separate runs, not a controlled back-to-back latency experiment. Resolution training scales label sigma 3 to 6."
+}
