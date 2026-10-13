@@ -2,7 +2,8 @@
 
 ## Advanced migration — 10/10/2026
 
-Pilot mới: [PATCH_GROUNDING_V3.md](PATCH_GROUNDING_V3.md).
+Pilot mới: [P5_PERCEPTION.md](P5_PERCEPTION.md); patch v3 là baseline cũ
+trong [PATCH_GROUNDING_V3.md](PATCH_GROUNDING_V3.md).
 
 Đặc tả/gates: [ADVANCED_CONTROL_DESIGN.md](ADVANCED_CONTROL_DESIGN.md).
 Mục tiêu >=90% là target mới, chưa đạt. BC giữ làm baseline kiểm soát khi
@@ -10,7 +11,7 @@ migration; production target dùng correlated OT-CFM được nghiệm thu.
 
 | Stage | Công việc | Trạng thái |
 |---|---|---|
-| A1 | Patch depth, workspace/invalid gates; migrate offset labels/schema, train/eval | Nhãn v3, CPU retrain, coverage/loop audit và runtime gates đã có; chất lượng chưa đạt, Kaggle handoff sẵn |
+| A1 | Patch depth, workspace/invalid gates; migrate offset labels/schema, train/eval | Patch v3 chưa đạt; P5 RGB-D student đạt gate định vị offline trên test, closed-loop ≥90% chưa chứng minh |
 | A2 | Head 256 + wrist 224 riêng; async render snapshots; Pinocchio/CAD self-mask, fusion | Sync head256/wrist224 + MuJoCo FK mask audit có; Pinocchio, per-camera training/fusion và async còn thiếu |
 | A3 | Learned semantic predicates; tách perception/monitor lỗi; loại oracle task phase | Chưa làm |
 | A4 | Correlated Gaussian H16/A14, OT matching/conditioning; visual-language policy, Euler 2/4/6 | Chưa làm; không đổi tên CFM cũ thành OT |
@@ -58,6 +59,12 @@ flowchart LR
 | P7 — reproducibility/demo | 2–4 ngày | Clean quickstart, benchmark artifacts, videos, model card | Clean install → collect pilot → train smoke → CPU eval; mọi chỉ số README truy được tới report/config/checkpoint |
 
 Các ngưỡng trong gate là mục tiêu nghiệm thu đề xuất. Tracking tolerance/gain cần tune theo robot; ONNX tolerance phải điều chỉnh và ghi rõ nếu dùng quantization. P4 chưa yêu cầu <18 ms; yêu cầu đo latency để quyết định nhịp rollout.
+
+P5 đã có teacher segmentation replay-certified, RGB-D student, text encoder,
+ablation, held-out paraphrases và CPU benchmark. Test visible mean **0,29 cm**,
+p95 **0,83 cm**, coverage **423/423**; xem [báo cáo P5](P5_PERCEPTION.md).
+Kết quả này chỉ đóng gate định vị trong scene hiện tại; system success ≥90%,
+OOD và wrist fusion tiếp tục ở các stage sau.
 
 ## 3. Công việc cụ thể theo file
 

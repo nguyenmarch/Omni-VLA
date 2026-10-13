@@ -1,7 +1,7 @@
-# Trạng thái implementation — 10/10/2026
+# Trạng thái implementation — 13/10/2026
 
 Đã chuyển scaffold sang pipeline simulation/data/training/export/evaluation chạy
-được local. **Chưa hoàn tất toàn bộ mục tiêu VLA contact-rich**: BC Kaggle đã train và kiểm tra trên Dell, nhưng BC drawer đạt target 80% theo tỷ lệ quan sát trên hai bộ seed; CFM gate chưa đạt, grounding đã nối thử vào BC nhưng gate 3D/closed-loop chưa đạt,
+được local. **Chưa hoàn tất toàn bộ mục tiêu VLA contact-rich**: BC Kaggle đã train và kiểm tra trên Dell, BC drawer đạt target 80% theo tỷ lệ quan sát trên hai bộ seed; CFM gate chưa đạt, P5 grounding đã đạt gate 3D trong scene cố định nhưng system closed-loop ≥90% chưa được chứng minh,
 uncapping hai tay chưa tích hợp và recovery cần cải thiện.
 
 ## Những gì đã triển khai
@@ -17,7 +17,7 @@ uncapping hai tay chưa tích hợp và recovery cần cải thiện.
 | CFM | Vector field, time embedding, optional noise/condition skips, Euler sampler | CFM Kaggle v2: Euler 4 50%/50%, 6 52%/46%, 8 60%/52% same/fresh |
 | Export | BC action output / CFM vector field ONNX, JSON normalizer metadata | Deterministic forward parity max abs error khoảng 1e-7–1.6e-6 |
 | Kaggle | Notebook BC → CFM → ONNX, source ZIP, resumable artifacts | BC v2 outputs đã import; CPU evaluation 92%/84% trên hai bộ seeds |
-| Grounding | RGB/query CNN, learned depth offset, calibrated 3D landmarks nối frozen BC; finite-language manager không dùng object/phase oracle | CPU 10 epochs: paired test mean 3D 128px 20.44 cm → 256px 15.40 cm; normal closed-loop cả hai 0/5; P5 chưa đạt gate. Bản 256 drop-RGB bị invalid depth trước action |
+| Grounding P5 | Replay-certified semantic teacher, RGB-D student, known-vocabulary text encoder, calibrated cloud + scene-cylinder refinement; nối frozen BC v2 | Test visible 423/423 coverage, mean 0,29 cm, p95 0,83 cm; CPU capture+infer p50 66,69 ms; loop 15/20 trên seed mới, chưa đạt 90%. [P5 report](P5_PERCEPTION.md). Patch v3 trước đó 144/428 accepted, mean 10,23 cm |
 | Screw fixture | Hinge/slide, pitch constraint 6 mm/vòng, disable constraint sau 2 vòng | Max thread error ~0.0204 mm, release pose jump 0 |
 | Recovery | Slip debounce, hold/reground/regrasp, bounded retry, chunk preemption | Tilted regrasp experiment 1/3 full tasks sau forced slip |
 
@@ -38,6 +38,9 @@ uncapping hai tay chưa tích hợp và recovery cần cải thiện.
 - `weights/cfm_skip/best.pt`, `weights/cfm_skip/policy.onnx` và JSON: CFM H=16,
   còn thiếu task-quality convergence.
 - `weights/grounding_cpu/best.pt`: finite-instruction grounding pilot.
+- `data/grounding_rgbd_v2_256.h5`, `data/grounding_p5_labels.h5` và
+  `weights/p5_student/best.pt`: source 12 episodes, replay-certified teacher
+  masks và P5 checkpoint; [offline/CPU/loop reports](P5_PERCEPTION.md).
 - `artifacts/scene_preview.png`: visual scene; collision geometry cũng được render.
 - `notebooks/kaggle_train.ipynb`, `artifacts/kaggle_source.zip`: cloud handoff.
 
@@ -108,7 +111,8 @@ trên Dell **4.77e-7**. [Import metadata](../artifacts/bc_kaggle_v2_import.json)
 
 ### Grounding / recovery / screw
 
-Grounding error 5.96 pixel là trên **133 visible validation targets** của một
+Các số grounding cũ dưới đây mô tả CNN pilot 128 trước P5. Grounding error
+5.96 pixel là trên **133 visible validation targets** của một
 validation episode, hai finite text instructions, head images 128². Labels là
 object centers; chưa đo contact-surface error 3D, OOD, paraphrase hay image/text
 ablation. Không có pretrained DINOv2 hoặc LLM trong runtime hiện tại.
@@ -126,7 +130,7 @@ cho kết quả full task.
 
 ## Verification
 
-- **38 tests pass**, gồm Gym reset/timing, long-rollout stability, tracking,
+- **44 tests pass**, gồm Gym reset/timing, long-rollout stability, tracking,
   camera projection/unprojection và wrist direction, expert physical rollout,
   dataset split/statistics/tail masks/cache parity, CFM determinism, spatial
   grounding shape/depth requirement, recovery debounce/retry và config timing.

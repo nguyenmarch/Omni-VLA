@@ -7,7 +7,7 @@ from collections import deque
 from itertools import count
 import numpy as np
 import torch
-from models.grounding3d import GroundingRuntime
+from models.grounding3d import load_grounding_runtime
 from simulation.vision import capture_head,robot_observation,VisualTaskManager,FULL_INSTRUCTION,OPEN_INSTRUCTION
 from simulation.expert import PHASES
 from utils.config import make_environment
@@ -16,7 +16,7 @@ from utils.camera_diagnostics import CameraDiagnostics
 
 
 def evaluate(args):
-    torch.set_num_threads(2);grounder=GroundingRuntime(args.grounding);model,c=load_policy(args.policy)
+    torch.set_num_threads(2);grounder=load_grounding_runtime(args.grounding);model,c=load_policy(args.policy)
     if c['policy_type']!='bc' or c['model_config']['chunk_size']!=1:raise ValueError('Require single-action BC bridge')
     stats={k:v.numpy() for k,v in c['stats'].items()}
     env=make_environment(images=False,image_size=grounder.image_size,render_mode='human' if args.gui else None)

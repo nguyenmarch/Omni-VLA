@@ -9,9 +9,12 @@ Cartesian impedance torque control, scripted expert và pipeline HDF5 → BC/CFM
 → checkpoint/ONNX → CPU rollout. Expert kẹp/vận chuyển chai bằng tiếp xúc vật lý;
 không teleport vật thể hoặc dùng weld giả để nắm chai.
 
-Pilot mới: [Patch grounding v3](docs/PATCH_GROUNDING_V3.md) — đã migrate nhãn,
-train CPU và đo coverage; test accepted error 10.23cm, closed-loop 0/5.
-Kaggle notebook/input sẵn; wrist224 + MuJoCo FK mask đang ở mức audit.
+Pilot P5 mới: [RGB-D perception và finite-language student](docs/P5_PERCEPTION.md).
+Test visible mean 0,29 cm, p95 0,83 cm, coverage 423/423; hai-query inference
+CPU p50 25,65 ms, head capture + inference p50 66,69 ms. Closed-loop BC v2
+đạt 15/20 trên 20 seeds mới; system gate ≥90% chưa đạt.
+[Patch grounding v3](docs/PATCH_GROUNDING_V3.md) là baseline trước P5;
+wrist224 + MuJoCo FK mask vẫn ở mức audit.
 Mốc code, config, hash dữ liệu/checkpoint, report và seed đã chốt tại
 [reproducible baseline](docs/REPRO_BASELINE.md).
 
@@ -25,8 +28,9 @@ Mốc code, config, hash dữ liệu/checkpoint, report và seed đã chốt t�
 - BC một action đạt **8/20** CPU rollouts; CFM còn **0/5** full tasks ở checkpoint thử nghiệm. BC và CFM đã train thử trên CPU và export ONNX; parity max absolute error
   khoảng `1.6e-6` ở các checkpoint đầu. Validation loss và rollout success được
   ghi riêng; checkpoint ban đầu chưa đạt learned-control success gate.
-- RGB-D offscreen, calibration và camera round-trip đã kiểm tra; CNN grounding
-  có language conditioning và script train riêng. Chưa xác nhận VLA end-to-end.
+- RGB-D offscreen, calibration và camera round-trip đã kiểm tra. Student P5 nối
+  landmarks đo từ RGB-D vào BC v2; [report](docs/P5_PERCEPTION.md) ghi rõ
+  finite-vocabulary/scene scope và thử nghiệm closed-loop.
 - Screw fixture kiểm chứng ren 6 mm/vòng và release constraint sau hai vòng;
   chưa tích hợp free-body uncapping vào benchmark hai tay.
 - Recovery có slip debounce, buffer preemption và scripted regrasp. Recovery
@@ -196,7 +200,9 @@ camera extrinsics khi unproject 3D. Pilot mới nối predicted landmarks vào B
 thay oracle object/phase bằng camera và finite-task manager; xem
 [Vision-language CPU pilot](docs/VISION_LANGUAGE_PILOT.md) để xem kết quả
 3D, closed-loop và image/text ablations; [pilot 256×256](docs/GROUNDING_256_PILOT.md)
-thu lại RGB-D và train grounding mới, giữ BC v2 làm baseline. Recovery hiện dùng oracle geometry
+thu lại RGB-D và train grounding cũ. [P5 student](docs/P5_PERCEPTION.md) là
+pipeline mới dùng segmentation teacher và geometric center refinement, giữ
+BC v2 làm baseline. Recovery hiện dùng oracle geometry
 cho regrasp và phải benchmark thêm.
 `--inject-slip` mở gripper tạm thời và perturb velocity để gây mất grasp; không
 đổi object position. Screw fixture dùng hinge/slide approximation; release vẫn

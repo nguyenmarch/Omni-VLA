@@ -1,0 +1,15 @@
+{
+  "frames": 30,
+  "warmup_frames": 3,
+  "seed_start": 11000,
+  "accepted_pairs": 30,
+  "threads": 2,
+  "checkpoint_sha256": "cd4a42f6e3721c7b8bc25d2540f1111172bb0d3b4c590556c201704be8849cfa",
+  "capture_and_infer_ms": {
+    "p50": 66.69062399987524,
+    "p95": 76.3013521001767,
+    "p99": 79.28448739020041
+  },
+  "sustained_hz": 14.86951788395108,
+  "scope": "Head256 RGB-D, calibration, segmentation, center regression and two text queries; reset poses, no physics/policy concurrency; not hard real time"
+}

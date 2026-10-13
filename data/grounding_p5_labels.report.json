@@ -1,0 +1,66 @@
+{
+  "source_sha256": "92068af075d7b2977ecafb2496525076cb400ea25e01f7072122dfb234ea9e75",
+  "labels_sha256": "33eef0769e880ac5997b7b7e69b1ba9659c178c0877ba574195f4b5da6076afe",
+  "episodes": [
+    {
+      "episode": "000000",
+      "frames": 108,
+      "max_replay_error": 0.0
+    },
+    {
+      "episode": "000001",
+      "frames": 107,
+      "max_replay_error": 0.0
+    },
+    {
+      "episode": "000002",
+      "frames": 104,
+      "max_replay_error": 0.0
+    },
+    {
+      "episode": "000003",
+      "frames": 106,
+      "max_replay_error": 0.0
+    },
+    {
+      "episode": "000004",
+      "frames": 107,
+      "max_replay_error": 0.0
+    },
+    {
+      "episode": "000005",
+      "frames": 105,
+      "max_replay_error": 0.0
+    },
+    {
+      "episode": "000006",
+      "frames": 107,
+      "max_replay_error": 0.0
+    },
+    {
+      "episode": "000007",
+      "frames": 121,
+      "max_replay_error": 0.0
+    },
+    {
+      "episode": "000008",
+      "frames": 107,
+      "max_replay_error": 0.0
+    },
+    {
+      "episode": "000009",
+      "frames": 107,
+      "max_replay_error": 0.0
+    },
+    {
+      "episode": "000010",
+      "frames": 107,
+      "max_replay_error": 0.0
+    },
+    {
+      "episode": "000011",
+      "frames": 108,
+      "max_replay_error": 0.0
+    }
+  ]
+}

@@ -1,0 +1,1070 @@
+{
+  "schema_version": 1,
+  "checkpoint_sha256": "cd4a42f6e3721c7b8bc25d2540f1111172bb0d3b4c590556c201704be8849cfa",
+  "source_sha256": "92068af075d7b2977ecafb2496525076cb400ea25e01f7072122dfb234ea9e75",
+  "labels_sha256": "33eef0769e880ac5997b7b7e69b1ba9659c178c0877ba574195f4b5da6076afe",
+  "split": "val",
+  "episodes": [
+    "000000",
+    "000007"
+  ],
+  "cpu_threads": 2,
+  "visibility": "teacher visible pixels >=6 and visible/amodal >=0.25",
+  "scope": "Fixed head camera, two object centers, finite known-vocabulary phrases; no unseen-object or synonym claim",
+  "postprocess": "Bottle PCA axis alignment <0.4: center z = measured cloud median z - 0.68 * known 0.025m cylinder radius; selected on validation",
+  "ablations": {
+    "none": {
+      "all": {
+        "targets": 458,
+        "accepted": 458,
+        "coverage": 1.0,
+        "mean_error_m": 0.0037967049538088745,
+        "p95_error_m": 0.01048589241690933,
+        "within_1_5cm_count": 449,
+        "within_1_5cm_all_fraction": 0.980349344978166
+      },
+      "visible": {
+        "targets": 455,
+        "accepted": 455,
+        "coverage": 1.0,
+        "mean_error_m": 0.0037338309936675723,
+        "p95_error_m": 0.009932632371783228,
+        "within_1_5cm_count": 447,
+        "within_1_5cm_all_fraction": 0.9824175824175824
+      },
+      "occluded": {
+        "targets": 3,
+        "accepted": 3,
+        "coverage": 1.0,
+        "mean_error_m": 0.013332588908572992,
+        "p95_error_m": 0.019935653917491435,
+        "within_1_5cm_count": 2,
+        "within_1_5cm_all_fraction": 0.6666666666666666
+      },
+      "per_target": {
+        "bottle": {
+          "targets": 229,
+          "accepted": 229,
+          "coverage": 1.0,
+          "mean_error_m": 0.002205632220319265,
+          "p95_error_m": 0.006913025397807359,
+          "within_1_5cm_count": 229,
+          "within_1_5cm_all_fraction": 1.0
+        },
+        "handle": {
+          "targets": 229,
+          "accepted": 229,
+          "coverage": 1.0,
+          "mean_error_m": 0.005387777687298484,
+          "p95_error_m": 0.013397239893674848,
+          "within_1_5cm_count": 220,
+          "within_1_5cm_all_fraction": 0.9606986899563319
+        }
+      },
+      "per_phase": {
+        "0": {
+          "targets": 40,
+          "accepted": 40,
+          "coverage": 1.0,
+          "mean_error_m": 0.003487187087739585,
+          "p95_error_m": 0.00705200629308818,
+          "within_1_5cm_count": 40,
+          "within_1_5cm_all_fraction": 1.0
+        },
+        "1": {
+          "targets": 36,
+          "accepted": 36,
+          "coverage": 1.0,
+          "mean_error_m": 0.0028864763702990282,
+          "p95_error_m": 0.008150427136570215,
+          "within_1_5cm_count": 36,
+          "within_1_5cm_all_fraction": 1.0
+        },
+        "2": {
+          "targets": 16,
+          "accepted": 16,
+          "coverage": 1.0,
+          "mean_error_m": 0.002897159767599078,
+          "p95_error_m": 0.0035306407371535897,
+          "within_1_5cm_count": 16,
+          "within_1_5cm_all_fraction": 1.0
+        },
+        "3": {
+          "targets": 34,
+          "accepted": 34,
+          "coverage": 1.0,
+          "mean_error_m": 0.0036823468570433117,
+          "p95_error_m": 0.008102805865928524,
+          "within_1_5cm_count": 34,
+          "within_1_5cm_all_fraction": 1.0
+        },
+        "4": {
+          "targets": 44,
+          "accepted": 44,
+          "coverage": 1.0,
+          "mean_error_m": 0.006023955123964697,
+          "p95_error_m": 0.020751144737005234,
+          "within_1_5cm_count": 40,
+          "within_1_5cm_all_fraction": 0.9090909090909091
+        },
+        "5": {
+          "targets": 206,
+          "accepted": 206,
+          "coverage": 1.0,
+          "mean_error_m": 0.0029555618726519544,
+          "p95_error_m": 0.008206411730498075,
+          "within_1_5cm_count": 204,
+          "within_1_5cm_all_fraction": 0.9902912621359223
+        },
+        "6": {
+          "targets": 16,
+          "accepted": 16,
+          "coverage": 1.0,
+          "mean_error_m": 0.0034731837913568597,
+          "p95_error_m": 0.00631884578615427,
+          "within_1_5cm_count": 16,
+          "within_1_5cm_all_fraction": 1.0
+        },
+        "7": {
+          "targets": 32,
+          "accepted": 32,
+          "coverage": 1.0,
+          "mean_error_m": 0.004384330790344393,
+          "p95_error_m": 0.006643945467658341,
+          "within_1_5cm_count": 32,
+          "within_1_5cm_all_fraction": 1.0
+        },
+        "8": {
+          "targets": 32,
+          "accepted": 32,
+          "coverage": 1.0,
+          "mean_error_m": 0.007041025421131053,
+          "p95_error_m": 0.01623623161576688,
+          "within_1_5cm_count": 30,
+          "within_1_5cm_all_fraction": 0.9375
+        },
+        "9": {
+          "targets": 2,
+          "accepted": 2,
+          "coverage": 1.0,
+          "mean_error_m": 0.014426887966692448,
+          "p95_error_m": 0.021766835916787384,
+          "within_1_5cm_count": 1,
+          "within_1_5cm_all_fraction": 0.5
+        }
+      }
+    },
+    "drop-rgb": {
+      "all": {
+        "targets": 458,
+        "accepted": 82,
+        "coverage": 0.17903930131004367,
+        "mean_error_m": 0.1770612890945702,
+        "p95_error_m": 0.2650374695658684,
+        "within_1_5cm_count": 0,
+        "within_1_5cm_all_fraction": 0.0
+      },
+      "visible": {
+        "targets": 455,
+        "accepted": 82,
+        "coverage": 0.18021978021978022,
+        "mean_error_m": 0.1770612890945702,
+        "p95_error_m": 0.2650374695658684,
+        "within_1_5cm_count": 0,
+        "within_1_5cm_all_fraction": 0.0
+      },
+      "occluded": {
+        "targets": 3,
+        "accepted": 0,
+        "coverage": 0.0,
+        "mean_error_m": null,
+        "p95_error_m": null,
+        "within_1_5cm_count": 0,
+        "within_1_5cm_all_fraction": 0.0
+      },
+      "per_target": {
+        "bottle": {
+          "targets": 229,
+          "accepted": 0,
+          "coverage": 0.0,
+          "mean_error_m": null,
+          "p95_error_m": null,
+          "within_1_5cm_count": 0,
+          "within_1_5cm_all_fraction": 0.0
+        },
+        "handle": {
+          "targets": 229,
+          "accepted": 82,
+          "coverage": 0.35807860262008734,
+          "mean_error_m": 0.1770612890945702,
+          "p95_error_m": 0.2650374695658684,
+          "within_1_5cm_count": 0,
+          "within_1_5cm_all_fraction": 0.0
+        }
+      },
+      "per_phase": {
+        "0": {
+          "targets": 40,
+          "accepted": 20,
+          "coverage": 0.5,
+          "mean_error_m": 0.13073126822710038,
+          "p95_error_m": 0.1312906876206398,
+          "within_1_5cm_count": 0,
+          "within_1_5cm_all_fraction": 0.0
+        },
+        "1": {
+          "targets": 36,
+          "accepted": 18,
+          "coverage": 0.5,
+          "mean_error_m": 0.19108641727103126,
+          "p95_error_m": 0.2642045021057129,
+          "within_1_5cm_count": 0,
+          "within_1_5cm_all_fraction": 0.0
+        },
+        "2": {
+          "targets": 16,
+          "accepted": 8,
+          "coverage": 0.5,
+          "mean_error_m": 0.1815059781074524,
+          "p95_error_m": 0.18320850431919097,
+          "within_1_5cm_count": 0,
+          "within_1_5cm_all_fraction": 0.0
+        },
+        "3": {
+          "targets": 34,
+          "accepted": 17,
+          "coverage": 0.5,
+          "mean_error_m": 0.14867721980108933,
+          "p95_error_m": 0.1813066601753235,
+          "within_1_5cm_count": 0,
+          "within_1_5cm_all_fraction": 0.0
+        },
+        "4": {
+          "targets": 44,
+          "accepted": 2,
+          "coverage": 0.045454545454545456,
+          "mean_error_m": 0.14655736833810806,
+          "p95_error_m": 0.15456329956650733,
+          "within_1_5cm_count": 0,
+          "within_1_5cm_all_fraction": 0.0
+        },
+        "5": {
+          "targets": 206,
+          "accepted": 0,
+          "coverage": 0.0,
+          "mean_error_m": null,
+          "p95_error_m": null,
+          "within_1_5cm_count": 0,
+          "within_1_5cm_all_fraction": 0.0
+        },
+        "6": {
+          "targets": 16,
+          "accepted": 0,
+          "coverage": 0.0,
+          "mean_error_m": null,
+          "p95_error_m": null,
+          "within_1_5cm_count": 0,
+          "within_1_5cm_all_fraction": 0.0
+        },
+        "7": {
+          "targets": 32,
+          "accepted": 0,
+          "coverage": 0.0,
+          "mean_error_m": null,
+          "p95_error_m": null,
+          "within_1_5cm_count": 0,
+          "within_1_5cm_all_fraction": 0.0
+        },
+        "8": {
+          "targets": 32,
+          "accepted": 16,
+          "coverage": 0.5,
+          "mean_error_m": 0.24366931524127722,
+          "p95_error_m": 0.27657923847436905,
+          "within_1_5cm_count": 0,
+          "within_1_5cm_all_fraction": 0.0
+        },
+        "9": {
+          "targets": 2,
+          "accepted": 1,
+          "coverage": 0.5,
+          "mean_error_m": 0.293460488319397,
+          "p95_error_m": 0.293460488319397,
+          "within_1_5cm_count": 0,
+          "within_1_5cm_all_fraction": 0.0
+        }
+      }
+    },
+    "drop-depth": {
+      "all": {
+        "targets": 458,
+        "accepted": 0,
+        "coverage": 0.0,
+        "mean_error_m": null,
+        "p95_error_m": null,
+        "within_1_5cm_count": 0,
+        "within_1_5cm_all_fraction": 0.0
+      },
+      "visible": {
+        "targets": 455,
+        "accepted": 0,
+        "coverage": 0.0,
+        "mean_error_m": null,
+        "p95_error_m": null,
+        "within_1_5cm_count": 0,
+        "within_1_5cm_all_fraction": 0.0
+      },
+      "occluded": {
+        "targets": 3,
+        "accepted": 0,
+        "coverage": 0.0,
+        "mean_error_m": null,
+        "p95_error_m": null,
+        "within_1_5cm_count": 0,
+        "within_1_5cm_all_fraction": 0.0
+      },
+      "per_target": {
+        "bottle": {
+          "targets": 229,
+          "accepted": 0,
+          "coverage": 0.0,
+          "mean_error_m": null,
+          "p95_error_m": null,
+          "within_1_5cm_count": 0,
+          "within_1_5cm_all_fraction": 0.0
+        },
+        "handle": {
+          "targets": 229,
+          "accepted": 0,
+          "coverage": 0.0,
+          "mean_error_m": null,
+          "p95_error_m": null,
+          "within_1_5cm_count": 0,
+          "within_1_5cm_all_fraction": 0.0
+        }
+      },
+      "per_phase": {
+        "0": {
+          "targets": 40,
+          "accepted": 0,
+          "coverage": 0.0,
+          "mean_error_m": null,
+          "p95_error_m": null,
+          "within_1_5cm_count": 0,
+          "within_1_5cm_all_fraction": 0.0
+        },
+        "1": {
+          "targets": 36,
+          "accepted": 0,
+          "coverage": 0.0,
+          "mean_error_m": null,
+          "p95_error_m": null,
+          "within_1_5cm_count": 0,
+          "within_1_5cm_all_fraction": 0.0
+        },
+        "2": {
+          "targets": 16,
+          "accepted": 0,
+          "coverage": 0.0,
+          "mean_error_m": null,
+          "p95_error_m": null,
+          "within_1_5cm_count": 0,
+          "within_1_5cm_all_fraction": 0.0
+        },
+        "3": {
+          "targets": 34,
+          "accepted": 0,
+          "coverage": 0.0,
+          "mean_error_m": null,
+          "p95_error_m": null,
+          "within_1_5cm_count": 0,
+          "within_1_5cm_all_fraction": 0.0
+        },
+        "4": {
+          "targets": 44,
+          "accepted": 0,
+          "coverage": 0.0,
+          "mean_error_m": null,
+          "p95_error_m": null,
+          "within_1_5cm_count": 0,
+          "within_1_5cm_all_fraction": 0.0
+        },
+        "5": {
+          "targets": 206,
+          "accepted": 0,
+          "coverage": 0.0,
+          "mean_error_m": null,
+          "p95_error_m": null,
+          "within_1_5cm_count": 0,
+          "within_1_5cm_all_fraction": 0.0
+        },
+        "6": {
+          "targets": 16,
+          "accepted": 0,
+          "coverage": 0.0,
+          "mean_error_m": null,
+          "p95_error_m": null,
+          "within_1_5cm_count": 0,
+          "within_1_5cm_all_fraction": 0.0
+        },
+        "7": {
+          "targets": 32,
+          "accepted": 0,
+          "coverage": 0.0,
+          "mean_error_m": null,
+          "p95_error_m": null,
+          "within_1_5cm_count": 0,
+          "within_1_5cm_all_fraction": 0.0
+        },
+        "8": {
+          "targets": 32,
+          "accepted": 0,
+          "coverage": 0.0,
+          "mean_error_m": null,
+          "p95_error_m": null,
+          "within_1_5cm_count": 0,
+          "within_1_5cm_all_fraction": 0.0
+        },
+        "9": {
+          "targets": 2,
+          "accepted": 0,
+          "coverage": 0.0,
+          "mean_error_m": null,
+          "p95_error_m": null,
+          "within_1_5cm_count": 0,
+          "within_1_5cm_all_fraction": 0.0
+        }
+      }
+    },
+    "drop-rgbd": {
+      "all": {
+        "targets": 458,
+        "accepted": 0,
+        "coverage": 0.0,
+        "mean_error_m": null,
+        "p95_error_m": null,
+        "within_1_5cm_count": 0,
+        "within_1_5cm_all_fraction": 0.0
+      },
+      "visible": {
+        "targets": 455,
+        "accepted": 0,
+        "coverage": 0.0,
+        "mean_error_m": null,
+        "p95_error_m": null,
+        "within_1_5cm_count": 0,
+        "within_1_5cm_all_fraction": 0.0
+      },
+      "occluded": {
+        "targets": 3,
+        "accepted": 0,
+        "coverage": 0.0,
+        "mean_error_m": null,
+        "p95_error_m": null,
+        "within_1_5cm_count": 0,
+        "within_1_5cm_all_fraction": 0.0
+      },
+      "per_target": {
+        "bottle": {
+          "targets": 229,
+          "accepted": 0,
+          "coverage": 0.0,
+          "mean_error_m": null,
+          "p95_error_m": null,
+          "within_1_5cm_count": 0,
+          "within_1_5cm_all_fraction": 0.0
+        },
+        "handle": {
+          "targets": 229,
+          "accepted": 0,
+          "coverage": 0.0,
+          "mean_error_m": null,
+          "p95_error_m": null,
+          "within_1_5cm_count": 0,
+          "within_1_5cm_all_fraction": 0.0
+        }
+      },
+      "per_phase": {
+        "0": {
+          "targets": 40,
+          "accepted": 0,
+          "coverage": 0.0,
+          "mean_error_m": null,
+          "p95_error_m": null,
+          "within_1_5cm_count": 0,
+          "within_1_5cm_all_fraction": 0.0
+        },
+        "1": {
+          "targets": 36,
+          "accepted": 0,
+          "coverage": 0.0,
+          "mean_error_m": null,
+          "p95_error_m": null,
+          "within_1_5cm_count": 0,
+          "within_1_5cm_all_fraction": 0.0
+        },
+        "2": {
+          "targets": 16,
+          "accepted": 0,
+          "coverage": 0.0,
+          "mean_error_m": null,
+          "p95_error_m": null,
+          "within_1_5cm_count": 0,
+          "within_1_5cm_all_fraction": 0.0
+        },
+        "3": {
+          "targets": 34,
+          "accepted": 0,
+          "coverage": 0.0,
+          "mean_error_m": null,
+          "p95_error_m": null,
+          "within_1_5cm_count": 0,
+          "within_1_5cm_all_fraction": 0.0
+        },
+        "4": {
+          "targets": 44,
+          "accepted": 0,
+          "coverage": 0.0,
+          "mean_error_m": null,
+          "p95_error_m": null,
+          "within_1_5cm_count": 0,
+          "within_1_5cm_all_fraction": 0.0
+        },
+        "5": {
+          "targets": 206,
+          "accepted": 0,
+          "coverage": 0.0,
+          "mean_error_m": null,
+          "p95_error_m": null,
+          "within_1_5cm_count": 0,
+          "within_1_5cm_all_fraction": 0.0
+        },
+        "6": {
+          "targets": 16,
+          "accepted": 0,
+          "coverage": 0.0,
+          "mean_error_m": null,
+          "p95_error_m": null,
+          "within_1_5cm_count": 0,
+          "within_1_5cm_all_fraction": 0.0
+        },
+        "7": {
+          "targets": 32,
+          "accepted": 0,
+          "coverage": 0.0,
+          "mean_error_m": null,
+          "p95_error_m": null,
+          "within_1_5cm_count": 0,
+          "within_1_5cm_all_fraction": 0.0
+        },
+        "8": {
+          "targets": 32,
+          "accepted": 0,
+          "coverage": 0.0,
+          "mean_error_m": null,
+          "p95_error_m": null,
+          "within_1_5cm_count": 0,
+          "within_1_5cm_all_fraction": 0.0
+        },
+        "9": {
+          "targets": 2,
+          "accepted": 0,
+          "coverage": 0.0,
+          "mean_error_m": null,
+          "p95_error_m": null,
+          "within_1_5cm_count": 0,
+          "within_1_5cm_all_fraction": 0.0
+        }
+      }
+    },
+    "swap-text": {
+      "all": {
+        "targets": 458,
+        "accepted": 458,
+        "coverage": 1.0,
+        "mean_error_m": 0.2266931981824371,
+        "p95_error_m": 0.30470416843891146,
+        "within_1_5cm_count": 0,
+        "within_1_5cm_all_fraction": 0.0
+      },
+      "visible": {
+        "targets": 455,
+        "accepted": 455,
+        "coverage": 1.0,
+        "mean_error_m": 0.22599086312802283,
+        "p95_error_m": 0.3018072485923766,
+        "within_1_5cm_count": 0,
+        "within_1_5cm_all_fraction": 0.0
+      },
+      "occluded": {
+        "targets": 3,
+        "accepted": 3,
+        "coverage": 1.0,
+        "mean_error_m": 0.33321401476860046,
+        "p95_error_m": 0.34056539833545685,
+        "within_1_5cm_count": 0,
+        "within_1_5cm_all_fraction": 0.0
+      },
+      "per_target": {
+        "bottle": {
+          "targets": 229,
+          "accepted": 229,
+          "coverage": 1.0,
+          "mean_error_m": 0.22612380874078866,
+          "p95_error_m": 0.30322531461715696,
+          "within_1_5cm_count": 0,
+          "within_1_5cm_all_fraction": 0.0
+        },
+        "handle": {
+          "targets": 229,
+          "accepted": 229,
+          "coverage": 1.0,
+          "mean_error_m": 0.22726258762408552,
+          "p95_error_m": 0.30511818528175355,
+          "within_1_5cm_count": 0,
+          "within_1_5cm_all_fraction": 0.0
+        }
+      },
+      "per_phase": {
+        "0": {
+          "targets": 40,
+          "accepted": 40,
+          "coverage": 1.0,
+          "mean_error_m": 0.284460686147213,
+          "p95_error_m": 0.29276617616415024,
+          "within_1_5cm_count": 0,
+          "within_1_5cm_all_fraction": 0.0
+        },
+        "1": {
+          "targets": 36,
+          "accepted": 36,
+          "coverage": 1.0,
+          "mean_error_m": 0.28481809463765884,
+          "p95_error_m": 0.2934204041957855,
+          "within_1_5cm_count": 0,
+          "within_1_5cm_all_fraction": 0.0
+        },
+        "2": {
+          "targets": 16,
+          "accepted": 16,
+          "coverage": 1.0,
+          "mean_error_m": 0.2844769489020109,
+          "p95_error_m": 0.29358814656734467,
+          "within_1_5cm_count": 0,
+          "within_1_5cm_all_fraction": 0.0
+        },
+        "3": {
+          "targets": 34,
+          "accepted": 34,
+          "coverage": 1.0,
+          "mean_error_m": 0.2906976911951514,
+          "p95_error_m": 0.3207385331392288,
+          "within_1_5cm_count": 0,
+          "within_1_5cm_all_fraction": 0.0
+        },
+        "4": {
+          "targets": 44,
+          "accepted": 44,
+          "coverage": 1.0,
+          "mean_error_m": 0.29511619393121113,
+          "p95_error_m": 0.35124853253364563,
+          "within_1_5cm_count": 0,
+          "within_1_5cm_all_fraction": 0.0
+        },
+        "5": {
+          "targets": 206,
+          "accepted": 206,
+          "coverage": 1.0,
+          "mean_error_m": 0.1891428024227758,
+          "p95_error_m": 0.21160516515374184,
+          "within_1_5cm_count": 0,
+          "within_1_5cm_all_fraction": 0.0
+        },
+        "6": {
+          "targets": 16,
+          "accepted": 16,
+          "coverage": 1.0,
+          "mean_error_m": 0.2034714613109827,
+          "p95_error_m": 0.21271776780486107,
+          "within_1_5cm_count": 0,
+          "within_1_5cm_all_fraction": 0.0
+        },
+        "7": {
+          "targets": 32,
+          "accepted": 32,
+          "coverage": 1.0,
+          "mean_error_m": 0.20965526020154357,
+          "p95_error_m": 0.22646114230155945,
+          "within_1_5cm_count": 0,
+          "within_1_5cm_all_fraction": 0.0
+        },
+        "8": {
+          "targets": 32,
+          "accepted": 32,
+          "coverage": 1.0,
+          "mean_error_m": 0.17560800514183939,
+          "p95_error_m": 0.20833246260881425,
+          "within_1_5cm_count": 0,
+          "within_1_5cm_all_fraction": 0.0
+        },
+        "9": {
+          "targets": 2,
+          "accepted": 2,
+          "coverage": 1.0,
+          "mean_error_m": 0.11287776380777359,
+          "p95_error_m": 0.12050705924630165,
+          "within_1_5cm_count": 0,
+          "within_1_5cm_all_fraction": 0.0
+        }
+      }
+    }
+  },
+  "inference_ms": {
+    "p50": 24.601996000001236,
+    "p95": 27.813068599880353,
+    "p99": 32.01273056007267,
+    "scope": "Two queries incl. preprocessing, segmentation, geometry, text; excludes HDF5 IO and rendering"
+  },
+  "heldout_paraphrases": {
+    "scope": "Disjoint sentences; known vocabulary; cached shared visual features",
+    "language_accuracy": 1.0,
+    "phrases": [
+      {
+        "phrase": "identify the green bottle body",
+        "expected_target": 0,
+        "predicted_target": 0,
+        "confidence": 0.9999901056289673
+      },
+      {
+        "phrase": "show the bottle for grasping",
+        "expected_target": 0,
+        "predicted_target": 0,
+        "confidence": 0.9954714775085449
+      },
+      {
+        "phrase": "where is the green bottle",
+        "expected_target": 0,
+        "predicted_target": 0,
+        "confidence": 0.999776303768158
+      },
+      {
+        "phrase": "point to the bottle body",
+        "expected_target": 0,
+        "predicted_target": 0,
+        "confidence": 0.9999016523361206
+      },
+      {
+        "phrase": "identify the dark drawer handle",
+        "expected_target": 1,
+        "predicted_target": 1,
+        "confidence": 0.999996542930603
+      },
+      {
+        "phrase": "show the handle for grasping",
+        "expected_target": 1,
+        "predicted_target": 1,
+        "confidence": 0.99899822473526
+      },
+      {
+        "phrase": "where is the dark handle",
+        "expected_target": 1,
+        "predicted_target": 1,
+        "confidence": 0.9999704360961914
+      },
+      {
+        "phrase": "point to the drawer handle",
+        "expected_target": 1,
+        "predicted_target": 1,
+        "confidence": 0.9997643828392029
+      }
+    ],
+    "metrics": {
+      "all": {
+        "targets": 1832,
+        "accepted": 1832,
+        "coverage": 1.0,
+        "mean_error_m": 0.0037967049510491575,
+        "p95_error_m": 0.010574013046476524,
+        "within_1_5cm_count": 1796,
+        "within_1_5cm_all_fraction": 0.980349344978166
+      },
+      "visible": {
+        "targets": 1820,
+        "accepted": 1820,
+        "coverage": 1.0,
+        "mean_error_m": 0.0037338309901634318,
+        "p95_error_m": 0.010378188840683313,
+        "within_1_5cm_count": 1788,
+        "within_1_5cm_all_fraction": 0.9824175824175824
+      },
+      "occluded": {
+        "targets": 12,
+        "accepted": 12,
+        "coverage": 1.0,
+        "mean_error_m": 0.013332589018717514,
+        "p95_error_m": 0.02075114504147947,
+        "within_1_5cm_count": 8,
+        "within_1_5cm_all_fraction": 0.6666666666666666
+      },
+      "per_target": {
+        "bottle": {
+          "targets": 916,
+          "accepted": 916,
+          "coverage": 1.0,
+          "mean_error_m": 0.002205632212839108,
+          "p95_error_m": 0.006975126559114015,
+          "within_1_5cm_count": 916,
+          "within_1_5cm_all_fraction": 1.0
+        },
+        "handle": {
+          "targets": 916,
+          "accepted": 916,
+          "coverage": 1.0,
+          "mean_error_m": 0.005387777689259207,
+          "p95_error_m": 0.01358188697792532,
+          "within_1_5cm_count": 880,
+          "within_1_5cm_all_fraction": 0.9606986899563319
+        }
+      },
+      "per_phase": {
+        "0": {
+          "targets": 160,
+          "accepted": 160,
+          "coverage": 1.0,
+          "mean_error_m": 0.003487187041745344,
+          "p95_error_m": 0.007052006280959224,
+          "within_1_5cm_count": 160,
+          "within_1_5cm_all_fraction": 1.0
+        },
+        "1": {
+          "targets": 144,
+          "accepted": 144,
+          "coverage": 1.0,
+          "mean_error_m": 0.002886476387703605,
+          "p95_error_m": 0.008546195165362988,
+          "within_1_5cm_count": 144,
+          "within_1_5cm_all_fraction": 1.0
+        },
+        "2": {
+          "targets": 64,
+          "accepted": 64,
+          "coverage": 1.0,
+          "mean_error_m": 0.0028971597667722766,
+          "p95_error_m": 0.003541514639841426,
+          "within_1_5cm_count": 64,
+          "within_1_5cm_all_fraction": 1.0
+        },
+        "3": {
+          "targets": 136,
+          "accepted": 136,
+          "coverage": 1.0,
+          "mean_error_m": 0.00368234683528558,
+          "p95_error_m": 0.009741679601789411,
+          "within_1_5cm_count": 136,
+          "within_1_5cm_all_fraction": 1.0
+        },
+        "4": {
+          "targets": 176,
+          "accepted": 176,
+          "coverage": 1.0,
+          "mean_error_m": 0.006023955130694126,
+          "p95_error_m": 0.02075114504147947,
+          "within_1_5cm_count": 160,
+          "within_1_5cm_all_fraction": 0.9090909090909091
+        },
+        "5": {
+          "targets": 824,
+          "accepted": 824,
+          "coverage": 1.0,
+          "mean_error_m": 0.0029555618798280127,
+          "p95_error_m": 0.0082772680954981,
+          "within_1_5cm_count": 816,
+          "within_1_5cm_all_fraction": 0.9902912621359223
+        },
+        "6": {
+          "targets": 64,
+          "accepted": 64,
+          "coverage": 1.0,
+          "mean_error_m": 0.0034731837955181057,
+          "p95_error_m": 0.006338208921853965,
+          "within_1_5cm_count": 64,
+          "within_1_5cm_all_fraction": 1.0
+        },
+        "7": {
+          "targets": 128,
+          "accepted": 128,
+          "coverage": 1.0,
+          "mean_error_m": 0.004384330779144746,
+          "p95_error_m": 0.00672390051733765,
+          "within_1_5cm_count": 128,
+          "within_1_5cm_all_fraction": 1.0
+        },
+        "8": {
+          "targets": 128,
+          "accepted": 128,
+          "coverage": 1.0,
+          "mean_error_m": 0.0070410253968147644,
+          "p95_error_m": 0.018337465323499516,
+          "within_1_5cm_count": 120,
+          "within_1_5cm_all_fraction": 0.9375
+        },
+        "9": {
+          "targets": 8,
+          "accepted": 8,
+          "coverage": 1.0,
+          "mean_error_m": 0.01442688796559907,
+          "p95_error_m": 0.022582385502696124,
+          "within_1_5cm_count": 4,
+          "within_1_5cm_all_fraction": 0.5
+        }
+      }
+    }
+  },
+  "frozen_patch_v3": {
+    "checkpoint_sha256": "0f000ac1ce937008b6eac69a09e116a7844b9350952416c30f724b2fa0c02e24",
+    "all": {
+      "targets": 458,
+      "accepted": 167,
+      "coverage": 0.3646288209606987,
+      "mean_error_m": 0.0868620064617051,
+      "p95_error_m": 0.19661639332771302,
+      "within_1_5cm_count": 5,
+      "within_1_5cm_all_fraction": 0.010917030567685589
+    },
+    "visible": {
+      "targets": 455,
+      "accepted": 167,
+      "coverage": 0.367032967032967,
+      "mean_error_m": 0.0868620064617051,
+      "p95_error_m": 0.19661639332771302,
+      "within_1_5cm_count": 5,
+      "within_1_5cm_all_fraction": 0.01098901098901099
+    },
+    "occluded": {
+      "targets": 3,
+      "accepted": 0,
+      "coverage": 0.0,
+      "mean_error_m": null,
+      "p95_error_m": null,
+      "within_1_5cm_count": 0,
+      "within_1_5cm_all_fraction": 0.0
+    },
+    "per_target": {
+      "bottle": {
+        "targets": 229,
+        "accepted": 100,
+        "coverage": 0.4366812227074236,
+        "mean_error_m": 0.06982929988764226,
+        "p95_error_m": 0.127531598508358,
+        "within_1_5cm_count": 1,
+        "within_1_5cm_all_fraction": 0.004366812227074236
+      },
+      "handle": {
+        "targets": 229,
+        "accepted": 67,
+        "coverage": 0.2925764192139738,
+        "mean_error_m": 0.11228395657224664,
+        "p95_error_m": 0.1966499239206314,
+        "within_1_5cm_count": 4,
+        "within_1_5cm_all_fraction": 0.017467248908296942
+      }
+    },
+    "per_phase": {
+      "0": {
+        "targets": 40,
+        "accepted": 13,
+        "coverage": 0.325,
+        "mean_error_m": 0.05156602767797617,
+        "p95_error_m": 0.056043607741594316,
+        "within_1_5cm_count": 0,
+        "within_1_5cm_all_fraction": 0.0
+      },
+      "1": {
+        "targets": 36,
+        "accepted": 19,
+        "coverage": 0.5277777777777778,
+        "mean_error_m": 0.05494923340646844,
+        "p95_error_m": 0.06590140238404274,
+        "within_1_5cm_count": 0,
+        "within_1_5cm_all_fraction": 0.0
+      },
+      "2": {
+        "targets": 16,
+        "accepted": 13,
+        "coverage": 0.8125,
+        "mean_error_m": 0.06003718422009395,
+        "p95_error_m": 0.07003177553415295,
+        "within_1_5cm_count": 0,
+        "within_1_5cm_all_fraction": 0.0
+      },
+      "3": {
+        "targets": 34,
+        "accepted": 14,
+        "coverage": 0.4117647058823529,
+        "mean_error_m": 0.062016706281740754,
+        "p95_error_m": 0.11467511542141437,
+        "within_1_5cm_count": 2,
+        "within_1_5cm_all_fraction": 0.058823529411764705
+      },
+      "4": {
+        "targets": 44,
+        "accepted": 23,
+        "coverage": 0.5227272727272727,
+        "mean_error_m": 0.18940772067593492,
+        "p95_error_m": 0.38539399504661553,
+        "within_1_5cm_count": 0,
+        "within_1_5cm_all_fraction": 0.0
+      },
+      "5": {
+        "targets": 206,
+        "accepted": 35,
+        "coverage": 0.16990291262135923,
+        "mean_error_m": 0.10569571871310472,
+        "p95_error_m": 0.1966228350996971,
+        "within_1_5cm_count": 1,
+        "within_1_5cm_all_fraction": 0.0048543689320388345
+      },
+      "6": {
+        "targets": 16,
+        "accepted": 8,
+        "coverage": 0.5,
+        "mean_error_m": 0.05463288468308747,
+        "p95_error_m": 0.07807397395372391,
+        "within_1_5cm_count": 0,
+        "within_1_5cm_all_fraction": 0.0
+      },
+      "7": {
+        "targets": 32,
+        "accepted": 15,
+        "coverage": 0.46875,
+        "mean_error_m": 0.05242550087471803,
+        "p95_error_m": 0.09536387175321576,
+        "within_1_5cm_count": 0,
+        "within_1_5cm_all_fraction": 0.0
+      },
+      "8": {
+        "targets": 32,
+        "accepted": 26,
+        "coverage": 0.8125,
+        "mean_error_m": 0.06859983718739106,
+        "p95_error_m": 0.18713604658842087,
+        "within_1_5cm_count": 2,
+        "within_1_5cm_all_fraction": 0.0625
+      },
+      "9": {
+        "targets": 2,
+        "accepted": 1,
+        "coverage": 0.5,
+        "mean_error_m": 0.08007491379976273,
+        "p95_error_m": 0.08007491379976273,
+        "within_1_5cm_count": 0,
+        "within_1_5cm_all_fraction": 0.0
+      }
+    }
+  },
+  "gates": {
+    "visible_mean_le_1_5cm": true,
+    "visible_coverage_ge_90pct": true,
+    "advanced_visible_p95_le_1_5cm": true
+  }
+}

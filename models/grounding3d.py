@@ -7,6 +7,15 @@ from simulation.vision import QUERIES
 from utils.robust_depth import RobustDepthDecoder
 
 
+def load_grounding_runtime(checkpoint):
+    """Choose the runtime by the versioned checkpoint input contract."""
+    metadata = torch.load(checkpoint, map_location='cpu', weights_only=True)
+    if metadata['schema_version'] == 'omni-p5-student-v1':
+        from models.rgbd_student import RGBDStudentRuntime
+        return RGBDStudentRuntime(checkpoint)
+    return GroundingRuntime(checkpoint)
+
+
 class Grounding3D(nn.Module):
     def __init__(self,img_size=128,feature_dim=64,latent_dim=64,decoder_config=None):
         super().__init__();self.img_size=img_size
