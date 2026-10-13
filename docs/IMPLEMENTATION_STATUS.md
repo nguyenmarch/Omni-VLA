@@ -126,7 +126,7 @@ cho kết quả full task.
 
 ## Verification
 
-- **20 tests pass**, gồm Gym reset/timing, long-rollout stability, tracking,
+- **38 tests pass**, gồm Gym reset/timing, long-rollout stability, tracking,
   camera projection/unprojection và wrist direction, expert physical rollout,
   dataset split/statistics/tail masks/cache parity, CFM determinism, spatial
   grounding shape/depth requirement, recovery debounce/retry và config timing.

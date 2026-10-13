@@ -5,6 +5,17 @@ import numpy as np
 import torch
 from torch.utils.data import Dataset
 
+PATCH_OFFSET_LIMIT_M = 0.08
+DEFAULT_DECODER_CONFIG = {
+    'patch_size': 7,
+    'quantile': 0.5,
+    'min_support': 6,
+    'min_fraction': 0.2,
+    'max_iqr': 0.10,
+    'depth_range': [0.05, 5.0],
+    'workspace': [[-0.1, -0.75, 0.4], [0.95, 0.75, 1.5]],
+}
+
 
 class PatchGroundingFrames(Dataset):
     def __init__(self,path,split):
@@ -12,6 +23,9 @@ class PatchGroundingFrames(Dataset):
         with h5py.File(path) as h:
             if h.attrs['schema_version']!='omni-grounding-patch-v3':raise ValueError('Require patch supervision schema')
             self.decoder_config=json.loads(h.attrs['decoder_config'])
+            self.offset_limit_m=float(h.attrs['offset_limit_m'])
+            if not np.isfinite(self.offset_limit_m) or self.offset_limit_m<=0:
+                raise ValueError('Invalid patch offset limit')
             splits=json.loads(h.attrs['splits']);names=[n for group in splits.values() for n in group]
             if len(names)!=len(set(names)):raise ValueError('Episode leakage')
             self.episodes=splits[split];self.size=next(iter(h['episodes'].values()))['rgb'].shape[1]
@@ -26,7 +40,8 @@ class PatchGroundingFrames(Dataset):
                     for target in range(2):
                         eligible=bool(frame['patch_label_valid'][step,target]);self.eligible+=int(eligible);self.total_targets+=1
                         if split=='train' and not eligible:continue
-                        if eligible and (not np.isfinite(frame['patch_offset'][step,target]) or abs(frame['patch_offset'][step,target])>.08):
+                        if eligible and (not np.isfinite(frame['patch_offset'][step,target])
+                                         or abs(frame['patch_offset'][step,target])>self.offset_limit_m):
                             raise ValueError('Invalid eligible offset label')
                         self.index.append((name,step,target))
     def __len__(self):return len(self.index)

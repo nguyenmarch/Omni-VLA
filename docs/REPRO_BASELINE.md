@@ -5,6 +5,8 @@ reports, and [the hash manifest](REPRO_BASELINE.json). HDF5 datasets, PyTorch
 checkpoints, ONNX files, and output ZIPs remain local because they are large.
 The manifest identifies their exact bytes; a fresh checkout needs those files
 copied to the listed paths before benchmark verification or rerunning inference.
+Historical Kaggle output ZIPs are no longer stored in the repository; import
+reports retain their archive hashes if an old run must be retrieved.
 
 ## Verify a checkout
 

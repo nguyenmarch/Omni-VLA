@@ -25,7 +25,7 @@ Python + MuJoCo là runtime ban đầu. ROS2/C++ là bước tích hợp sau khi
 
 | Thành phần | Quan sát thực tế | Hệ quả |
 |---|---|---|
-| `README.md`, `Omni-VLA.md` | Mô tả mục tiêu; có lệnh TPU, cây thư mục và chỉ số chưa được code/experiment hỗ trợ | Cần phân biệt roadmap với kết quả đo |
+| Bản đề xuất tiền triển khai (đã bỏ khỏi repository) | Có lệnh TPU, cây thư mục và chỉ số chưa được code/experiment hỗ trợ | Dùng README và implementation status cho trạng thái thực tế |
 | `simulation/assets/bottle_drawer_scene.xml` | MuJoCo 3.15.0 từ Python hệ thống báo schema error tại `<world>`; chưa có robot/actuator điều khiển hai tay | Phải dựng lại scene trước khi collect |
 | XML hiện tại | Freejoint lồng trong body nắp, joint free + slide ở drawer, material `metal` chưa khai báo, sensor không hợp lệ | Sửa riêng `<world>` chưa đủ |
 | `simulation/bimanual_env.py` | `mj_render`, `mj_encodePixels` không có trong MuJoCo đã kiểm tra; đọc `sensor_force` sai API; randomization trước reset; đường dẫn máy hardcode | Observation/reset chưa dùng được |

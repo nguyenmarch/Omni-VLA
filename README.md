@@ -186,7 +186,6 @@ perception, render hoặc ROS2 communication.
 ## Grounding, screw fixture và recovery experiments
 
 ```bash
-python -m scripts.train_affordance --dataset data/drawer_rgbd_v1.h5 --epochs 30 --output weights/grounding
 python -m scripts.check_screw_fixture
 python -m scripts.eval_closed_loop --expert --recovery --inject-slip --episodes 10 --seed 9000 --output artifacts/recovery_eval.json
 ```

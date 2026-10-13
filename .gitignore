@@ -1,39 +1,36 @@
 .venv/
 __pycache__/
-*.h5
-*.pkl
-*.pt
-artifacts/
-*.onnx
-*.tmp
-*.egg-info/
 .pytest_cache/
-artifacts/*.zip
-artifacts/*trace*.jsonl
-# Build output chung
-build/
-dist/
-out/
-target/
-*.o
-*.so
-*.dll
-*.exe
-
-# Python / ML artifacts
-__pycache__/
 *.py[cod]
+*.egg-info/
+
+# Local datasets, model outputs, and generated diagnostics.
+*.h5
 *.pkl
 *.pt
 *.pth
 *.onnx
 *.safetensors
 *.bin
-artifacts/
-checkpoints/
-
-# Node.js / Frontend
-.next/
-dist/
-coverage/
+*.tmp
 /*_outputs.zip
+/bc_outputs/
+/weights/*/
+/data/*.report.json
+/artifacts/
+/checkpoints/
+/MJDATA.TXT
+/MUJOCO_LOG.TXT
+/screenshot.png
+
+# Build outputs.
+/build/
+/dist/
+/out/
+/target/
+*.o
+*.so
+*.dll
+*.exe
+.next/
+coverage/
