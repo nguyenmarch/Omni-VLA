@@ -89,6 +89,7 @@ def evaluate(args):
             info = env.info()
             episode_errors, transitions, slip_events = [], [], []
             episode_fallbacks = 0
+            contact_triggers = 0
             slip_monitor = WrenchSlipMonitor() if getattr(args, 'slip_monitor', False) else None
             slip_states = {}
             oracle_at_capture = {}
@@ -147,8 +148,12 @@ def evaluate(args):
                         points, metadata, frame = result.value
                         episode_fallbacks += int(bool(metadata.get('fallback_used', False)))
                         if manager is None:
-                            manager = VisualTaskManager(points, args.instruction,
-                                                        transition_tolerance=getattr(args, 'transition_tolerance', .012))
+                            manager = VisualTaskManager(
+                                points, args.instruction,
+                                transition_tolerance=getattr(args, 'transition_tolerance', .012),
+                                transfer_tolerance=getattr(args, 'transfer_tolerance', .025),
+                                place_contact_force_threshold_n=getattr(args, 'place_contact_force_threshold_n', 8.),
+                                place_contact_debounce_steps=getattr(args, 'place_contact_debounce_steps', 3))
                         else:
                             manager.observe(points)
                         latest = result
@@ -186,10 +191,16 @@ def evaluate(args):
                 obs, _, done, trunc, info = env.step(action)
                 if manager is not None and fresh:
                     previous = manager.phase
-                    manager.update(robot_observation(obs))
+                    update_robot = robot_observation(obs)
+                    update_robot['left_wrist_rotation'] = env.data.site('left_wrist').xmat.reshape(3, 3).copy()
+                    manager.update(update_robot)
                     if previous != manager.phase:
+                        contact = manager.last_transition_reason == 'wrench_contact'
+                        contact_triggers += int(contact)
                         transitions.append({'step': step+1, 'from': PHASES[previous], 'to': PHASES[manager.phase],
-                                            'observation_sim_age_s': sim_age})
+                                            'observation_sim_age_s': sim_age,
+                                            'reason': manager.last_transition_reason,
+                                            'place_contact_fz_n': manager.place_contact_fz_n if previous == 5 else None})
                 elapsed = time.perf_counter()-started
                 work_ms.append(elapsed*1000)
                 total_ticks += 1
@@ -219,6 +230,7 @@ def evaluate(args):
                    'visual_completed': manager.completed if manager else False,
                    'phase_transitions': transitions, 'randomization': parameters,
                    'fallback_predictions': episode_fallbacks,
+                   'place_contact_triggers': contact_triggers,
                    'wrench_slip_events': slip_events, 'wrench_slip_states': slip_states,
                    'landmark_mean_error_m': np.mean(episode_errors, axis=0).tolist() if episode_errors else None}
             episodes.append(row)
@@ -257,6 +269,9 @@ def evaluate(args):
               'temporal_smoothing_enabled': temporal_smoothing_enabled,
               'fallback_max_age_s': args.fallback_max_age_s,
               'transition_tolerance_m': getattr(args, 'transition_tolerance', .012),
+              'transfer_tolerance_m': getattr(args, 'transfer_tolerance', .025),
+              'place_contact_force_threshold_n': getattr(args, 'place_contact_force_threshold_n', 8.),
+              'place_contact_debounce_steps': getattr(args, 'place_contact_debounce_steps', 3),
               'held_steps': held_steps, 'stale_results': stale_results, 'perception_rejections': rejections,
               'deadline_misses': deadline_misses, 'control_ticks': total_ticks,
               'deadline_miss_fraction': deadline_misses/total_ticks if total_ticks else None,
@@ -297,6 +312,12 @@ def parser():
     p.add_argument('--max-perception-gap', type=float, default=1.)
     p.add_argument('--max-rejections', type=int, default=3)
     p.add_argument('--transition-tolerance', type=float, default=.012)
+    p.add_argument('--transfer-tolerance', type=float, default=.025,
+                   help='Looser EE reach tolerance during open-space transfer (meters)')
+    p.add_argument('--place-contact-force-threshold-n', type=float, default=8.,
+                   help='World-vertical wrist force threshold for early placement contact (newtons)')
+    p.add_argument('--place-contact-debounce-steps', type=int, default=3,
+                   help='Consecutive contact samples required to advance to gripper release')
     p.add_argument('--slip-monitor', action='store_true', help='Observable wrist-load/finger detector; no oracle geometry')
     p.add_argument('--stop-on-slip', action='store_true', help='Hold and terminate on detected load loss; requires --slip-monitor')
     p.add_argument('--profile', choices=['iid', 'camera', 'lighting', 'friction', 'position', 'combined'], default='iid')
@@ -316,8 +337,12 @@ def main():
     args = p.parse_args()
     if min(args.episodes, args.perception_every, args.max_rejections) < 1:
         p.error('episodes, perception-every and max-rejections must be positive')
-    if any(not np.isfinite(x) or x <= 0 for x in (args.max_sim_age, args.max_wall_age, args.max_perception_gap, args.transition_tolerance)):
+    if any(not np.isfinite(x) or x <= 0 for x in (args.max_sim_age, args.max_wall_age, args.max_perception_gap,
+                                                   args.transition_tolerance, args.transfer_tolerance,
+                                                   args.place_contact_force_threshold_n)):
         p.error('age/gap/tolerance must be finite and positive')
+    if args.place_contact_debounce_steps < 1:
+        p.error('place-contact-debounce-steps must be positive')
     if not np.isfinite(args.fallback_max_age_s) or args.fallback_max_age_s <= 0:
         p.error('fallback-max-age-s must be finite and positive')
     if args.seeds and len(args.seeds) != len(set(args.seeds)):

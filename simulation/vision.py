@@ -81,13 +81,27 @@ class VisualTaskManager:
     Finite task grammar; no expert actions, simulator object sites or success
     flags. Opening is relative to the perceived handle at episode start.
     """
-    def __init__(self,points,instruction=FULL_INSTRUCTION,transition_tolerance=.012):
+    def __init__(self,points,instruction=FULL_INSTRUCTION,transition_tolerance=.012,
+                 transfer_tolerance=.025,place_contact_force_threshold_n=8.,
+                 place_contact_debounce_steps=3):
         if instruction not in (FULL_INSTRUCTION,OPEN_INSTRUCTION):
             raise ValueError('Only the two documented English task instructions are supported')
         self.open_only=instruction==OPEN_INSTRUCTION
         if not np.isfinite(transition_tolerance) or transition_tolerance <= 0:
             raise ValueError('Transition tolerance must be finite and positive')
         self.transition_tolerance=transition_tolerance
+        if not np.isfinite(transfer_tolerance) or transfer_tolerance <= 0:
+            raise ValueError('Transfer tolerance must be finite and positive')
+        if not np.isfinite(place_contact_force_threshold_n) or place_contact_force_threshold_n <= 0:
+            raise ValueError('Place contact force threshold must be finite and positive')
+        if int(place_contact_debounce_steps) < 1:
+            raise ValueError('Place contact debounce must be positive')
+        self.transfer_tolerance=float(transfer_tolerance)
+        self.place_contact_force_threshold_n=float(place_contact_force_threshold_n)
+        self.place_contact_debounce_steps=int(place_contact_debounce_steps)
+        self.place_contact_streak=0
+        self.place_contact_fz_n=0.
+        self.last_transition_reason=''
         self.initial=np.asarray(points,dtype=np.float32).copy()
         if self.initial.shape!=(2,3) or not np.isfinite(self.initial).all():
             raise ValueError('Expected two finite perceived 3D points')
@@ -122,7 +136,9 @@ class VisualTaskManager:
 
     def update(self,robot):
         self.age+=1;lp,rp=np.asarray(robot['ee']).reshape(2,3);left,right=self.goals()
-        reached=(self.open_only or np.linalg.norm(lp-left)<self.transition_tolerance) and np.linalg.norm(rp-right)<self.transition_tolerance
+        self.last_transition_reason=''
+        tolerance=self.transfer_tolerance if self.phase==4 else self.transition_tolerance
+        reached=(self.open_only or np.linalg.norm(lp-left)<tolerance) and np.linalg.norm(rp-right)<tolerance
         self.opened|=self.opening>.16
         center=self.points[1]+[.19,0,-.09];bottle=self.points[0]
         inside=abs(bottle[0]-center[0])<.11 and abs(bottle[1]-center[1])<.075 and .445<bottle[2]<.57
@@ -131,11 +147,31 @@ class VisualTaskManager:
         if self.open_only and self.phase==3 and self.opened:self.completed=True;return
         if self.phase in (2,6):ready=self.age>=20
         elif self.phase==3:ready=self.opened and (self.open_only or lp[2]>.69)
-        elif self.phase==5:ready=np.linalg.norm(lp-left)<.025 and np.linalg.norm(rp-right)<.02
+        elif self.phase==5:
+            wrench=np.asarray(robot['wrench'],dtype=float)
+            if wrench.shape!=(12,) or not np.isfinite(wrench).all():
+                raise ValueError('Expected finite wrench[12] for place contact trigger')
+            # The left wrist force sensor reports in its site frame. Rotate to
+            # world coordinates so Fz means vertical contact in the drawer.
+            wrist_rotation=np.asarray(robot.get('left_wrist_rotation',np.eye(3)),dtype=float)
+            if wrist_rotation.shape!=(3,3) or not np.isfinite(wrist_rotation).all():
+                raise ValueError('Expected finite left wrist rotation[3,3]')
+            self.place_contact_fz_n=float((wrist_rotation@wrench[:3])[2])
+            drawer_center=self.points[1]+[.19,0,-.09]
+            near_drawer=(abs(lp[0]-drawer_center[0])<.13 and abs(lp[1]-drawer_center[1])<.10
+                         and np.linalg.norm(lp-left)<.10)
+            contact=near_drawer and abs(self.place_contact_fz_n)>=self.place_contact_force_threshold_n
+            self.place_contact_streak=self.place_contact_streak+1 if contact else 0
+            reached_place=np.linalg.norm(lp-left)<.025 and np.linalg.norm(rp-right)<.02
+            ready=reached_place or self.place_contact_streak>=self.place_contact_debounce_steps
+            if ready:
+                self.last_transition_reason=('wrench_contact' if self.place_contact_streak>=self.place_contact_debounce_steps
+                                             else 'place_goal_reached')
         elif self.phase==8:ready=self.opening<.03
         elif self.phase==9:ready=self.placed and inside and released and self.opening<.035
         else:ready=reached
         if ready:
+            if self.phase==4:self.last_transition_reason='transfer_goal_reached'
             if self.phase==9:self.completed=True
             else:self.phase+=1;self.age=0
         if self.age>350:self.failed=True;self.failure_reason='visual_timeout_'+PHASES[self.phase]

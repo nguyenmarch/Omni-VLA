@@ -72,7 +72,10 @@ def prepare(args):
                         'max_rejections': 3, 'perception_every': 5,
                         'arm_mask_candidate': args.arm_mask_candidate,
                         'temporal_smoothing_candidate': args.temporal_smoothing_candidate,
-                        'fallback_max_age_s_candidate': args.fallback_max_age_s_candidate},
+                        'fallback_max_age_s_candidate': args.fallback_max_age_s_candidate,
+                        'transfer_tolerance_m': args.transfer_tolerance,
+                        'place_contact_force_threshold_n': args.place_contact_force_threshold_n,
+                        'place_contact_debounce_steps': args.place_contact_debounce_steps},
             'variants': ['baseline', 'candidate'] if args.paired else ['candidate'],
             'selection_policy': 'Prepared before evaluation; baseline and candidate use identical seeds, checkpoints, task, and physics. No tuning on these seeds. One checkpoint/training seed. Report profiles separately.',
             'gates': {'iid_observed_target': .8, 'iid_population_lower_bound_target': .8}}
@@ -91,6 +94,9 @@ def validate_report(plan, profile, report, plan_sha256, legacy):
             or report.get('arm_mask_enabled', False) != (not legacy and plan['options']['arm_mask_candidate'])
             or report.get('temporal_smoothing_enabled', False) != (not legacy and plan['options']['temporal_smoothing_candidate'])
             or report.get('fallback_max_age_s') != (0.4 if legacy else plan['options']['fallback_max_age_s_candidate'])
+            or report.get('transfer_tolerance_m') != plan['options']['transfer_tolerance_m']
+            or report.get('place_contact_force_threshold_n') != plan['options']['place_contact_force_threshold_n']
+            or report.get('place_contact_debounce_steps') != plan['options']['place_contact_debounce_steps']
             or report['policy_sha256'] != plan['policy_sha256']
             or report['grounding_sha256'] != plan['grounding_sha256']
             or report['suite_plan_sha256'] != plan_sha256):
@@ -131,6 +137,9 @@ def run(output):
                                                   '--profile', profile, '--output', str(path),
                                                   '--trace', str(variant_dir/(profile+'.jsonl')),
                                                   '--diagnostic-dataset', 'data/drawer_dagger_v2.h5'] +
+                                                  ['--transfer-tolerance', str(plan['options']['transfer_tolerance_m']),
+                                                   '--place-contact-force-threshold-n', str(plan['options']['place_contact_force_threshold_n']),
+                                                   '--place-contact-debounce-steps', str(plan['options']['place_contact_debounce_steps'])] +
                                                   variant_flags)
                 args.seeds = seeds
                 for key, value in plan['options'].items():
@@ -140,6 +149,7 @@ def run(output):
             summaries[variant].append({'profile': profile, 'successes': report['successes'], 'attempted': report['attempted'],
                             'success_rate': report['success_rate'], 'wilson_95': wilson(report['successes'], report['attempted']),
                             'fallback_predictions': report.get('fallback_predictions', 0),
+                            'place_contact_triggers': sum(row.get('place_contact_triggers', 0) for row in report['episodes']),
                             'fallback_episodes': report.get('fallback_episodes', 0),
                             'perception_rejections': report.get('perception_rejections', 0),
                             'invalid_reasons': report.get('perception_invalid_reasons', {}),
@@ -198,9 +208,16 @@ def main():
     p.add_argument('--fallback-max-age-s-candidate', type=float, default=.4,
                    help='Candidate landmark fallback age limit in simulated seconds')
     p.add_argument('--transition-tolerance', type=float, default=.012)
+    p.add_argument('--transfer-tolerance', type=float, default=.025)
+    p.add_argument('--place-contact-force-threshold-n', type=float, default=8.)
+    p.add_argument('--place-contact-debounce-steps', type=int, default=3)
     args = p.parse_args()
     if min(args.iid_episodes, args.ood_episodes) < 1 or max(args.iid_episodes, args.ood_episodes) > 1000:
         p.error('Episode counts must be in [1,1000]')
+    if (not np.isfinite(args.transfer_tolerance) or args.transfer_tolerance <= 0
+            or not np.isfinite(args.place_contact_force_threshold_n) or args.place_contact_force_threshold_n <= 0
+            or args.place_contact_debounce_steps < 1):
+        p.error('transfer tolerance, contact threshold and debounce must be positive')
     if args.action == 'prepare':
         prepare(args)
     else:
