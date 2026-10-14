@@ -2,6 +2,7 @@
 import argparse
 import hashlib
 import json
+import math
 from pathlib import Path
 import subprocess
 
@@ -41,16 +42,19 @@ def validate_seeds(sets, datasets, historical=()):
 
 
 def prepare(args):
+    profiles = tuple(args.profiles or PROFILES)
+    if not profiles or len(set(profiles)) != len(profiles) or set(profiles)-set(PROFILES):
+        raise ValueError('Invalid or duplicate suite profiles')
     sets = {profile: list(range(args.seed+index*1000,
                                args.seed+index*1000+(args.iid_episodes if profile == 'iid' else args.ood_episodes)))
-            for index, profile in enumerate(PROFILES)}
+            for index, profile in enumerate(profiles)}
     used = set()
     for path in (ROOT/'artifacts').rglob('*.json'):
         try:
             report = json.loads(path.read_text())
             if isinstance(report, dict):
                 used.update(row['seed'] for row in report.get('episodes', []) if isinstance(row, dict) and 'seed' in row)
-                if report.get('schema') == 'omni-visual-eval-plan-v1':
+                if report.get('schema') in ('omni-visual-eval-plan-v1','omni-visual-eval-plan-v2'):
                     used.update(seed for seeds in report['sets'].values() for seed in seeds)
                 if report.get('schema') == 'omni-state-eval-plan-v1':
                     used.update(report['seeds'])
@@ -58,27 +62,35 @@ def prepare(args):
             continue
     datasets = ['data/drawer_dagger_v2.h5', 'data/grounding_rgbd_v2_256.h5']
     validate_seeds(sets, datasets, used)
-    plan = {'schema': 'omni-visual-eval-plan-v1', 'sets': sets,
+    plan = {'schema': 'omni-visual-eval-plan-v2', 'sets': sets,
             'policy': args.policy, 'grounding': args.grounding,
             'policy_sha256': file_hash(args.policy), 'grounding_sha256': file_hash(args.grounding),
             'source_sha256': source_hash(),
             'git_commit': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip(),
             'datasets_sha256': {path: file_hash(path) for path in datasets},
             'options': {'async_perception': args.async_perception, 'transition_tolerance': args.transition_tolerance,
-                        'max_rejections': 3, 'perception_every': 5},
-            'selection_policy': 'Prepared before evaluation; no tuning on these seeds. One checkpoint/training seed. Report profiles separately.',
-            'gates': {'iid_observed_target': .9, 'iid_population_lower_bound_target': .8}}
+                        'max_rejections': 3, 'perception_every': 5,
+                        'arm_mask_candidate': args.arm_mask_candidate,
+                        'temporal_smoothing_candidate': args.temporal_smoothing_candidate,
+                        'fallback_max_age_s_candidate': args.fallback_max_age_s_candidate},
+            'variants': ['baseline', 'candidate'] if args.paired else ['candidate'],
+            'selection_policy': 'Prepared before evaluation; baseline and candidate use identical seeds, checkpoints, task, and physics. No tuning on these seeds. One checkpoint/training seed. Report profiles separately.',
+            'gates': {'iid_observed_target': .8, 'iid_population_lower_bound_target': .8}}
     Path(args.output).mkdir(parents=True, exist_ok=False)
     write_json(Path(args.output)/'plan.json', plan)
     return plan
 
 
-def validate_report(plan, profile, report, plan_sha256):
+def validate_report(plan, profile, report, plan_sha256, legacy):
     seeds = plan['sets'][profile]
     if (report['seeds_requested'] != seeds or report['attempted'] != len(seeds)
             or [row['seed'] for row in report['episodes']] != seeds
             or report['successes'] != sum(bool(row['success']) for row in report['episodes'])
             or report['profile'] != profile
+            or report.get('legacy_perception', False) != legacy
+            or report.get('arm_mask_enabled', False) != (not legacy and plan['options']['arm_mask_candidate'])
+            or report.get('temporal_smoothing_enabled', False) != (not legacy and plan['options']['temporal_smoothing_candidate'])
+            or report.get('fallback_max_age_s') != (0.4 if legacy else plan['options']['fallback_max_age_s_candidate'])
             or report['policy_sha256'] != plan['policy_sha256']
             or report['grounding_sha256'] != plan['grounding_sha256']
             or report['suite_plan_sha256'] != plan_sha256):
@@ -96,31 +108,64 @@ def run(output):
     for path, expected in plan['datasets_sha256'].items():
         if file_hash(path) != expected:
             raise ValueError('Dataset changed after plan preparation')
-    summary = []
-    for profile, seeds in plan['sets'].items():
-        path = folder/(profile+'.json')
-        if path.exists():
-            report = json.loads(path.read_text())
-            validate_report(plan, profile, report, file_hash(folder/'plan.json'))
-        else:
-            args = visual_parser().parse_args(['--grounding', plan['grounding'], '--policy', plan['policy'],
-                                              '--profile', profile, '--output', str(path),
-                                              '--trace', str(folder/(profile+'.jsonl')),
-                                              '--diagnostic-dataset', 'data/drawer_dagger_v2.h5'])
-            args.seeds = seeds
-            for key, value in plan['options'].items():
-                setattr(args, key, value)
-            args.suite_plan_sha256 = file_hash(folder/'plan.json')
-            report = evaluate(args)
-        summary.append({'profile': profile, 'successes': report['successes'], 'attempted': report['attempted'],
-                        'success_rate': report['success_rate'], 'wilson_95': wilson(report['successes'], report['attempted']),
-                        'failures': {reason: sum(row['failure_reason'] == reason for row in report['episodes'])
-                                     for reason in sorted({row['failure_reason'] for row in report['episodes'] if row['failure_reason']})},
-                        'report': str(path)})
-    iid = summary[0]
-    result = {'plan_sha256': file_hash(folder/'plan.json'), 'profiles': summary,
-              'iid_observed_90_gate': iid['success_rate'] >= .9,
-              'iid_lower_95_bound_80_gate': iid['wilson_95'][0] >= .8,
+    summaries = {}
+    raw = {}
+    for variant in plan['variants']:
+        legacy = variant == 'baseline'
+        summaries[variant] = []
+        raw[variant] = {}
+        variant_dir = folder/variant
+        variant_dir.mkdir(exist_ok=True)
+        for profile, seeds in plan['sets'].items():
+            path = variant_dir/(profile+'.json')
+            if path.exists():
+                report = json.loads(path.read_text())
+                validate_report(plan, profile, report, file_hash(folder/'plan.json'), legacy)
+            else:
+                variant_flags = (['--legacy-perception'] if legacy else
+                                 (['--enable-arm-mask'] if plan['options']['arm_mask_candidate'] else []) +
+                                 (['--enable-temporal-smoothing'] if plan['options']['temporal_smoothing_candidate'] else []))
+                if not legacy:
+                    variant_flags += ['--fallback-max-age-s', str(plan['options']['fallback_max_age_s_candidate'])]
+                args = visual_parser().parse_args(['--grounding', plan['grounding'], '--policy', plan['policy'],
+                                                  '--profile', profile, '--output', str(path),
+                                                  '--trace', str(variant_dir/(profile+'.jsonl')),
+                                                  '--diagnostic-dataset', 'data/drawer_dagger_v2.h5'] +
+                                                  variant_flags)
+                args.seeds = seeds
+                for key, value in plan['options'].items():
+                    setattr(args, key, value)
+                args.suite_plan_sha256 = file_hash(folder/'plan.json')
+                report = evaluate(args)
+            summaries[variant].append({'profile': profile, 'successes': report['successes'], 'attempted': report['attempted'],
+                            'success_rate': report['success_rate'], 'wilson_95': wilson(report['successes'], report['attempted']),
+                            'fallback_predictions': report.get('fallback_predictions', 0),
+                            'fallback_episodes': report.get('fallback_episodes', 0),
+                            'perception_rejections': report.get('perception_rejections', 0),
+                            'invalid_reasons': report.get('perception_invalid_reasons', {}),
+                            'failures': {reason: sum(row['failure_reason'] == reason for row in report['episodes'])
+                                         for reason in sorted({row['failure_reason'] for row in report['episodes'] if row['failure_reason']})},
+                            'report': str(path)})
+            raw[variant][profile] = report
+    paired = {}
+    if {'baseline','candidate'} <= set(raw):
+        for profile, baseline in raw['baseline'].items():
+            candidate = raw['candidate'][profile]
+            b = {row['seed']: row for row in baseline['episodes']}
+            c = {row['seed']: row for row in candidate['episodes']}
+            if list(b) != list(c):
+                raise ValueError(f'Paired episode seeds differ for {profile}')
+            rescued = sum(not b[s]['success'] and c[s]['success'] for s in b)
+            regressed = sum(b[s]['success'] and not c[s]['success'] for s in b)
+            n = rescued+regressed
+            p_value = min(1., 2*sum(math.comb(n,k) for k in range(min(rescued,regressed)+1))/(2**n)) if n else 1.
+            paired[profile] = {'rescued_episodes': rescued, 'regressed_episodes': regressed,
+                               'net_success_delta': candidate['successes']-baseline['successes'],
+                               'mcnemar_exact_p_two_sided': p_value}
+    iid_candidate = next(row for row in summaries['candidate'] if row['profile']=='iid')
+    result = {'plan_sha256': file_hash(folder/'plan.json'), 'variants': summaries, 'paired': paired,
+              'iid_observed_80_gate': iid_candidate['success_rate'] >= .8,
+              'iid_lower_95_bound_80_gate': iid_candidate['wilson_95'][0] >= .8,
               'limitations': 'Single training seed; IID/OOD profiles are not pooled. Perturbations do not establish new-object/open-world generalization.'}
     if (folder/'summary.json').exists():
         if json.loads((folder/'summary.json').read_text()) != result:
@@ -138,9 +183,20 @@ def main():
     p.add_argument('--seed', type=int, default=30000)
     p.add_argument('--iid-episodes', type=int, default=100)
     p.add_argument('--ood-episodes', type=int, default=20)
+    p.add_argument('--profiles', nargs='+', choices=PROFILES, help='Profile subset; defaults to all registered profiles')
     p.add_argument('--policy', default='weights/bc_kaggle_v2/best.pt')
     p.add_argument('--grounding', default='weights/p5_student/best.pt')
     p.add_argument('--async-perception', action='store_true')
+    p.add_argument('--single-candidate', dest='paired', action='store_false', help='Skip paired legacy baseline (paired comparison is default)')
+    p.set_defaults(paired=True)
+    p.add_argument('--enable-arm-mask-candidate', dest='arm_mask_candidate', action='store_true',
+                   help='Development ablation: compare temporal fallback with projected arm masking')
+    p.set_defaults(arm_mask_candidate=False)
+    p.add_argument('--enable-temporal-smoothing-candidate', dest='temporal_smoothing_candidate', action='store_true',
+                   help='Development ablation: compare fallback with EMA smoothing')
+    p.set_defaults(temporal_smoothing_candidate=False)
+    p.add_argument('--fallback-max-age-s-candidate', type=float, default=.4,
+                   help='Candidate landmark fallback age limit in simulated seconds')
     p.add_argument('--transition-tolerance', type=float, default=.012)
     args = p.parse_args()
     if min(args.iid_episodes, args.ood_episodes) < 1 or max(args.iid_episodes, args.ood_episodes) > 1000:

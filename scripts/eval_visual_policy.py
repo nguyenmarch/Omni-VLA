@@ -30,6 +30,14 @@ def evaluate(args):
         raise FileExistsError(trace_path)
     torch.set_num_threads(2)
     grounder = load_grounding_runtime(args.grounding)
+    legacy_perception = getattr(args, 'legacy_perception', False)
+    arm_mask_enabled = not legacy_perception and getattr(args, 'enable_arm_mask', False)
+    temporal_smoothing_enabled = not legacy_perception and getattr(args, 'enable_temporal_smoothing', False)
+    depth_max_m = 5.0 if legacy_perception else 3.0
+    if hasattr(grounder, 'temporal_fallback_enabled'):
+        grounder.temporal_fallback_enabled = not legacy_perception
+        grounder.temporal_smoothing_enabled = temporal_smoothing_enabled
+        grounder.max_fallback_age_s = args.fallback_max_age_s
     model, checkpoint = load_policy(args.policy)
     if checkpoint['policy_type'] != 'bc' or checkpoint['model_config']['chunk_size'] != 1:
         raise ValueError('Require single-action BC bridge')
@@ -69,6 +77,9 @@ def evaluate(args):
         for episode in count() if loop else range(len(seeds)):
             seed = args.seed+episode if loop else seeds[episode]
             env.reset(seed=seed)
+            # The prior perception worker is joined at episode end.
+            if hasattr(grounder, 'reset_episode'):
+                grounder.reset_episode()
             parameters = randomizer.apply(seed, profile)
             obs = env._get_observation()
             manager = latest = None
@@ -77,11 +88,13 @@ def evaluate(args):
             last_valid_sim = env.data.time
             info = env.info()
             episode_errors, transitions, slip_events = [], [], []
+            episode_fallbacks = 0
             slip_monitor = WrenchSlipMonitor() if getattr(args, 'slip_monitor', False) else None
             slip_states = {}
             oracle_at_capture = {}
             if asynchronous:
-                processor = SnapshotPerception(env, grounder, args.ablation)
+                processor = SnapshotPerception(env, grounder, args.ablation,
+                                               arm_mask=arm_mask_enabled, depth_max_m=depth_max_m)
                 worker = LatestWorker(processor, processor.close)
                 worker.reset(episode)
             for step in range(env.max_episode_steps):
@@ -111,7 +124,7 @@ def evaluate(args):
                     else:
                         t = time.perf_counter()
                         try:
-                            frame = capture_head(env)
+                            frame = capture_head(env, arm_mask=arm_mask_enabled, depth_max_m=depth_max_m)
                             points, metadata = grounder.predict(frame, args.ablation)
                             result = Result(request, (points, metadata, frame))
                         except ValueError as error:
@@ -132,6 +145,7 @@ def evaluate(args):
                     else:
                         rejection_streak = 0
                         points, metadata, frame = result.value
+                        episode_fallbacks += int(bool(metadata.get('fallback_used', False)))
                         if manager is None:
                             manager = VisualTaskManager(points, args.instruction,
                                                         transition_tolerance=getattr(args, 'transition_tolerance', .012))
@@ -204,6 +218,7 @@ def evaluate(args):
                    'failure_reason': None if success else failure or 'episode_limit_or_visual_completion',
                    'visual_completed': manager.completed if manager else False,
                    'phase_transitions': transitions, 'randomization': parameters,
+                   'fallback_predictions': episode_fallbacks,
                    'wrench_slip_events': slip_events, 'wrench_slip_states': slip_states,
                    'landmark_mean_error_m': np.mean(episode_errors, axis=0).tolist() if episode_errors else None}
             episodes.append(row)
@@ -232,8 +247,15 @@ def evaluate(args):
               'suite_plan_sha256': getattr(args, 'suite_plan_sha256', None),
               'max_sim_age_s': max_sim_age, 'max_wall_age_s': max_wall_age,
               'max_perception_gap_s': max_gap, 'max_rejections': max_rejections,
+              'fallback_predictions': sum(row.get('fallback_predictions', 0) for row in episodes),
+              'fallback_episodes': sum(row.get('fallback_predictions', 0) > 0 for row in episodes),
+              'perception_invalid_reasons': dict(getattr(grounder, 'failure_reasons', {})),
               'slip_monitor': getattr(args, 'slip_monitor', False),
               'stop_on_slip': getattr(args, 'stop_on_slip', False),
+              'legacy_perception': legacy_perception,
+              'arm_mask_enabled': arm_mask_enabled,
+              'temporal_smoothing_enabled': temporal_smoothing_enabled,
+              'fallback_max_age_s': args.fallback_max_age_s,
               'transition_tolerance_m': getattr(args, 'transition_tolerance', .012),
               'held_steps': held_steps, 'stale_results': stale_results, 'perception_rejections': rejections,
               'deadline_misses': deadline_misses, 'control_ticks': total_ticks,
@@ -260,6 +282,10 @@ def parser():
     p.add_argument('--policy', default='weights/bc_kaggle_v2/best.pt')
     p.add_argument('--instruction', choices=[FULL_INSTRUCTION, OPEN_INSTRUCTION], default=FULL_INSTRUCTION)
     p.add_argument('--ablation', choices=['none', 'drop-image', 'swap-text'], default='none')
+    p.add_argument('--legacy-perception', action='store_true', help='Run P5 without temporal fallback or projected robot mask (paired benchmark reference)')
+    p.add_argument('--enable-arm-mask', action='store_true', help='Development ablation: mask projected robot links where depth agrees with forward kinematics')
+    p.add_argument('--enable-temporal-smoothing', action='store_true', help='Development ablation: EMA smooth valid landmarks; can lag moving targets')
+    p.add_argument('--fallback-max-age-s', type=float, default=.4, help='Maximum simulated age for a cached landmark')
     p.add_argument('--episodes', type=int, default=20)
     p.add_argument('--seed', type=int, default=9000)
     p.add_argument('--seeds', nargs='+', type=int)
@@ -292,6 +318,8 @@ def main():
         p.error('episodes, perception-every and max-rejections must be positive')
     if any(not np.isfinite(x) or x <= 0 for x in (args.max_sim_age, args.max_wall_age, args.max_perception_gap, args.transition_tolerance)):
         p.error('age/gap/tolerance must be finite and positive')
+    if not np.isfinite(args.fallback_max_age_s) or args.fallback_max_age_s <= 0:
+        p.error('fallback-max-age-s must be finite and positive')
     if args.seeds and len(args.seeds) != len(set(args.seeds)):
         p.error('Duplicate evaluation seeds')
     if args.loop and not args.gui:

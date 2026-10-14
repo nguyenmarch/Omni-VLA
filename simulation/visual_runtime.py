@@ -101,12 +101,14 @@ class LatestWorker:
 
 
 class SnapshotPerception:
-    def __init__(self, env, grounder, ablation):
+    def __init__(self, env, grounder, ablation, arm_mask=True, depth_max_m=3.0):
         self.model = copy.copy(env.model)
         self.data = mujoco.MjData(self.model)
         self.image_size = env.image_size
         self.renderer = None
         self.grounder, self.ablation = grounder, ablation
+        self.arm_mask = arm_mask
+        self.depth_max_m = depth_max_m
 
     def _renderer(self):
         if self.renderer is None:
@@ -116,9 +118,12 @@ class SnapshotPerception:
     def __call__(self, request):
         mujoco.mj_setState(self.model, self.data, request.state, mujoco.mjtState.mjSTATE_INTEGRATION)
         mujoco.mj_forward(self.model, self.data)
-        frame = capture_head(self)
+        frame = capture_head(self, arm_mask=self.arm_mask, depth_max_m=self.depth_max_m)
         points, metadata = self.grounder.predict(frame, self.ablation)
         return points, metadata, frame
+
+    def reset_episode(self):
+        self.grounder.reset_episode()
 
     def close(self):
         if self.renderer is not None:

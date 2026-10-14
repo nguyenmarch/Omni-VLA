@@ -84,7 +84,16 @@ def image_features(frame, ablation='none'):
         raise ValueError(ablation)
     if ablation in ('drop-depth', 'drop-rgbd'):
         depth[:] = 0
-    valid = np.isfinite(depth) & (depth > .05) & (depth < 5)
+    # Reject far-plane/background values before unprojection. P5 consumes a
+    # surface cloud, so there is no single peak pixel to trust for depth.
+    depth_max = float(frame.get('depth_max_m', 5.0))
+    valid = np.isfinite(depth) & (depth > .05) & (depth < depth_max)
+    robot_mask = frame.get('robot_mask')
+    if robot_mask is not None:
+        robot_mask = np.asarray(robot_mask, dtype=bool)
+        if robot_mask.shape != depth.shape:
+            raise ValueError('Robot occlusion mask shape differs from depth image')
+        valid &= ~robot_mask
     depth[~valid] = 0
     h, w = depth.shape
     v, u = np.mgrid[:h, :w]
@@ -181,6 +190,26 @@ class RGBDStudentRuntime:
         self.model.load_state_dict(self.checkpoint['model'])
         self.model.eval()
         self.image_size = self.checkpoint['image_size']
+        self.last_valid_prediction = {}
+        self.consecutive_failures = 0
+        self.max_fallback_steps = 15
+        self.max_fallback_age_s = .4
+        self.temporal_fallback_enabled = True
+        self.temporal_smoothing_enabled = True
+        self.failure_reasons = {}
+        self.fallback_count = 0
+
+    def reset_episode(self):
+        """Clear temporal state so landmarks can never leak between episodes."""
+        self.last_valid_prediction = {}
+        self.consecutive_failures = 0
+
+    def _invalid_reason(self, rows):
+        if any(row['support'] < 6 for row in rows):
+            return 'insufficient_support'
+        if any(row['text_confidence'] < .8 for row in rows):
+            return 'text_confidence'
+        return 'invalid_sample_or_workspace'
 
     @torch.inference_mode()
     def predict_detailed(self, frame, queries=QUERIES, ablation='none'):
@@ -207,12 +236,39 @@ class RGBDStudentRuntime:
     def predict(self, frame, ablation='none'):
         # Keep the visual runner's historical RGB-only ablation spelling.
         rows = self.predict_detailed(frame, ablation='drop-rgb' if ablation == 'drop-image' else ablation)
-        if not all(row['valid'] for row in rows):
-            raise ValueError('Invalid RGB-D student prediction: support/text/workspace; no fallback')
-        points = np.stack([row['point'] for row in rows])
+        valid = all(row['valid'] for row in rows)
+        fallback_used = False
+        if valid:
+            points = np.stack([row['point'] for row in rows])
+            previous = self.last_valid_prediction.get('points')
+            if previous is not None and self.temporal_smoothing_enabled:
+                points = .7 * points + .3 * previous
+            self.last_valid_prediction = {
+                'points': points.copy(),
+                'sim_time': float(frame.get('sim_time', 0.)),
+            }
+            self.consecutive_failures = 0
+        else:
+            reason = self._invalid_reason(rows)
+            self.failure_reasons[reason] = self.failure_reasons.get(reason, 0) + 1
+            if not self.temporal_fallback_enabled:
+                raise ValueError(f'Invalid RGB-D student prediction: {reason}; no fallback')
+            cached = self.last_valid_prediction
+            self.consecutive_failures += 1
+            age = float(frame.get('sim_time', 0.)) - cached.get('sim_time', 0.) if cached else float('inf')
+            if (not cached or self.consecutive_failures > self.max_fallback_steps
+                    or age < 0 or age > self.max_fallback_age_s):
+                raise ValueError(f'Invalid RGB-D student prediction: {reason}; fallback unavailable (age={age:.3f}s, streak={self.consecutive_failures})')
+            points = cached['points'].copy()
+            fallback_used = True
+            self.fallback_count += 1
         camera = (points - frame['T'][:3, 3]) @ frame['T'][:3, :3]
         pixels = camera @ frame['K'].T
         return points, {'pixels': (pixels[:, :2] / pixels[:, 2:]).tolist(),
                         'center_depth_m': camera[:, 2].tolist(),
                         'support': [row['support'] for row in rows],
-                        'confidence': [row['confidence'] for row in rows]}
+                        'confidence': [row['confidence'] for row in rows],
+                        'fallback_used': fallback_used,
+                        'fallback_age_s': max(0., float(frame.get('sim_time', 0.)) - self.last_valid_prediction['sim_time']),
+                        'fallback_streak': self.consecutive_failures,
+                        'invalid_reason': None if valid else reason}

@@ -9,14 +9,66 @@ OPEN_INSTRUCTION='open the drawer'
 QUERIES=('grasp the bottle body','grasp the drawer handle')
 
 
-def capture_head(env):
+def capture_head(env, arm_mask=False, depth_max_m=5.0):
     renderer=env._renderer()
     renderer.disable_depth_rendering();renderer.update_scene(env.data,camera='head_cam')
     rgb=renderer.render().copy()
     renderer.enable_depth_rendering();renderer.update_scene(env.data,camera='head_cam')
     depth=renderer.render().copy();renderer.disable_depth_rendering()
     k,t=calibration(env.model,env.data,'head_cam',env.image_size,env.image_size)
-    return {'rgb':rgb,'depth':depth,'K':k,'T':t}
+    frame={'rgb':rgb,'depth':depth,'K':k,'T':t,
+           'depth_max_m':float(depth_max_m),
+           'sim_time':float(env.data.time)}
+    if arm_mask:
+        frame['robot_mask']=projected_arm_mask(env.model,env.data,k,t,depth,env.image_size)
+    return frame
+
+
+def projected_arm_mask(model,data,intrinsic,world_from_camera,depth,size):
+    """Mask robot link pixels only when measured depth agrees with link FK."""
+    mask=np.zeros((size,size),dtype=bool)
+    depth=np.asarray(depth,dtype=np.float32)
+    rotation=world_from_camera[:3,:3]
+    translation=world_from_camera[:3,3]
+    fx=float(intrinsic[0,0])
+    for side in ('left','right'):
+        ids=[]
+        for index in range(model.nbody):
+            name=model.body(index).name
+            if name.startswith(f'{side}_link') or name==f'{side}_hand':
+                ids.append((name,index))
+        ids.sort(key=lambda row: (0 if row[0].endswith('link0') else 1,
+                                  int(row[0].split('link')[-1]) if 'link' in row[0] else 99))
+        camera_points=[]
+        for _,body_id in ids:
+            world=np.asarray(data.xpos[body_id])
+            camera=(world-translation)@rotation
+            if camera[2]>.05:
+                pixel=intrinsic@camera
+                camera_points.append((pixel[:2]/pixel[2],float(camera[2])))
+            else:
+                camera_points.append((None,float(camera[2])))
+        for (p0,z0),(p1,z1) in zip(camera_points,camera_points[1:]):
+            if p0 is None or p1 is None:
+                continue
+            length=float(np.linalg.norm(p1-p0))
+            samples=max(1,int(np.ceil(length*1.5)))
+            for alpha in np.linspace(0.,1.,samples+1):
+                uv=p0*(1-alpha)+p1*alpha
+                z=z0*(1-alpha)+z1*alpha
+                radius=int(np.clip(np.ceil(fx*.045/max(z,.05)),2,18))
+                cx,cy=np.rint(uv).astype(int)
+                x0,x1=max(0,cx-radius),min(size,cx+radius+1)
+                y0,y1=max(0,cy-radius),min(size,cy+radius+1)
+                if x0>=x1 or y0>=y1:
+                    continue
+                yy,xx=np.ogrid[y0:y1,x0:x1]
+                disk=(xx-cx)**2+(yy-cy)**2<=radius**2
+                observed=depth[y0:y1,x0:x1]
+                on_robot=(np.isfinite(observed) & (observed>.05) & (observed<3.)
+                          & (np.abs(observed-z)<=.09))
+                mask[y0:y1,x0:x1] |= disk & on_robot
+    return mask
 
 
 def robot_observation(obs):
