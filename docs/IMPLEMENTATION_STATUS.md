@@ -1,4 +1,4 @@
-# Trạng thái implementation — 13/10/2026
+# Trạng thái implementation — cập nhật 14/10/2026
 
 Đã chuyển scaffold sang pipeline simulation/data/training/export/evaluation chạy
 được local. **Chưa hoàn tất toàn bộ mục tiêu VLA contact-rich**: BC Kaggle đã train và kiểm tra trên Dell, BC drawer đạt target 80% theo tỷ lệ quan sát trên hai bộ seed; CFM gate chưa đạt, P5 grounding đã đạt gate 3D trong scene cố định nhưng system closed-loop ≥90% chưa được chứng minh,
@@ -130,7 +130,7 @@ cho kết quả full task.
 
 ## Verification
 
-- **44 tests pass**, gồm Gym reset/timing, long-rollout stability, tracking,
+- **44 tests pass ở historical baseline**, gồm Gym reset/timing, long-rollout stability, tracking,
   camera projection/unprojection và wrist direction, expert physical rollout,
   dataset split/statistics/tail masks/cache parity, CFM determinism, spatial
   grounding shape/depth requirement, recovery debounce/retry và config timing.
@@ -160,8 +160,9 @@ notebook và candidate evaluation CLI đã chuẩn bị. GPU outputs v2 đã imp
    held-out gate trước khi tối ưu CFM. Đánh giá đủ episodes và training seeds.
 3. Đạt CFM closed-loop gate, so với BC cùng dữ liệu; OT chỉ thêm sau khi giữ
    đúng pairing của condition/targets. So sánh H=1/H=16 phải ghi rõ khác horizon.
-4. Collect RGB-D dưới camera revision hiện tại, train/ablate grounding, bỏ
-   object oracle khỏi policy và phase manager khi đánh giá VLA thật.
+4. P5 đã có RGB-D/head256, ablations và visual manager không dùng object/phase
+   oracle. Tiếp tục xử lý timeout/rejection, delayed observations và đo OOD;
+   system success ≥90% chưa đạt.
 5. Tích hợp screw-cap fixture vào bimanual scene với free-body detach, expert
    uncapping và dataset tương ứng; kiểm chứng sensor/contact fidelity.
 6. Cải thiện fallen-bottle recovery bằng pose-aware grasping, thu recovery
@@ -190,8 +191,8 @@ CPU 2 threads. Giữ BC v2 unchanged. [Report](../artifacts/cfm_kaggle_v2/compar
 
 Đây là một seed training và hai cấu hình model/chunk khác nhau. Không suy
 rộng kết quả thành kết luận CFM nói chung kém BC. Nếu tuning tiếp: CFM H=1
-ablation và diagnostics first-action/phase; chưa thực hiện. VLA end-to-end vẫn
-chưa tích hợp.
+ablation và diagnostics first-action/phase đã hoàn tất, xem phần H1 bên dưới.
+Pipeline RGB-D + finite-language BC đã tích hợp ở P5; system gate chưa đạt.
 
 ## CFM H1 ablation handoff
 
@@ -222,3 +223,36 @@ accepted, mean10.23cm/P95 25.21cm,3/428within1.5cm; loop0/5 từ chối percepti
 trước action. Chưa cải thiện định vị. Sync head256/wrist224 + MuJoCo MJCF FK
 mask audit có; Pinocchio, masked per-camera training/fusion, async còn thiếu.
 [Report và selection pitfall](PATCH_GROUNDING_V3.md).
+
+## Reliability engineering — 14/10/2026
+
+Thêm trace phase/goal/observation age/train envelope, bounded async snapshot
+renderer/inference, stale-result gates và hold/rejection budget. Sync vẫn là
+baseline mặc định vì async development rollout chưa giữ được task success.
+Thêm observable world-frame wrench/finger slip detector và optional guarded
+stop; oracle recovery cũ giữ riêng cho comparison, chưa có observable regrasp.
+IID/OOD suite chốt seed/input/source hash trước khi chạy, báo Wilson CI và
+profiles riêng. Thêm exact CPU lock, wheel configs, GitHub CI và verified
+42-file artifact bundle. Xem [reliability report](VISUAL_RELIABILITY.md) và
+[reproducibility guide](REPRODUCIBILITY.md) cho phạm vi và kết quả kiểm tra.
+
+Force follow-up: detector median/world-Z load + finger corroboration đạt 5/5
+injected releases và 0/5 clean alerts trên một bộ scripted seeds mới; force
+detection đã nối vào bounded recovery FSM. Regrasp vẫn oracle geometry và
+full-task recovery 0/3, chưa đạt robustness gate. BC oracle trên 100 fresh
+seeds đạt 85/100, Wilson 95% 76.72–90.69%; chưa chứng minh population ≥80%.
+
+Fresh visual suite hoàn tất: IID 75/100; camera 7/20, lighting
+13/20, friction 10/20, position 3/20, combined 4/20. System và OOD gates
+chưa đạt. Verification hiện tại: **58 tests pass**, pip check/baseline hash
+verified, 42-file bundle restore và packaged P5+BC physics smoke pass.
+[Kết quả mới và seed outcomes](RELIABILITY_RESULTS_20261014.json).
+
+## Direct VLA candidate — 14/10/2026
+
+Nhánh CNN RGB-D + recurrent text encoder + GRU history → action chunks đã có,
+không nhận object/phase oracle hoặc task FSM để sinh action. Thu 18 successful
+episodes / 20 attempts cho hai tasks, 1.110 frames, split 11/3/4; CPU smoke và
+resume bit-for-bit pass. Smoke rollout 0/2, chưa có full GPU training hay success
+gate. Notebook Kaggle và source/data handoff đã chuẩn bị theo yêu cầu.
+Verification hiện tại 61 tests pass. [Thiết kế và GPU workflow](DIRECT_VLA.md).

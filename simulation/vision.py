@@ -29,10 +29,13 @@ class VisualTaskManager:
     Finite task grammar; no expert actions, simulator object sites or success
     flags. Opening is relative to the perceived handle at episode start.
     """
-    def __init__(self,points,instruction=FULL_INSTRUCTION):
+    def __init__(self,points,instruction=FULL_INSTRUCTION,transition_tolerance=.012):
         if instruction not in (FULL_INSTRUCTION,OPEN_INSTRUCTION):
             raise ValueError('Only the two documented English task instructions are supported')
         self.open_only=instruction==OPEN_INSTRUCTION
+        if not np.isfinite(transition_tolerance) or transition_tolerance <= 0:
+            raise ValueError('Transition tolerance must be finite and positive')
+        self.transition_tolerance=transition_tolerance
         self.initial=np.asarray(points,dtype=np.float32).copy()
         if self.initial.shape!=(2,3) or not np.isfinite(self.initial).all():
             raise ValueError('Expected two finite perceived 3D points')
@@ -67,7 +70,7 @@ class VisualTaskManager:
 
     def update(self,robot):
         self.age+=1;lp,rp=np.asarray(robot['ee']).reshape(2,3);left,right=self.goals()
-        reached=(self.open_only or np.linalg.norm(lp-left)<.012) and np.linalg.norm(rp-right)<.012
+        reached=(self.open_only or np.linalg.norm(lp-left)<self.transition_tolerance) and np.linalg.norm(rp-right)<self.transition_tolerance
         self.opened|=self.opening>.16
         center=self.points[1]+[.19,0,-.09];bottle=self.points[0]
         inside=abs(bottle[0]-center[0])<.11 and abs(bottle[1]-center[1])<.075 and .445<bottle[2]<.57

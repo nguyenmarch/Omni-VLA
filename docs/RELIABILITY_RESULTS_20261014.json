@@ -1,0 +1,1594 @@
+{
+  "schema": "omni-reliability-results-v1",
+  "date": "2026-10-14",
+  "source_snapshot": {
+    "archive": "artifacts/visual_reliability_20261014/evaluation_source.zip",
+    "archive_sha256": "c70d7ac435ef2591eef05fbc4be2059d85d50a71014ebaee87f88bdd4e4f7055",
+    "source_sha256": "0b5bb064dae0814480721d60d256007d6ecc3e762e242c9b497649396ea60560",
+    "scope": "Exact source used by IID/OOD and state benchmarks; force monitor in that revision is disabled for these evaluations."
+  },
+  "policy_sha256": "1c31dafe6ff1731ceb99a07c5da2e187dcb61db27ca76029a995d5c0905b27a3",
+  "grounding_sha256": "cd4a42f6e3721c7b8bc25d2540f1111172bb0d3b4c590556c201704be8849cfa",
+  "plan_sha256": "082267964c2aff7592a5e7ba67ed624dc6b272b2352f4420cbd58833d67cdb80",
+  "visual": {
+    "plan_sha256": "082267964c2aff7592a5e7ba67ed624dc6b272b2352f4420cbd58833d67cdb80",
+    "profiles": [
+      {
+        "profile": "iid",
+        "successes": 75,
+        "attempted": 100,
+        "success_rate": 0.75,
+        "wilson_95": [
+          0.6569535362992417,
+          0.8245490599627573
+        ],
+        "failures": {
+          "episode_limit_or_visual_completion": 1,
+          "perception_rejected: Invalid RGB-D student prediction: support/text/workspace; no fallback": 1,
+          "visual_timeout_descend": 5,
+          "visual_timeout_retreat": 2,
+          "visual_timeout_transfer": 16
+        },
+        "report": "artifacts/visual_reliability_20261014/iid.json"
+      },
+      {
+        "profile": "camera",
+        "successes": 7,
+        "attempted": 20,
+        "success_rate": 0.35,
+        "wilson_95": [
+          0.18118954786794464,
+          0.5671494897805354
+        ],
+        "failures": {
+          "visual_timeout_descend": 2,
+          "visual_timeout_transfer": 11
+        },
+        "report": "artifacts/visual_reliability_20261014/camera.json"
+      },
+      {
+        "profile": "lighting",
+        "successes": 13,
+        "attempted": 20,
+        "success_rate": 0.65,
+        "wilson_95": [
+          0.43285051021946463,
+          0.8188104521320554
+        ],
+        "failures": {
+          "perception_rejected: Invalid RGB-D student prediction: support/text/workspace; no fallback": 1,
+          "visual_timeout_approach": 1,
+          "visual_timeout_descend": 1,
+          "visual_timeout_retreat": 1,
+          "visual_timeout_transfer": 3
+        },
+        "report": "artifacts/visual_reliability_20261014/lighting.json"
+      },
+      {
+        "profile": "friction",
+        "successes": 10,
+        "attempted": 20,
+        "success_rate": 0.5,
+        "wilson_95": [
+          0.2992949144298199,
+          0.7007050855701801
+        ],
+        "failures": {
+          "visual_timeout_approach": 1,
+          "visual_timeout_descend": 1,
+          "visual_timeout_transfer": 8
+        },
+        "report": "artifacts/visual_reliability_20261014/friction.json"
+      },
+      {
+        "profile": "position",
+        "successes": 3,
+        "attempted": 20,
+        "success_rate": 0.15,
+        "wilson_95": [
+          0.05236779195949584,
+          0.36042329588695743
+        ],
+        "failures": {
+          "perception_rejected: Invalid RGB-D student prediction: support/text/workspace; no fallback": 4,
+          "visual_timeout_approach": 9,
+          "visual_timeout_descend": 1,
+          "visual_timeout_transfer": 3
+        },
+        "report": "artifacts/visual_reliability_20261014/position.json"
+      },
+      {
+        "profile": "combined",
+        "successes": 4,
+        "attempted": 20,
+        "success_rate": 0.2,
+        "wilson_95": [
+          0.0806563532712,
+          0.41602172202575993
+        ],
+        "failures": {
+          "perception_rejected: Invalid RGB-D student prediction: support/text/workspace; no fallback": 4,
+          "visual_timeout_approach": 8,
+          "visual_timeout_descend": 1,
+          "visual_timeout_retreat": 1,
+          "visual_timeout_transfer": 2
+        },
+        "report": "artifacts/visual_reliability_20261014/combined.json"
+      }
+    ],
+    "iid_observed_90_gate": false,
+    "iid_lower_95_bound_80_gate": false,
+    "limitations": "Single training seed; IID/OOD profiles are not pooled. Perturbations do not establish new-object/open-world generalization."
+  },
+  "state_bc": {
+    "successes": 85,
+    "attempted": 100,
+    "success_rate": 0.85,
+    "wilson_95": [
+      0.7671626666784216,
+      0.906940968088377
+    ]
+  },
+  "state_bc_population_80_lower_bound_gate": false,
+  "force_detector_holdout": {
+    "clean_episodes": 5,
+    "clean_alerts": 0,
+    "injected_episodes": 5,
+    "detections": 5,
+    "delay_s_min": 0.4,
+    "delay_s_max": 0.48
+  },
+  "wrench_detection_oracle_regrasp": {
+    "successes": 0,
+    "attempted": 3,
+    "recovery_detector": "wrench",
+    "recovery_geometry": "oracle_scripted_regrasp"
+  },
+  "verification": {
+    "pytest_passed": 58,
+    "pip_check": "passed",
+    "historical_baseline_manifest": "verified",
+    "artifact_bundle_files": 42,
+    "artifact_restore": "verified",
+    "wheel_restored_P5_BC_physics_smoke": "passed",
+    "remote_ci": "not_run"
+  },
+  "reports_sha256": {
+    "artifacts/visual_reliability_20261014/async_every1_development.json": "6c8ec289c2737a230a838244804748a9eb1a7f97ff721e66d3920fab779dc3e2",
+    "artifacts/visual_reliability_20261014/async_every5_development.json": "ca00b0f7554afe1d82bc1b27c620d801e57df81fd3e31f9c7fcdf6ac3ddecf2b",
+    "artifacts/visual_reliability_20261014/camera.json": "82956eda6969f5afb7b4ac98939fd56770ddaedbb4dcab7f5b50aee8d86d5a99",
+    "artifacts/visual_reliability_20261014/combined.json": "0c18043750f59f004945fe0b042177aec2eeaef6af7b85bbac420559765b8606",
+    "artifacts/visual_reliability_20261014/development_failures.json": "3006953611b0c5b54f808bb1514ecf553f790e58c8a2415f3b3175fc204955f8",
+    "artifacts/visual_reliability_20261014/evaluation_source.json": "4f90ee1cd3159d972c0110dd7a91ce37aca8cfe9491b2f582ff0b968e80932c8",
+    "artifacts/visual_reliability_20261014/force_detector_audit.json": "9b0f415dfc12dbaec2d427b67c0b4e90ce11d285b88780cdaea464800caa5490",
+    "artifacts/visual_reliability_20261014/force_detector_candidate_audit.json": "81d196f8d7bccbe1bdd7d0802db73edacd9bbc30f60cf30d400ef62f4abc5fbd",
+    "artifacts/visual_reliability_20261014/force_detector_candidate_v2_audit.json": "e207389ffd11d06fe617aff6d5ead7a61d182eca621987f9d56e24336c51064b",
+    "artifacts/visual_reliability_20261014/force_detector_candidate_v3_audit.json": "a1d574d9bd9f9fd302e76d55d3c77e3ef311d4781ce2557ed6786066f6a10f8b",
+    "artifacts/visual_reliability_20261014/force_detector_holdout_audit.json": "8f064e2ebba353511d95dd2e9c9974566897e097d7a3ccb80433db6645901d0c",
+    "artifacts/visual_reliability_20261014/friction.json": "f2f90a335eb19a2c186904122777cca49b98e65b0af62f564f9f5a50fce23370",
+    "artifacts/visual_reliability_20261014/iid.json": "457d0972d1b0c3857efba4058f490da4497ff190278887af8519020ce889082c",
+    "artifacts/visual_reliability_20261014/lighting.json": "cef1f5c90dbb2e6b673b31346d27303d9284da9e76b4835163bc0e2649546b27",
+    "artifacts/visual_reliability_20261014/plan.json": "082267964c2aff7592a5e7ba67ed624dc6b272b2352f4420cbd58833d67cdb80",
+    "artifacts/visual_reliability_20261014/position.json": "49e882e716a8e6fa61ca21293e4815ed1b2a63f684b4e4d507e279bdfee31a1e",
+    "artifacts/visual_reliability_20261014/rejection_retry.json": "34817657e926884f3cc42a7aecda6376ccb90ee7e19b7d6802c31fd0718a44c4",
+    "artifacts/visual_reliability_20261014/state_bc_100.json": "ecd0f5d968758a6c6af832dd75e714fc28fd9e55be14a00afaf578b1b58272fa",
+    "artifacts/visual_reliability_20261014/state_plan.json": "a3a1b43972d29f9ca13c6d53148c2270da8f804badb189e3b37f6a5694037329",
+    "artifacts/visual_reliability_20261014/summary.json": "fd9826e9016bbf21648ba73592978c0a560a7583a5db251b14417d1be9bb5def",
+    "artifacts/visual_reliability_20261014/wrench_recovery_3.json": "bc8a51e87a9b6f7d26d1863baa1d28aabf2e340088b4e332b73f40082ba9ba78"
+  },
+  "episode_outcomes": {
+    "iid": [
+      {
+        "seed": 30000,
+        "success": true,
+        "steps": 457,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 30001,
+        "success": true,
+        "steps": 525,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 30002,
+        "success": true,
+        "steps": 569,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 30003,
+        "success": false,
+        "steps": 507,
+        "phase": "transfer",
+        "failure_reason": "visual_timeout_transfer"
+      },
+      {
+        "seed": 30004,
+        "success": true,
+        "steps": 427,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 30005,
+        "success": true,
+        "steps": 487,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 30006,
+        "success": false,
+        "steps": 512,
+        "phase": "transfer",
+        "failure_reason": "visual_timeout_transfer"
+      },
+      {
+        "seed": 30007,
+        "success": true,
+        "steps": 374,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 30008,
+        "success": false,
+        "steps": 512,
+        "phase": "transfer",
+        "failure_reason": "visual_timeout_transfer"
+      },
+      {
+        "seed": 30009,
+        "success": true,
+        "steps": 427,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 30010,
+        "success": true,
+        "steps": 485,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 30011,
+        "success": false,
+        "steps": 512,
+        "phase": "transfer",
+        "failure_reason": "visual_timeout_transfer"
+      },
+      {
+        "seed": 30012,
+        "success": true,
+        "steps": 465,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 30013,
+        "success": false,
+        "steps": 512,
+        "phase": "transfer",
+        "failure_reason": "visual_timeout_transfer"
+      },
+      {
+        "seed": 30014,
+        "success": false,
+        "steps": 507,
+        "phase": "transfer",
+        "failure_reason": "visual_timeout_transfer"
+      },
+      {
+        "seed": 30015,
+        "success": true,
+        "steps": 468,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 30016,
+        "success": true,
+        "steps": 439,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 30017,
+        "success": true,
+        "steps": 429,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 30018,
+        "success": true,
+        "steps": 467,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 30019,
+        "success": true,
+        "steps": 479,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 30020,
+        "success": true,
+        "steps": 434,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 30021,
+        "success": true,
+        "steps": 482,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 30022,
+        "success": true,
+        "steps": 377,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 30023,
+        "success": true,
+        "steps": 475,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 30024,
+        "success": true,
+        "steps": 482,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 30025,
+        "success": true,
+        "steps": 486,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 30026,
+        "success": true,
+        "steps": 429,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 30027,
+        "success": true,
+        "steps": 424,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 30028,
+        "success": true,
+        "steps": 465,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 30029,
+        "success": true,
+        "steps": 510,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 30030,
+        "success": false,
+        "steps": 397,
+        "phase": "descend",
+        "failure_reason": "visual_timeout_descend"
+      },
+      {
+        "seed": 30031,
+        "success": true,
+        "steps": 394,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 30032,
+        "success": true,
+        "steps": 430,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 30033,
+        "success": false,
+        "steps": 507,
+        "phase": "transfer",
+        "failure_reason": "visual_timeout_transfer"
+      },
+      {
+        "seed": 30034,
+        "success": true,
+        "steps": 434,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 30035,
+        "success": false,
+        "steps": 770,
+        "phase": "retreat",
+        "failure_reason": "visual_timeout_retreat"
+      },
+      {
+        "seed": 30036,
+        "success": true,
+        "steps": 444,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 30037,
+        "success": true,
+        "steps": 473,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 30038,
+        "success": true,
+        "steps": 480,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 30039,
+        "success": true,
+        "steps": 377,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 30040,
+        "success": true,
+        "steps": 466,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 30041,
+        "success": true,
+        "steps": 409,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 30042,
+        "success": true,
+        "steps": 554,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 30043,
+        "success": true,
+        "steps": 442,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 30044,
+        "success": true,
+        "steps": 510,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 30045,
+        "success": false,
+        "steps": 397,
+        "phase": "descend",
+        "failure_reason": "visual_timeout_descend"
+      },
+      {
+        "seed": 30046,
+        "success": true,
+        "steps": 437,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 30047,
+        "success": true,
+        "steps": 378,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 30048,
+        "success": true,
+        "steps": 435,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 30049,
+        "success": true,
+        "steps": 402,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 30050,
+        "success": true,
+        "steps": 500,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 30051,
+        "success": true,
+        "steps": 416,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 30052,
+        "success": true,
+        "steps": 476,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 30053,
+        "success": true,
+        "steps": 448,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 30054,
+        "success": true,
+        "steps": 421,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 30055,
+        "success": true,
+        "steps": 433,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 30056,
+        "success": true,
+        "steps": 379,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 30057,
+        "success": true,
+        "steps": 373,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 30058,
+        "success": false,
+        "steps": 512,
+        "phase": "transfer",
+        "failure_reason": "visual_timeout_transfer"
+      },
+      {
+        "seed": 30059,
+        "success": true,
+        "steps": 476,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 30060,
+        "success": false,
+        "steps": 512,
+        "phase": "transfer",
+        "failure_reason": "visual_timeout_transfer"
+      },
+      {
+        "seed": 30061,
+        "success": false,
+        "steps": 512,
+        "phase": "transfer",
+        "failure_reason": "visual_timeout_transfer"
+      },
+      {
+        "seed": 30062,
+        "success": true,
+        "steps": 384,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 30063,
+        "success": false,
+        "steps": 512,
+        "phase": "transfer",
+        "failure_reason": "visual_timeout_transfer"
+      },
+      {
+        "seed": 30064,
+        "success": true,
+        "steps": 375,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 30065,
+        "success": true,
+        "steps": 404,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 30066,
+        "success": true,
+        "steps": 454,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 30067,
+        "success": true,
+        "steps": 443,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 30068,
+        "success": false,
+        "steps": 512,
+        "phase": "transfer",
+        "failure_reason": "visual_timeout_transfer"
+      },
+      {
+        "seed": 30069,
+        "success": true,
+        "steps": 405,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 30070,
+        "success": false,
+        "steps": 397,
+        "phase": "descend",
+        "failure_reason": "visual_timeout_descend"
+      },
+      {
+        "seed": 30071,
+        "success": true,
+        "steps": 410,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 30072,
+        "success": true,
+        "steps": 369,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 30073,
+        "success": true,
+        "steps": 373,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 30074,
+        "success": true,
+        "steps": 442,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 30075,
+        "success": true,
+        "steps": 466,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 30076,
+        "success": true,
+        "steps": 465,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 30077,
+        "success": true,
+        "steps": 539,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 30078,
+        "success": false,
+        "steps": 722,
+        "phase": "retreat",
+        "failure_reason": "visual_timeout_retreat"
+      },
+      {
+        "seed": 30079,
+        "success": true,
+        "steps": 481,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 30080,
+        "success": false,
+        "steps": 397,
+        "phase": "descend",
+        "failure_reason": "visual_timeout_descend"
+      },
+      {
+        "seed": 30081,
+        "success": false,
+        "steps": 512,
+        "phase": "transfer",
+        "failure_reason": "visual_timeout_transfer"
+      },
+      {
+        "seed": 30082,
+        "success": false,
+        "steps": 507,
+        "phase": "transfer",
+        "failure_reason": "visual_timeout_transfer"
+      },
+      {
+        "seed": 30083,
+        "success": false,
+        "steps": 521,
+        "phase": "transfer",
+        "failure_reason": "visual_timeout_transfer"
+      },
+      {
+        "seed": 30084,
+        "success": true,
+        "steps": 388,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 30085,
+        "success": false,
+        "steps": 392,
+        "phase": "finish",
+        "failure_reason": "episode_limit_or_visual_completion"
+      },
+      {
+        "seed": 30086,
+        "success": true,
+        "steps": 437,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 30087,
+        "success": true,
+        "steps": 378,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 30088,
+        "success": false,
+        "steps": 512,
+        "phase": "transfer",
+        "failure_reason": "visual_timeout_transfer"
+      },
+      {
+        "seed": 30089,
+        "success": true,
+        "steps": 470,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 30090,
+        "success": true,
+        "steps": 481,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 30091,
+        "success": true,
+        "steps": 374,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 30092,
+        "success": true,
+        "steps": 460,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 30093,
+        "success": true,
+        "steps": 376,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 30094,
+        "success": true,
+        "steps": 431,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 30095,
+        "success": true,
+        "steps": 431,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 30096,
+        "success": true,
+        "steps": 442,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 30097,
+        "success": true,
+        "steps": 509,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 30098,
+        "success": false,
+        "steps": 397,
+        "phase": "descend",
+        "failure_reason": "visual_timeout_descend"
+      },
+      {
+        "seed": 30099,
+        "success": false,
+        "steps": 345,
+        "phase": "descend",
+        "failure_reason": "perception_rejected: Invalid RGB-D student prediction: support/text/workspace; no fallback"
+      }
+    ],
+    "camera": [
+      {
+        "seed": 31000,
+        "success": true,
+        "steps": 438,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 31001,
+        "success": false,
+        "steps": 397,
+        "phase": "descend",
+        "failure_reason": "visual_timeout_descend"
+      },
+      {
+        "seed": 31002,
+        "success": true,
+        "steps": 423,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 31003,
+        "success": false,
+        "steps": 507,
+        "phase": "transfer",
+        "failure_reason": "visual_timeout_transfer"
+      },
+      {
+        "seed": 31004,
+        "success": false,
+        "steps": 507,
+        "phase": "transfer",
+        "failure_reason": "visual_timeout_transfer"
+      },
+      {
+        "seed": 31005,
+        "success": true,
+        "steps": 380,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 31006,
+        "success": false,
+        "steps": 397,
+        "phase": "descend",
+        "failure_reason": "visual_timeout_descend"
+      },
+      {
+        "seed": 31007,
+        "success": true,
+        "steps": 482,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 31008,
+        "success": false,
+        "steps": 507,
+        "phase": "transfer",
+        "failure_reason": "visual_timeout_transfer"
+      },
+      {
+        "seed": 31009,
+        "success": false,
+        "steps": 512,
+        "phase": "transfer",
+        "failure_reason": "visual_timeout_transfer"
+      },
+      {
+        "seed": 31010,
+        "success": false,
+        "steps": 507,
+        "phase": "transfer",
+        "failure_reason": "visual_timeout_transfer"
+      },
+      {
+        "seed": 31011,
+        "success": false,
+        "steps": 512,
+        "phase": "transfer",
+        "failure_reason": "visual_timeout_transfer"
+      },
+      {
+        "seed": 31012,
+        "success": true,
+        "steps": 437,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 31013,
+        "success": false,
+        "steps": 507,
+        "phase": "transfer",
+        "failure_reason": "visual_timeout_transfer"
+      },
+      {
+        "seed": 31014,
+        "success": true,
+        "steps": 404,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 31015,
+        "success": true,
+        "steps": 416,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 31016,
+        "success": false,
+        "steps": 507,
+        "phase": "transfer",
+        "failure_reason": "visual_timeout_transfer"
+      },
+      {
+        "seed": 31017,
+        "success": false,
+        "steps": 512,
+        "phase": "transfer",
+        "failure_reason": "visual_timeout_transfer"
+      },
+      {
+        "seed": 31018,
+        "success": false,
+        "steps": 512,
+        "phase": "transfer",
+        "failure_reason": "visual_timeout_transfer"
+      },
+      {
+        "seed": 31019,
+        "success": false,
+        "steps": 512,
+        "phase": "transfer",
+        "failure_reason": "visual_timeout_transfer"
+      }
+    ],
+    "lighting": [
+      {
+        "seed": 32000,
+        "success": true,
+        "steps": 522,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 32001,
+        "success": true,
+        "steps": 440,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 32002,
+        "success": false,
+        "steps": 230,
+        "phase": "descend",
+        "failure_reason": "perception_rejected: Invalid RGB-D student prediction: support/text/workspace; no fallback"
+      },
+      {
+        "seed": 32003,
+        "success": false,
+        "steps": 351,
+        "phase": "approach",
+        "failure_reason": "visual_timeout_approach"
+      },
+      {
+        "seed": 32004,
+        "success": false,
+        "steps": 512,
+        "phase": "transfer",
+        "failure_reason": "visual_timeout_transfer"
+      },
+      {
+        "seed": 32005,
+        "success": true,
+        "steps": 415,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 32006,
+        "success": true,
+        "steps": 508,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 32007,
+        "success": true,
+        "steps": 548,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 32008,
+        "success": true,
+        "steps": 423,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 32009,
+        "success": true,
+        "steps": 514,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 32010,
+        "success": false,
+        "steps": 507,
+        "phase": "transfer",
+        "failure_reason": "visual_timeout_transfer"
+      },
+      {
+        "seed": 32011,
+        "success": true,
+        "steps": 409,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 32012,
+        "success": false,
+        "steps": 397,
+        "phase": "descend",
+        "failure_reason": "visual_timeout_descend"
+      },
+      {
+        "seed": 32013,
+        "success": false,
+        "steps": 507,
+        "phase": "transfer",
+        "failure_reason": "visual_timeout_transfer"
+      },
+      {
+        "seed": 32014,
+        "success": true,
+        "steps": 514,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 32015,
+        "success": true,
+        "steps": 432,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 32016,
+        "success": true,
+        "steps": 465,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 32017,
+        "success": true,
+        "steps": 489,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 32018,
+        "success": true,
+        "steps": 434,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 32019,
+        "success": false,
+        "steps": 794,
+        "phase": "retreat",
+        "failure_reason": "visual_timeout_retreat"
+      }
+    ],
+    "friction": [
+      {
+        "seed": 33000,
+        "success": true,
+        "steps": 378,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 33001,
+        "success": true,
+        "steps": 450,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 33002,
+        "success": true,
+        "steps": 373,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 33003,
+        "success": false,
+        "steps": 512,
+        "phase": "transfer",
+        "failure_reason": "visual_timeout_transfer"
+      },
+      {
+        "seed": 33004,
+        "success": true,
+        "steps": 466,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 33005,
+        "success": false,
+        "steps": 351,
+        "phase": "approach",
+        "failure_reason": "visual_timeout_approach"
+      },
+      {
+        "seed": 33006,
+        "success": true,
+        "steps": 484,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 33007,
+        "success": false,
+        "steps": 507,
+        "phase": "transfer",
+        "failure_reason": "visual_timeout_transfer"
+      },
+      {
+        "seed": 33008,
+        "success": false,
+        "steps": 507,
+        "phase": "transfer",
+        "failure_reason": "visual_timeout_transfer"
+      },
+      {
+        "seed": 33009,
+        "success": true,
+        "steps": 487,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 33010,
+        "success": false,
+        "steps": 401,
+        "phase": "descend",
+        "failure_reason": "visual_timeout_descend"
+      },
+      {
+        "seed": 33011,
+        "success": false,
+        "steps": 512,
+        "phase": "transfer",
+        "failure_reason": "visual_timeout_transfer"
+      },
+      {
+        "seed": 33012,
+        "success": true,
+        "steps": 422,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 33013,
+        "success": true,
+        "steps": 538,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 33014,
+        "success": false,
+        "steps": 507,
+        "phase": "transfer",
+        "failure_reason": "visual_timeout_transfer"
+      },
+      {
+        "seed": 33015,
+        "success": false,
+        "steps": 512,
+        "phase": "transfer",
+        "failure_reason": "visual_timeout_transfer"
+      },
+      {
+        "seed": 33016,
+        "success": false,
+        "steps": 512,
+        "phase": "transfer",
+        "failure_reason": "visual_timeout_transfer"
+      },
+      {
+        "seed": 33017,
+        "success": true,
+        "steps": 667,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 33018,
+        "success": true,
+        "steps": 465,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 33019,
+        "success": false,
+        "steps": 507,
+        "phase": "transfer",
+        "failure_reason": "visual_timeout_transfer"
+      }
+    ],
+    "position": [
+      {
+        "seed": 34000,
+        "success": false,
+        "steps": 356,
+        "phase": "approach",
+        "failure_reason": "visual_timeout_approach"
+      },
+      {
+        "seed": 34001,
+        "success": false,
+        "steps": 351,
+        "phase": "approach",
+        "failure_reason": "visual_timeout_approach"
+      },
+      {
+        "seed": 34002,
+        "success": false,
+        "steps": 351,
+        "phase": "approach",
+        "failure_reason": "visual_timeout_approach"
+      },
+      {
+        "seed": 34003,
+        "success": false,
+        "steps": 351,
+        "phase": "approach",
+        "failure_reason": "visual_timeout_approach"
+      },
+      {
+        "seed": 34004,
+        "success": false,
+        "steps": 351,
+        "phase": "approach",
+        "failure_reason": "visual_timeout_approach"
+      },
+      {
+        "seed": 34005,
+        "success": false,
+        "steps": 351,
+        "phase": "approach",
+        "failure_reason": "visual_timeout_approach"
+      },
+      {
+        "seed": 34006,
+        "success": false,
+        "steps": 512,
+        "phase": "transfer",
+        "failure_reason": "visual_timeout_transfer"
+      },
+      {
+        "seed": 34007,
+        "success": false,
+        "steps": 351,
+        "phase": "approach",
+        "failure_reason": "visual_timeout_approach"
+      },
+      {
+        "seed": 34008,
+        "success": false,
+        "steps": 399,
+        "phase": "descend",
+        "failure_reason": "visual_timeout_descend"
+      },
+      {
+        "seed": 34009,
+        "success": false,
+        "steps": 512,
+        "phase": "transfer",
+        "failure_reason": "visual_timeout_transfer"
+      },
+      {
+        "seed": 34010,
+        "success": false,
+        "steps": 351,
+        "phase": "approach",
+        "failure_reason": "visual_timeout_approach"
+      },
+      {
+        "seed": 34011,
+        "success": true,
+        "steps": 484,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 34012,
+        "success": false,
+        "steps": 300,
+        "phase": "descend",
+        "failure_reason": "perception_rejected: Invalid RGB-D student prediction: support/text/workspace; no fallback"
+      },
+      {
+        "seed": 34013,
+        "success": false,
+        "steps": 270,
+        "phase": "descend",
+        "failure_reason": "perception_rejected: Invalid RGB-D student prediction: support/text/workspace; no fallback"
+      },
+      {
+        "seed": 34014,
+        "success": false,
+        "steps": 512,
+        "phase": "transfer",
+        "failure_reason": "visual_timeout_transfer"
+      },
+      {
+        "seed": 34015,
+        "success": false,
+        "steps": 360,
+        "phase": "descend",
+        "failure_reason": "perception_rejected: Invalid RGB-D student prediction: support/text/workspace; no fallback"
+      },
+      {
+        "seed": 34016,
+        "success": false,
+        "steps": 225,
+        "phase": "descend",
+        "failure_reason": "perception_rejected: Invalid RGB-D student prediction: support/text/workspace; no fallback"
+      },
+      {
+        "seed": 34017,
+        "success": true,
+        "steps": 375,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 34018,
+        "success": true,
+        "steps": 498,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 34019,
+        "success": false,
+        "steps": 351,
+        "phase": "approach",
+        "failure_reason": "visual_timeout_approach"
+      }
+    ],
+    "combined": [
+      {
+        "seed": 35000,
+        "success": true,
+        "steps": 383,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 35001,
+        "success": false,
+        "steps": 351,
+        "phase": "approach",
+        "failure_reason": "visual_timeout_approach"
+      },
+      {
+        "seed": 35002,
+        "success": false,
+        "steps": 398,
+        "phase": "descend",
+        "failure_reason": "visual_timeout_descend"
+      },
+      {
+        "seed": 35003,
+        "success": true,
+        "steps": 629,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 35004,
+        "success": false,
+        "steps": 875,
+        "phase": "finish",
+        "failure_reason": "perception_rejected: Invalid RGB-D student prediction: support/text/workspace; no fallback"
+      },
+      {
+        "seed": 35005,
+        "success": false,
+        "steps": 250,
+        "phase": "descend",
+        "failure_reason": "perception_rejected: Invalid RGB-D student prediction: support/text/workspace; no fallback"
+      },
+      {
+        "seed": 35006,
+        "success": false,
+        "steps": 351,
+        "phase": "approach",
+        "failure_reason": "visual_timeout_approach"
+      },
+      {
+        "seed": 35007,
+        "success": false,
+        "steps": 777,
+        "phase": "retreat",
+        "failure_reason": "visual_timeout_retreat"
+      },
+      {
+        "seed": 35008,
+        "success": false,
+        "steps": 351,
+        "phase": "approach",
+        "failure_reason": "visual_timeout_approach"
+      },
+      {
+        "seed": 35009,
+        "success": false,
+        "steps": 351,
+        "phase": "approach",
+        "failure_reason": "visual_timeout_approach"
+      },
+      {
+        "seed": 35010,
+        "success": false,
+        "steps": 280,
+        "phase": "descend",
+        "failure_reason": "perception_rejected: Invalid RGB-D student prediction: support/text/workspace; no fallback"
+      },
+      {
+        "seed": 35011,
+        "success": false,
+        "steps": 351,
+        "phase": "approach",
+        "failure_reason": "visual_timeout_approach"
+      },
+      {
+        "seed": 35012,
+        "success": false,
+        "steps": 351,
+        "phase": "approach",
+        "failure_reason": "visual_timeout_approach"
+      },
+      {
+        "seed": 35013,
+        "success": false,
+        "steps": 351,
+        "phase": "approach",
+        "failure_reason": "visual_timeout_approach"
+      },
+      {
+        "seed": 35014,
+        "success": false,
+        "steps": 512,
+        "phase": "transfer",
+        "failure_reason": "visual_timeout_transfer"
+      },
+      {
+        "seed": 35015,
+        "success": true,
+        "steps": 366,
+        "phase": "close",
+        "failure_reason": null
+      },
+      {
+        "seed": 35016,
+        "success": false,
+        "steps": 185,
+        "phase": "descend",
+        "failure_reason": "perception_rejected: Invalid RGB-D student prediction: support/text/workspace; no fallback"
+      },
+      {
+        "seed": 35017,
+        "success": false,
+        "steps": 351,
+        "phase": "approach",
+        "failure_reason": "visual_timeout_approach"
+      },
+      {
+        "seed": 35018,
+        "success": false,
+        "steps": 512,
+        "phase": "transfer",
+        "failure_reason": "visual_timeout_transfer"
+      },
+      {
+        "seed": 35019,
+        "success": true,
+        "steps": 365,
+        "phase": "close",
+        "failure_reason": null
+      }
+    ]
+  },
+  "limitations": "Single training seed; fixed objects/vocabulary. No tuning on fresh suite seeds. Concurrent independent evaluation processes; timing includes contention. Async/regrasp success gates not achieved."
+}

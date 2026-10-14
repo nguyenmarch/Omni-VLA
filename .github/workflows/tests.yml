@@ -1,0 +1,20 @@
+name: CPU correctness
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+    env:
+      MUJOCO_GL: osmesa
+      LIBGL_ALWAYS_SOFTWARE: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: requirements-cpu.lock
+      - run: sudo apt-get update && sudo apt-get install -y libosmesa6 libgl1
+      - run: python -m pip install -r requirements-cpu.lock
+      - run: python -m pip install --no-deps --no-build-isolation -e .
+      - run: python -m pip check
+      - run: python -m pytest -q

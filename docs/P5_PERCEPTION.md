@@ -106,3 +106,18 @@ Các script tạo output mới và từ chối ghi đè đường dẫn đã t�
 RGB-D v2 từ scene, xem [pilot 256](GROUNDING_256_PILOT.md); lưu ý teacher
 replay yêu cầu source hash và scene hash khớp. Nếu thay scene/mesh/camera,
 phải collect lại, tạo lại teacher và train lại.
+
+## Reliability follow-up — 14/10/2026
+
+Xem [visual reliability](VISUAL_RELIABILITY.md) cho failure traces, observation
+age, train-state shift, bounded rejection handling, async snapshot inference và
+immutable IID/OOD evaluation plan. Các số P5 ở trên vẫn là frozen historical
+results; runtime mới và async phải đọc report riêng. Không dùng thành công
+định vị offline thay cho closed-loop system gate.
+
+## Direct VLA successor pilot
+
+[Direct VLA](DIRECT_VLA.md) là nhánh mới nhận trực tiếp RGB-D, instruction và
+lịch sử robot để dự đoán action chunks; không dùng P5 landmarks/phase oracle
+làm condition. P5 + BC ở tài liệu này vẫn là frozen baseline. Nhánh mới chỉ
+đã CPU smoke, chưa full GPU training hoặc đạt closed-loop gate.

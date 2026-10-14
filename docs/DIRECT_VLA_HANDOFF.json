@@ -1,0 +1,70 @@
+{
+  "schema": "omni-direct-vla-handoff-v1",
+  "dataset": "data/direct_vla_v1.h5",
+  "dataset_sha256": "4b16d11bec96615e074a4aaaf9fa8a2a973d8cac87d596a672d5c55352ab785e",
+  "source_zip": "artifacts/direct_vla_source.zip",
+  "source_zip_sha256": "2fea78e966c652feb93666294b233765b1fbd220c595c409b500a0b0b004908a",
+  "notebook_sha256": "b91d3a8b05a34b241fecbd913225de51f8e203fe0f976bc82e3cb62990f67e73",
+  "teacher_successes": 18,
+  "teacher_attempts": 20,
+  "splits": {
+    "train": [
+      "000004",
+      "000005",
+      "000007",
+      "000008",
+      "000009",
+      "000014",
+      "000015",
+      "000016",
+      "000017",
+      "000018",
+      "000019"
+    ],
+    "val": [
+      "000000",
+      "000001",
+      "000011"
+    ],
+    "test": [
+      "000002",
+      "000003",
+      "000012",
+      "000013"
+    ]
+  },
+  "samples": {
+    "train": 674,
+    "val": 165,
+    "test": 271
+  },
+  "CPU_smoke": {
+    "epochs": 2,
+    "batches_per_split_per_epoch": 2,
+    "batch_size": 4,
+    "resume_model_parity": "bit-for-bit",
+    "validation_action_mse": 0.46877041459083557,
+    "closed_loop": {
+      "stow": {
+        "successes": 0,
+        "attempted": 1,
+        "smoke_checkpoint": true,
+        "capture_and_policy_ms_p50": 54.11095649969866
+      },
+      "open": {
+        "successes": 0,
+        "attempted": 1,
+        "smoke_checkpoint": true,
+        "capture_and_policy_ms_p50": 55.05319150006471
+      }
+    }
+  },
+  "full_GPU_training": "not_run; notebook prepared for user-authorized Kaggle handoff",
+  "limitations": "Small two-task/known-vocabulary pilot. CPU smoke is not a trained candidate. No claimed task success/generalization gates.",
+  "verification": {
+    "pytest_passed": 61,
+    "CPU_resume_bit_parity": true,
+    "notebook_code_cells_compiled": true,
+    "source_archive_integrity": "verified"
+  }
+}

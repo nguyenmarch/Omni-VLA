@@ -15,10 +15,11 @@ deploy = ["torch>=2.3", "onnx>=1.16", "onnxruntime>=1.18"]
 test = ["pytest>=8"]
 
 [tool.setuptools.packages.find]
-include = ["models*", "simulation*", "utils*", "scripts*"]
+include = ["models*", "simulation*", "utils*", "scripts*", "configs*"]
 
 [tool.setuptools.package-data]
 simulation = ["assets/*.xml", "assets/panda/*.xml", "assets/panda/LICENSE", "assets/panda/assets/*"]
+configs = ["*.yaml"]
 
 [tool.pytest.ini_options]
 pythonpath = ["."]

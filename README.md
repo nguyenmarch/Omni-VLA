@@ -46,6 +46,22 @@ Vòng corrective 2 đã chuẩn bị: **25 DAgger episodes**, dataset v2 **57 ep
 Xem [hướng dẫn vòng 2](docs/BC_CORRECTIVE_ROUND_2.md). BC Kaggle v2 đã đánh giá: **46/50 (92%)** trên seed cũ và **42/50 (84%)**
 trên seed mới, đạt target 80% theo tỷ lệ quan sát. [Comparison](artifacts/bc_kaggle_v2_comparison.json).
 
+## Direct VLA mới — RGB-D, language và action history
+
+[Nhánh VLA trực tiếp](docs/DIRECT_VLA.md) có CNN + recurrent text encoder +
+GRU history → action chunks cho hai tác vụ. Không dùng object/phase oracle hay
+task FSM để sinh action. Dataset, CPU smoke và notebook Kaggle đã chuẩn bị;
+GPU candidate đầu đã train 100 epochs và import trên CPU; xem
+[kết quả](docs/DIRECT_VLA_KAGGLE_RESULTS.md). Chưa coi hai-task success gate
+là đã đạt chỉ dựa trên validation loss.
+
+## Reliability và tái lập — 14/10/2026
+
+[Chẩn đoán closed-loop, async và IID/OOD protocol](docs/VISUAL_RELIABILITY.md)
+và [CPU lock, CI, artifact bundle](docs/REPRODUCIBILITY.md) đã bổ sung.
+Sync vẫn là mặc định; async là nhánh thử nghiệm, chưa đạt success gate.
+Visual/state rollout reports và visual traces từ chối ghi đè file đã tồn tại.
+
 ## Cài đặt trên Dell
 
 Python 3.10+; môi trường kiểm chứng hiện tại dùng Python 3.12. ROS2 chưa cần thiết.

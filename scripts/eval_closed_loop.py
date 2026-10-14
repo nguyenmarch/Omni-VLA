@@ -11,6 +11,8 @@ from simulation.expert import ScriptedExpert, state_condition, PHASES
 
 
 def evaluate(args):
+    if Path(args.output).exists():
+        raise FileExistsError(args.output)
     model = checkpoint = session = None
     if args.checkpoint:
         import torch
@@ -48,7 +50,7 @@ def evaluate(args):
             displayed_phase = None
             initial_phase=0
             from simulation.recovery import RecoveryExecutor,RecoveryState
-            recovery=RecoveryExecutor(env)
+            recovery=RecoveryExecutor(env,detector=getattr(args,'recovery_detector','oracle'))
             injection_done=False
             injection_ticks=0
             while True:
@@ -118,6 +120,7 @@ def evaluate(args):
             row={'seed':seed,'steps':info['step'],'phase':PHASES[manager.phase],
                  'failure_reason':None if info['success'] else ('recovery_failed' if recovery.monitor.state==RecoveryState.FAILED else manager.failure_reason or 'episode_limit'),
                  'recovery_attempts':recovery.monitor.retries,'injected_slip':injection_done,**info}
+            row['force_detection_final']=recovery.last_detection
             episodes.append(row);print(json.dumps(row),flush=True)
     finally:
         env.close()
@@ -136,10 +139,13 @@ def evaluate(args):
             'sampler_ms_p50':float(np.percentile(latencies,50)) if latencies else None,
             'sampler_ms_p95':float(np.percentile(latencies,95)) if latencies else None,
             'cpu_threads':args.threads,'execute_horizon':args.execute_horizon,'euler_steps':args.euler_steps}
+    report['recovery_detector']=getattr(args,'recovery_detector','oracle') if args.recovery else None
+    report['recovery_geometry']='oracle_scripted_regrasp' if args.recovery else None
     if args.checkpoint:
         from utils.checkpoint import file_hash
         report['checkpoint_sha256']=file_hash(args.checkpoint)
-    output=Path(args.output);output.parent.mkdir(parents=True,exist_ok=True);output.write_text(json.dumps(report,indent=2))
+    from utils.reporting import write_json
+    write_json(args.output, report)
     print(json.dumps({k:v for k,v in report.items() if k!='episodes'},indent=2))
     return report
 
@@ -154,6 +160,8 @@ def main():
     p.add_argument('--output',default='artifacts/eval.json');p.add_argument('--gui',action='store_true')
     p.add_argument('--trace',help='New JSONL file: pre-action distances, angles, learner/expert actions; expert labels never executed')
     p.add_argument('--recovery',action='store_true');p.add_argument('--inject-slip',action='store_true')
+    p.add_argument('--recovery-detector',choices=['oracle','wrench'],default='oracle',
+                   help='Wrench detection uses force/fingers; regrasp still uses oracle geometry')
     p.add_argument('--threads',type=int,default=2);p.add_argument('--euler-steps',type=int,default=6);p.add_argument('--execute-horizon',type=int,default=2)
     args=p.parse_args()
     if min(args.episodes,args.euler_steps,args.execute_horizon,args.threads)<1:
