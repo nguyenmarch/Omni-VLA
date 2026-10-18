@@ -1,0 +1,44 @@
+{
+  "schema": "omni-p5-h0-baseline-v1",
+  "arguments": [
+    "--policy", "weights/bc_kaggle_v2/best.pt",
+    "--grounding", "weights/p5_student/best.pt",
+    "--instruction", "stow the bottle in the drawer then close it",
+    "--profile", "iid",
+    "--transition-tolerance", "0.012",
+    "--transfer-tolerance", "0.012",
+    "--place-contact-mode", "off",
+    "--place-contact-force-threshold-n", "8",
+    "--place-contact-debounce-steps", "3",
+    "--fallback-max-age-s", "0.4",
+    "--perception-every", "5",
+    "--max-sim-age", "0.4",
+    "--max-wall-age", "0.4",
+    "--max-perception-gap", "1",
+    "--max-rejections", "3"
+  ],
+  "policy_sha256": "1c31dafe6ff1731ceb99a07c5da2e187dcb61db27ca76029a995d5c0905b27a3",
+  "grounding_sha256": "cd4a42f6e3721c7b8bc25d2540f1111172bb0d3b4c590556c201704be8849cfa",
+  "development": {
+    "seeds": [76000, 76001, 76002, 76003, 76004],
+    "success_mask": [true, true, false, false, true],
+    "reference_report": "artifacts/p5_control_research/baseline_76000.json"
+  },
+  "raw_debug": {
+    "seed": 76000,
+    "transfer_tolerance_m": 0.025,
+    "reference_report": "artifacts/p5_control_research/transfer_raw_contact_76000.json",
+    "expected_trigger_step": 230,
+    "expected_fz_n": 8.925802705167008
+  },
+  "perception": {
+    "legacy_perception": false,
+    "arm_mask_enabled": false,
+    "temporal_smoothing_enabled": false,
+    "fallback_max_age_s": 0.4
+  },
+  "reference_regression_reports": {
+    "iid": "artifacts/p5_temporal_fallback_suite/candidate/iid.json",
+    "position": "artifacts/p5_temporal_fallback_suite/candidate/position.json"
+  }
+}

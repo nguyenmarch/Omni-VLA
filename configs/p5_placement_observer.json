@@ -1,0 +1,24 @@
+{
+  "schema": "omni-placement-calibration-v1",
+  "description": "H3 local upright-grasp load observer. Development only; H4 owns release authorization.",
+  "observer_options": {
+    "placement_filter_frames": 5,
+    "placement_calibration_frames": 12,
+    "placement_debounce_steps": 3,
+    "placement_calibration_speed_m_s": 0.16,
+    "placement_calibration_acceleration_m_s2": 0.6,
+    "placement_contact_speed_m_s": 0.02,
+    "placement_contact_acceleration_m_s2": 0.8,
+    "placement_min_payload_n": 0.4,
+    "placement_max_payload_n": 3.0,
+    "placement_support_on_fraction": 0.6,
+    "placement_support_off_fraction": 0.35,
+    "placement_min_support_n": 0.5,
+    "placement_lateral_limit_n": 1.0,
+    "placement_moment_limit_nm": 0.12,
+    "placement_collision_clear_steps": 5,
+    "placement_max_orientation_error_rad": 0.2,
+    "placement_max_grip_change_m": 0.006,
+    "placement_max_force_std_n": 0.4
+  }
+}

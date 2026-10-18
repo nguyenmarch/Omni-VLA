@@ -19,6 +19,8 @@ from scripts.artifact_bundle import verify_restore
 from utils.config import make_environment
 from utils.reporting import write_json, wilson
 from utils.visual_diagnostics import TrainingEnvelope
+from utils.visual_protocol import normalize_options, object_hash, option_report_fields
+from simulation.vision import FULL_INSTRUCTION
 
 
 def request(episode, step):
@@ -246,15 +248,28 @@ def test_distribution_diagnostics_fit_train_only(tmp_path):
 
 
 def test_suite_resume_rejects_incomplete_episode_rows_and_wrong_inputs():
-    plan = {'sets': {'iid': [10, 11]}, 'policy_sha256': 'policy', 'grounding_sha256': 'student'}
+    plan = {'sets': {'iid': [10, 11]}, 'policy_sha256': 'policy', 'grounding_sha256': 'student',
+            'variants': {'B': normalize_options()}, 'instruction': FULL_INSTRUCTION,
+            'source_sha256': 'source'}
     report = {'seeds_requested': [10, 11], 'attempted': 2, 'episodes': [{'seed': 10, 'success': True},
               {'seed': 11, 'success': False}], 'successes': 1, 'profile': 'iid',
-              'policy_sha256': 'policy', 'grounding_sha256': 'student', 'suite_plan_sha256': 'plan'}
-    validate_report(plan, 'iid', report, 'plan')
+              'policy_sha256': 'policy', 'grounding_sha256': 'student', 'suite_plan_sha256': 'plan',
+              'fallback_max_age_s': .4, 'transfer_tolerance_m': .012, 'place_contact_mode': 'off',
+              'place_contact_force_threshold_n': 8., 'place_contact_debounce_steps': 3,
+              'success_rate': .5, 'wilson_95': wilson(1, 2),
+              'instruction': FULL_INSTRUCTION, 'effective_options': plan['variants']['B'],
+              'options_sha256': object_hash(plan['variants']['B']), 'suite_variant': 'B',
+              'suite_source_sha256': 'source', 'loop': False, 'stop_reason': 'episode_limit',
+              'scoring_diagnostics': True, **option_report_fields(plan['variants']['B'])}
+    report['episodes'][0].update(steps=1, failure_reason=None)
+    report['episodes'][1].update(steps=1, failure_reason='visual_timeout_transfer')
+    validate_report(plan, 'iid', report, 'plan', 'B')
     with pytest.raises(ValueError, match='incomplete'):
-        validate_report(plan, 'iid', {**report, 'episodes': report['episodes'][:1]}, 'plan')
+        validate_report(plan, 'iid', {**report, 'episodes': report['episodes'][:1]}, 'plan', 'B')
     with pytest.raises(ValueError, match='incompatible'):
-        validate_report(plan, 'iid', {**report, 'policy_sha256': 'wrong'}, 'plan')
+        validate_report(plan, 'iid', {**report, 'policy_sha256': 'wrong'}, 'plan', 'B')
+    with pytest.raises(ValueError, match='incompatible'):
+        validate_report(plan, 'iid', {**report, 'place_contact_mode': 'raw_debug'}, 'plan', 'B')
 
 
 def bundle(path, member, content=b'test', digest=None):

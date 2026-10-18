@@ -1,0 +1,10 @@
+{
+  "schema": "omni-visual-variants-v1",
+  "description": "H3 sensor shadow regression. Only placement_observer changes; both use H0 baseline control.",
+  "baseline": "B",
+  "controller_options": {"place_contact_mode": "off"},
+  "variants": {
+    "B": {},
+    "S_shadow": {"controller_options": {"placement_observer": true}}
+  }
+}

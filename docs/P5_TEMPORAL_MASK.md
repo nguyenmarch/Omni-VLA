@@ -21,6 +21,12 @@ different robot or an uncalibrated real camera.
 
 ## Paired experiment
 
+Historical protocol v2: the commands in this section describe the recorded
+fallback experiment. The current suite uses controller protocol v3; see
+[P5_H1_RESULTS.md](P5_H1_RESULTS.md) for current prepare/run commands. Existing
+v2 plans/reports remain read-only evidence and must not be reinterpreted as
+controller ablations or prepared again with v3 defaults.
+
 The immutable manifest is
 [`artifacts/p5_temporal_fallback_suite/plan.json`](../artifacts/p5_temporal_fallback_suite/plan.json).
 It reserves 100 IID seeds and 20 seeds each for camera, lighting, and position

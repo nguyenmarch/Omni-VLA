@@ -1,0 +1,11 @@
+{
+  "schema": "omni-visual-variants-v1",
+  "description": "H2 development. Frozen P5/BC; force off for every variant.",
+  "baseline": "B",
+  "perception_options": {"legacy_perception": false, "enable_arm_mask": false, "enable_temporal_smoothing": false},
+  "controller_options": {"transfer_tolerance": 0.012, "place_contact_mode": "off"},
+  "variants": {
+    "B": {},
+    "T_terminal": {"controller_options": {"transfer_mode": "terminal"}}
+  }
+}

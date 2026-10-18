@@ -1,0 +1,25 @@
+{
+  "schema": "omni-visual-variants-v1",
+  "description": "H1 harness validation only. Tolerance-only and raw-force variants are diagnostic, not H2/H3 candidates.",
+  "baseline": "B",
+  "perception_options": {
+    "legacy_perception": false,
+    "enable_arm_mask": false,
+    "enable_temporal_smoothing": false,
+    "fallback_max_age_s": 0.4
+  },
+  "controller_options": {
+    "transition_tolerance": 0.012,
+    "transfer_tolerance": 0.012,
+    "place_contact_mode": "off"
+  },
+  "variants": {
+    "B": {},
+    "T_tolerance_debug": {
+      "controller_options": {"transfer_tolerance": 0.025}
+    },
+    "Raw_contact_debug": {
+      "controller_options": {"transfer_tolerance": 0.025, "place_contact_mode": "raw_debug"}
+    }
+  }
+}

@@ -33,6 +33,38 @@ def test_finite_instruction_changes_arm_selection():
     with pytest.raises(ValueError):VisualTaskManager(np.full((2,3),np.nan))
 
 
+def _manager_robot(left, right, fz=0.):
+    return {'ee':np.r_[left,right], 'gripper':np.zeros(4,np.float32),
+            'wrench':np.r_[0.,0.,fz,np.zeros(9)], 'q':np.zeros(14),
+            'dq':np.zeros(14), 'left_wrist_rotation':np.eye(3)}
+
+
+def test_place_contact_debounces_world_vertical_wrench_and_advances_to_release():
+    points=np.array([[.4,0.,.55],[.5,0.,.6]],np.float32)
+    manager=VisualTaskManager(points,place_contact_force_threshold_n=8.,place_contact_debounce_steps=3,
+                              place_contact_mode='raw_debug')
+    manager.phase=5
+    left,right=manager.goals()
+    robot=_manager_robot(left+np.array([0.,0.,.04]),right,fz=9.)
+    manager.update(robot);manager.update(robot)
+    assert manager.phase==5
+    manager.update(robot)
+    assert manager.phase==6
+    assert manager.last_transition_reason=='wrench_contact'
+    assert manager.place_contact_fz_n==pytest.approx(9.)
+
+
+def test_transfer_uses_looser_reach_tolerance():
+    points=np.array([[.4,0.,.55],[.5,0.,.6]],np.float32)
+    manager=VisualTaskManager(points,transfer_tolerance=.025)
+    manager.phase=4
+    left,right=manager.goals()
+    robot=_manager_robot(left+np.array([.02,0.,0.]),right)
+    manager.update(robot)
+    assert manager.phase==5
+    assert manager.last_transition_reason=='transfer_goal_reached'
+
+
 def test_depth_decode_with_offset_and_camera_translation():
     model=Grounding3D(img_size=4)
     heat=torch.zeros(1,1,4,4);heat[0,0,2,1]=10

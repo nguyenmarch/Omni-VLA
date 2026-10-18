@@ -1,0 +1,12 @@
+{
+  "schema": "omni-visual-variants-v1",
+  "description": "H4 development ablations, frozen P5/BC, original scene. Calibrated mode includes H3 observer and verified release/retreat.",
+  "baseline": "B",
+  "controller_options": {"place_contact_mode": "off"},
+  "variants": {
+    "B": {},
+    "T": {"controller_options": {"transfer_mode": "terminal"}},
+    "F": {"controller_options": {"place_contact_mode": "calibrated"}},
+    "TF": {"controller_options": {"transfer_mode": "terminal", "place_contact_mode": "calibrated"}}
+  }
+}

@@ -2,11 +2,19 @@
 import numpy as np
 from utils.camera import calibration
 from simulation.expert import PHASES
+from simulation.transfer import TerminalTransfer, TRANSFER_DEFAULTS, validate_transfer_options
+from simulation.verified_placement import VerifiedPlacement
 
 ROBOT_KEYS=('q','dq','gripper','wrench','ee')
 FULL_INSTRUCTION='stow the bottle in the drawer then close it'
 OPEN_INSTRUCTION='open the drawer'
 QUERIES=('grasp the bottle body','grasp the drawer handle')
+PLACE_CONTACT_MODES=('off','calibrated','raw_debug')
+
+
+def validate_place_contact_mode(mode):
+    if mode not in PLACE_CONTACT_MODES:
+        raise ValueError(f'Unknown place contact mode: {mode}')
 
 
 def capture_head(env, arm_mask=False, depth_max_m=5.0):
@@ -82,8 +90,15 @@ class VisualTaskManager:
     flags. Opening is relative to the perceived handle at episode start.
     """
     def __init__(self,points,instruction=FULL_INSTRUCTION,transition_tolerance=.012,
-                 transfer_tolerance=.025,place_contact_force_threshold_n=8.,
-                 place_contact_debounce_steps=3):
+                 transfer_tolerance=.012,place_contact_force_threshold_n=8.,
+                 place_contact_debounce_steps=3,place_contact_mode='off',transfer_options=None,release_options=None):
+        transfer_options={**TRANSFER_DEFAULTS, **(transfer_options or {})}
+        validate_transfer_options(transfer_options)
+        self.terminal_transfer=TerminalTransfer(transfer_options) if transfer_options['transfer_mode']=='terminal' else None
+        validate_place_contact_mode(place_contact_mode)
+        self.place_contact_mode=place_contact_mode
+        self.verified_placement=VerifiedPlacement(release_options) if place_contact_mode=='calibrated' else None
+        self.placement_observer=None
         if instruction not in (FULL_INSTRUCTION,OPEN_INSTRUCTION):
             raise ValueError('Only the two documented English task instructions are supported')
         self.open_only=instruction==OPEN_INSTRUCTION
@@ -94,20 +109,54 @@ class VisualTaskManager:
             raise ValueError('Transfer tolerance must be finite and positive')
         if not np.isfinite(place_contact_force_threshold_n) or place_contact_force_threshold_n <= 0:
             raise ValueError('Place contact force threshold must be finite and positive')
-        if int(place_contact_debounce_steps) < 1:
+        if (not np.isfinite(place_contact_debounce_steps) or int(place_contact_debounce_steps) < 1
+                or int(place_contact_debounce_steps)!=place_contact_debounce_steps):
             raise ValueError('Place contact debounce must be positive')
         self.transfer_tolerance=float(transfer_tolerance)
         self.place_contact_force_threshold_n=float(place_contact_force_threshold_n)
         self.place_contact_debounce_steps=int(place_contact_debounce_steps)
-        self.place_contact_streak=0
-        self.place_contact_fz_n=0.
-        self.last_transition_reason=''
-        self.initial=np.asarray(points,dtype=np.float32).copy()
-        if self.initial.shape!=(2,3) or not np.isfinite(self.initial).all():
+        self.reset_episode(points)
+
+    def reset_episode(self,points):
+        initial=np.asarray(points,dtype=np.float32)
+        if initial.shape!=(2,3) or not np.isfinite(initial).all():
             raise ValueError('Expected two finite perceived 3D points')
+        self.place_contact_streak=0
+        self.place_contact_fz_n=None
+        self.last_transition_reason=''
+        self.initial=initial.copy()
         self.points=self.initial.copy();self.phase=0;self.age=0
         self.failed=False;self.completed=False;self.failure_reason=''
         self.opened=False;self.placed=False
+        if self.terminal_transfer is not None:
+            self.terminal_transfer.reset()
+        if self.verified_placement is not None:
+            self.verified_placement.reset()
+        if self.placement_observer is not None:
+            self.placement_observer.reset_episode()
+
+    @property
+    def substate(self):
+        if self.placement_active:return self.verified_placement.state
+        return self.terminal_transfer.state if self.phase==4 and self.terminal_transfer is not None else PHASES[self.phase]
+
+    @property
+    def placement_active(self):
+        return self.verified_placement is not None and 5<=self.phase<=8
+
+    @property
+    def placement_evidence(self):
+        if self.placement_observer is None:return {}
+        return {**self.placement_observer.result,
+                'lateral_limit_n':self.placement_observer.value('lateral_limit_n'),
+                'moment_limit_nm':self.placement_observer.value('moment_limit_nm')}
+
+    @property
+    def requires_policy(self):
+        if self.placement_active and self.placement_evidence.get('calibration_status')=='sensor_invalid':return False
+        if self.placement_active and self.phase<8:
+            return self.phase==5 and self.verified_placement.needs_policy(self.placement_evidence)
+        return True
 
     @property
     def opening(self):
@@ -134,7 +183,7 @@ class VisualTaskManager:
         if self.phase>=8:right=handle+[.005,0,0]
         return left,right
 
-    def update(self,robot):
+    def update(self,robot,dt=.04,perception_fresh=True,source_age_s=0.):
         self.age+=1;lp,rp=np.asarray(robot['ee']).reshape(2,3);left,right=self.goals()
         self.last_transition_reason=''
         tolerance=self.transfer_tolerance if self.phase==4 else self.transition_tolerance
@@ -145,23 +194,44 @@ class VisualTaskManager:
         released=np.asarray(robot['gripper'])[:2].mean()>.032
         self.placed|=self.opened and inside and released
         if self.open_only and self.phase==3 and self.opened:self.completed=True;return
+        if self.placement_active:
+            next_phase,reason=self.verified_placement.observe(robot,self.phase,self.points,self.opening,
+                np.stack(self.goals()),dt,perception_fresh,source_age_s,self.placement_evidence)
+            if self.verified_placement.failure_reason:
+                self.failed=True;self.failure_reason=self.verified_placement.failure_reason
+            if next_phase is not None:
+                self.phase=next_phase;self.age=0;self.last_transition_reason=reason
+            elif (self.phase==8 and self.opening<.03 and self.verified_placement.close_allowed(robot)
+                  and self.verified_placement.fresh(perception_fresh,source_age_s)):
+                self.phase=9;self.age=0;self.last_transition_reason='drawer_closed_after_clearance'
+            if self.age>350 and not self.failed:
+                self.failed=True;self.failure_reason='visual_place_guard_timeout'
+            return
         if self.phase in (2,6):ready=self.age>=20
         elif self.phase==3:ready=self.opened and (self.open_only or lp[2]>.69)
+        elif self.phase==4 and self.terminal_transfer is not None:
+            ready=self.terminal_transfer.observe(robot,np.stack(self.goals()),self.points,self.opening>.16,
+                                                 dt,perception_fresh,source_age_s)
+            if self.terminal_transfer.failure_reason:
+                self.failed=True;self.failure_reason=self.terminal_transfer.failure_reason
         elif self.phase==5:
-            wrench=np.asarray(robot['wrench'],dtype=float)
-            if wrench.shape!=(12,) or not np.isfinite(wrench).all():
-                raise ValueError('Expected finite wrench[12] for place contact trigger')
-            # The left wrist force sensor reports in its site frame. Rotate to
-            # world coordinates so Fz means vertical contact in the drawer.
-            wrist_rotation=np.asarray(robot.get('left_wrist_rotation',np.eye(3)),dtype=float)
-            if wrist_rotation.shape!=(3,3) or not np.isfinite(wrist_rotation).all():
-                raise ValueError('Expected finite left wrist rotation[3,3]')
-            self.place_contact_fz_n=float((wrist_rotation@wrench[:3])[2])
-            drawer_center=self.points[1]+[.19,0,-.09]
-            near_drawer=(abs(lp[0]-drawer_center[0])<.13 and abs(lp[1]-drawer_center[1])<.10
-                         and np.linalg.norm(lp-left)<.10)
-            contact=near_drawer and abs(self.place_contact_fz_n)>=self.place_contact_force_threshold_n
-            self.place_contact_streak=self.place_contact_streak+1 if contact else 0
+            if self.place_contact_mode=='off':
+                self.place_contact_streak=0
+            self.place_contact_fz_n=None
+            if self.place_contact_mode=='raw_debug':
+                wrench=np.asarray(robot['wrench'],dtype=float)
+                if wrench.shape!=(12,) or not np.isfinite(wrench).all():
+                    raise ValueError('Expected finite wrench[12] for place contact trigger')
+                # Diagnostic reproduction only: raw wrist load is not bottom contact.
+                wrist_rotation=np.asarray(robot.get('left_wrist_rotation',np.eye(3)),dtype=float)
+                if wrist_rotation.shape!=(3,3) or not np.isfinite(wrist_rotation).all():
+                    raise ValueError('Expected finite left wrist rotation[3,3]')
+                self.place_contact_fz_n=float((wrist_rotation@wrench[:3])[2])
+                drawer_center=self.points[1]+[.19,0,-.09]
+                near_drawer=(abs(lp[0]-drawer_center[0])<.13 and abs(lp[1]-drawer_center[1])<.10
+                             and np.linalg.norm(lp-left)<.10)
+                contact=near_drawer and abs(self.place_contact_fz_n)>=self.place_contact_force_threshold_n
+                self.place_contact_streak=self.place_contact_streak+1 if contact else 0
             reached_place=np.linalg.norm(lp-left)<.025 and np.linalg.norm(rp-right)<.02
             ready=reached_place or self.place_contact_streak>=self.place_contact_debounce_steps
             if ready:
@@ -171,12 +241,18 @@ class VisualTaskManager:
         elif self.phase==9:ready=self.placed and inside and released and self.opening<.035
         else:ready=reached
         if ready:
-            if self.phase==4:self.last_transition_reason='transfer_goal_reached'
+            if self.phase==4:self.last_transition_reason=('terminal_transfer_ready' if self.terminal_transfer is not None
+                                                         else 'transfer_goal_reached')
             if self.phase==9:self.completed=True
             else:self.phase+=1;self.age=0
         if self.age>350:self.failed=True;self.failure_reason='visual_timeout_'+PHASES[self.phase]
 
-    def adapt_action(self,action):
+    def adapt_action(self,action,robot=None,dt=.04,perception_fresh=True,source_age_s=0.):
         a=np.asarray(action).copy()
+        if self.phase==4 and self.terminal_transfer is not None:
+            a=self.terminal_transfer.command(a,robot,np.stack(self.goals()),dt,perception_fresh,source_age_s)
+        if self.placement_active:
+            a=self.verified_placement.command(a,robot,self.phase,self.points,self.opening,dt,
+                perception_fresh,source_age_s,self.placement_evidence)
         if self.open_only:a[:6]=0.;a[6]=1.  # explicit finite-task arm selection
         return a
