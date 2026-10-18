@@ -1,0 +1,12 @@
+{
+  "schema": "omni-visual-variants-v1",
+  "description": "H5 development ablations, frozen P5/BC v2, original scene, calibrated release verified by H4.",
+  "baseline": "B",
+  "controller_options": {"place_contact_mode": "off"},
+  "variants": {
+    "B": {},
+    "T": {"controller_options": {"transfer_mode": "terminal"}},
+    "F": {"controller_options": {"place_contact_mode": "calibrated"}},
+    "TF": {"controller_options": {"transfer_mode": "terminal", "place_contact_mode": "calibrated"}}
+  }
+}

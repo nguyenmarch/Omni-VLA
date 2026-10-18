@@ -68,9 +68,9 @@ image/text ablations and all-target accuracy denominators.
 Closed-loop seeds9000–9004: **0/5**, all rejected at initial perception before
 any action, because both targets must be valid to initialize the manager.
 This verifies fail-closed behavior; it does not validate task performance.
-See [selected test](../artifacts/patch_grounding_v3/selected_test.json),
-[selected validation](../artifacts/patch_grounding_v3/selected_val.json),
-[loop](../artifacts/patch_grounding_v3/closed_loop_selected.json).
+See [selected test](../../artifacts/patch_grounding_v3/selected_test.json),
+[selected validation](../../artifacts/patch_grounding_v3/selected_val.json),
+[loop](../../artifacts/patch_grounding_v3/closed_loop_selected.json).
 
 ## 4. Wrist and FK integration boundary
 
@@ -87,9 +87,9 @@ Masking now accepts positive near depth separately from landmark-valid depth.
 Audit capture including segmentation p50/p95 =108.08/129.40ms, excludes model
 inference; this is not an asynchronous 10Hz runtime benchmark.
 
-[Head overlay](../artifacts/patch_grounding_v3/multicamera_mask_final_head_cam_phase0.html),
-[wrist overlay](../artifacts/patch_grounding_v3/multicamera_mask_final_right_wrist_cam_phase1.html),
-[mask report](../artifacts/patch_grounding_v3/multicamera_mask_final.json).
+[Head overlay](../../artifacts/patch_grounding_v3/multicamera_mask_final_head_cam_phase0.html),
+[wrist overlay](../../artifacts/patch_grounding_v3/multicamera_mask_final_right_wrist_cam_phase1.html),
+[mask report](../../artifacts/patch_grounding_v3/multicamera_mask_final.json).
 
 This is a synchronous simulation capture/mask component, **not Pinocchio/URDF**,
 not a wrist-trained policy or head/wrist fusion controller. The v3 policy runner

@@ -1,7 +1,7 @@
 # Reproducible baseline freeze
 
 This Git snapshot contains source code, configs, notebooks, tests, small JSON
-reports, and [the hash manifest](REPRO_BASELINE.json). HDF5 datasets, PyTorch
+reports, and [the hash manifest](./REPRO_BASELINE.json). HDF5 datasets, PyTorch
 checkpoints, ONNX files, and output ZIPs remain local because they are large.
 The manifest identifies their exact bytes; a fresh checkout needs those files
 copied to the listed paths before benchmark verification or rerunning inference.

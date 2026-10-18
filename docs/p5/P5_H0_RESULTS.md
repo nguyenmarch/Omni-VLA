@@ -1,8 +1,8 @@
 # P5 H0: khóa baseline và công tắc contact
 
 Ngày: **2026-10-15**. Trạng thái: **done**.
-Phạm vi: H0 trong [P5_CONTROL_HANDOFF.md](P5_CONTROL_HANDOFF.md).
-Cập nhật: H1 đã hoàn tất, xem [P5_H1_RESULTS.md](P5_H1_RESULTS.md) cho CLI suite v3.
+Phạm vi: H0 trong [P5_CONTROL_HANDOFF.md](./P5_CONTROL_HANDOFF.md).
+Cập nhật: H1 đã hoàn tất, xem [P5_H1_RESULTS.md](./P5_H1_RESULTS.md) cho CLI suite v3.
 Đây là xác nhận baseline/reproduction trên development, chưa phải benchmark
 IID 100 episode hoặc bằng chứng đạt success ≥80%.
 
@@ -22,9 +22,9 @@ IID 100 episode hoặc bằng chứng đạt success ≥80%.
   cho mỗi episode và reset perception cache như trước.
 - Report và suite manifest lưu contact mode; resume kiểm tra mode tương thích.
   H1 vẫn cần triển khai cấu hình controller riêng theo variant.
-- [Config baseline](../configs/p5_control_baseline.json) cố định arguments,
+- [Config baseline](../../configs/p5_control_baseline.json) cố định arguments,
   checkpoint hashes, development seeds/mask và reference reports.
-- [Replay H0](../scripts/replay_p5_h0.py) thực thi config, đối chiếu theo seed,
+- [Replay H0](../../scripts/replay_p5_h0.py) thực thi config, đối chiếu theo seed,
   kiểm tra contact bằng oracle chỉ để scoring, lưu provenance và từ chối
   output directory đã tồn tại.
 
@@ -72,11 +72,11 @@ raw-debug debounce và resume từ chối report khác mode. Fixture test resume
 
 Kết quả đã chạy nằm ở `artifacts/p5_h0_20261015/`:
 
-- [summary.json](../artifacts/p5_h0_20261015/summary.json): gates, mask và drift.
-- [manifest.json](../artifacts/p5_h0_20261015/manifest.json): provenance.
-- [baseline.json](../artifacts/p5_h0_20261015/baseline.json) và `baseline.jsonl`.
-- [raw_debug.json](../artifacts/p5_h0_20261015/raw_debug.json) và `raw_debug.jsonl`.
-- [contact_audit.json](../artifacts/p5_h0_20261015/contact_audit.json): scoring-only.
+- [summary.json](../../artifacts/p5_h0_20261015/summary.json): gates, mask và drift.
+- [manifest.json](../../artifacts/p5_h0_20261015/manifest.json): provenance.
+- [baseline.json](../../artifacts/p5_h0_20261015/baseline.json) và `baseline.jsonl`.
+- [raw_debug.json](../../artifacts/p5_h0_20261015/raw_debug.json) và `raw_debug.jsonl`.
+- [contact_audit.json](../../artifacts/p5_h0_20261015/contact_audit.json): scoring-only.
 
 Chạy lại từ repo root với output mới:
 

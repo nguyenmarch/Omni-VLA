@@ -59,10 +59,10 @@ Swap queries có mean error 30.74 cm, 0/423 trong 1.5 cm. Các đối chứng n�
 thấy model phụ thuộc ảnh/query trong phạm vi test, không chứng minh hiểu lệnh
 tổng quát hay đạt task success.
 
-Report: [paired comparison](../artifacts/vision_language_256_pilot/paired_grounding.json),
-[native 256 test/ablations](../artifacts/vision_language_256_pilot/test_ablations.json),
-[camera audit](../artifacts/camera_label_audit_256/audit.json),
-[ảnh đầu approach](../artifacts/camera_label_audit_256/snapshot_00.html).
+Report: [paired comparison](../../artifacts/vision_language_256_pilot/paired_grounding.json),
+[native 256 test/ablations](../../artifacts/vision_language_256_pilot/test_ablations.json),
+[camera audit](../../artifacts/camera_label_audit_256/audit.json),
+[ảnh đầu approach](../../artifacts/camera_label_audit_256/snapshot_00.html).
 
 ## Kết quả closed-loop
 
@@ -88,9 +88,9 @@ quảng bá bản 256 là policy hoàn thiện. Bước tiếp theo là kiểm t
 oracle landmarks để tách lỗi phase, đồng thời sửa localization/depth decode
 và thêm xử lý occlusion. Chưa cần train lại BC/CFM chỉ dựa vào thử nghiệm này.
 
-[Bảng so sánh tổng hợp](../artifacts/vision_language_256_pilot/resolution_comparison.md),
-[provenance và failure counts](../artifacts/vision_language_256_pilot/resolution_comparison.json),
-[256 episode reports](../artifacts/vision_language_256_pilot/closed_loop_comparison.json).
+[Bảng so sánh tổng hợp](../../artifacts/vision_language_256_pilot/resolution_comparison.md),
+[provenance và failure counts](../../artifacts/vision_language_256_pilot/resolution_comparison.json),
+[256 episode reports](../../artifacts/vision_language_256_pilot/closed_loop_comparison.json).
 
 ## Artifacts và lệnh tái hiện
 

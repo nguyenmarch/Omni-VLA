@@ -1,12 +1,12 @@
 # P5 H2: terminal transfer ổn định
 
 Ngày: **2026-10-15**. Trạng thái: **H2 done — đạt gate development**.
-Phạm vi: H2 trong [P5_CONTROL_HANDOFF.md](P5_CONTROL_HANDOFF.md).
+Phạm vi: H2 trong [P5_CONTROL_HANDOFF.md](./P5_CONTROL_HANDOFF.md).
 Đây là vòng controller với BC/P5 cố định, không phải nghiệm thu IID 100 seed.
 
 **Triển khai**
 
-[simulation/transfer.py](../simulation/transfer.py) thêm `TerminalTransfer` với
+[simulation/transfer.py](../../simulation/transfer.py) thêm `TerminalTransfer` với
 chuỗi `bc_transfer → settle → ready_to_place`. Chỉ có hiệu lực ở phase 4 khi
 chọn `--transfer-mode terminal`; mặc định tiếp tục là `legacy`. Phase one-hot
 và input BC vẫn 67-D. Các impedance gains, scene, checkpoints, logic success
@@ -119,12 +119,12 @@ Cohort regression và fresh holdout vẫn thuộc H5 sau H3/H4.
 
 Chứng cứ bản cuối:
 
-- [Manifest](../artifacts/p5_h2_final_20261015/plan.json) và
-  [paired summary](../artifacts/p5_h2_final_20261015/summary.json).
-- [B report](../artifacts/p5_h2_final_20261015/B/iid.json),
-  [T report](../artifacts/p5_h2_final_20261015/T_terminal/iid.json),
-  [T tick trace](../artifacts/p5_h2_final_20261015/T_terminal/iid.jsonl).
-- [Verification](../artifacts/p5_h2_final_20261015/verification.json): transition
+- [Manifest](../../artifacts/p5_h2_final_20261015/plan.json) và
+  [paired summary](../../artifacts/p5_h2_final_20261015/summary.json).
+- [B report](../../artifacts/p5_h2_final_20261015/B/iid.json),
+  [T report](../../artifacts/p5_h2_final_20261015/T_terminal/iid.json),
+  [T tick trace](../../artifacts/p5_h2_final_20261015/T_terminal/iid.jsonl).
+- [Verification](../../artifacts/p5_h2_final_20261015/verification.json): transition
   guards, command/slew bounds, source hash, H0 config hash không đổi; resume
   không chạy lại physics và giữ nguyên summary checksum.
 
@@ -144,9 +144,9 @@ budget không ép place, reset và input 67-D. Có test độ mở hộc giảm 
 
 **Config và tái tạo**
 
-- [p5_controller_h2_dev.json](../configs/p5_controller_h2_dev.json): B/T cùng
+- [p5_controller_h2_dev.json](../../configs/p5_controller_h2_dev.json): B/T cùng
   perception và mọi tham số; chỉ khác `transfer_mode`.
-- [p5_h2_development_seeds.json](../configs/p5_h2_development_seeds.json):
+- [p5_h2_development_seeds.json](../../configs/p5_h2_development_seeds.json):
   5 seed development cũ, không dùng để tuyên bố fresh generalization.
 - Artifact bản cuối: `artifacts/p5_h2_final_20261015/`.
 

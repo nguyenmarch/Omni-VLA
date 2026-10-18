@@ -1,7 +1,7 @@
 # P5 H1: paired harness và telemetry
 
 Ngày: **2026-10-15**. Trạng thái: **done**.
-Phạm vi: H1 trong [P5_CONTROL_HANDOFF.md](P5_CONTROL_HANDOFF.md).
+Phạm vi: H1 trong [P5_CONTROL_HANDOFF.md](./P5_CONTROL_HANDOFF.md).
 H2 terminal servo và H3 calibrated contact chưa triển khai trong lượt này.
 Panel dưới đây xác nhận harness, không phải nghiệm thu IID ≥80% hoặc OOD.
 
@@ -12,7 +12,7 @@ không còn quyết định legacy perception. Mỗi variant lưu options đã r
 đủ trong hai khối `perception_options` và `controller_options`; task instruction,
 checkpoint, scene/physics và seed set được giữ chung trong một plan.
 
-[p5_controller_h1.json](../configs/p5_controller_h1.json) có:
+[p5_controller_h1.json](../../configs/p5_controller_h1.json) có:
 
 | Variant | Perception | Transfer | Contact |
 | :--- | :--- | :--- | :--- |
@@ -49,7 +49,7 @@ historical artifacts; CLI v3 dùng config mới thay cho các flags candidate v2
 
 **Telemetry đã có**
 
-[eval_visual_policy.py](../scripts/eval_visual_policy.py) ghi trace
+[eval_visual_policy.py](../../scripts/eval_visual_policy.py) ghi trace
 `omni-visual-trace-v2` cho từng tick thực thi, kể cả lúc hold/đợi perception;
 tick dừng trước khi thực thi được đánh dấu `executed=false`.
 
@@ -71,7 +71,7 @@ pairs và tổng normal force theo geom pair lấy từ contact constraints đan
 động. Geometry chai/hộc, đặt vật và physical success chỉ được thu sau khi đã
 chọn action hoặc sau khi manager ra quyết định chuyển pha.
 
-[visual_scoring.py](../utils/visual_scoring.py) không được policy/manager dùng
+[visual_scoring.py](../../utils/visual_scoring.py) không được policy/manager dùng
 làm input. Nó ghi riêng force claim, lệnh mở kẹp, aperture thực tế và vị trí
 chai tại những thời điểm đó. Quy ước:
 
@@ -130,9 +130,9 @@ Plan bị đổi tolerance sau prepare bị từ chối. Config baseline H0 gi�
 
 Artifacts tại `artifacts/p5_h1_20261015/`:
 
-- [plan.json](../artifacts/p5_h1_20261015/plan.json) và `plan.seal.json`.
-- [summary.json](../artifacts/p5_h1_20261015/summary.json): paired results và telemetry aggregate.
-- [verification.json](../artifacts/p5_h1_20261015/verification.json): resume, config isolation và hash checks.
+- [plan.json](../../artifacts/p5_h1_20261015/plan.json) và `plan.seal.json`.
+- [summary.json](../../artifacts/p5_h1_20261015/summary.json): paired results và telemetry aggregate.
+- [verification.json](../../artifacts/p5_h1_20261015/verification.json): resume, config isolation và hash checks.
 - `B/`, `T_tolerance_debug/`, `Raw_contact_debug/`: `iid.json`, `iid.jsonl`,
   `iid.receipt.json` theo từng variant.
 

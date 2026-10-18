@@ -9,7 +9,7 @@ def package(output):
         for folder in ('configs','models','simulation','scripts','utils','docs','tests','notebooks'):
             for path in (root/folder).rglob('*'):
                 if (path.is_file() and '__pycache__' not in path.parts
-                        and path.relative_to(root).as_posix() != 'docs/DIRECT_VLA_HANDOFF.json'):
+                        and path.relative_to(root).as_posix() != 'docs/policies/DIRECT_VLA_HANDOFF.json'):
                     archive.write(path,Path('omni_vla')/path.relative_to(root))
         for name in ('README.md','pyproject.toml'):
             archive.write(root/name,Path('omni_vla')/name)

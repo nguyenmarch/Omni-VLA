@@ -1,6 +1,9 @@
 
 # Omni-VLA
 
+> Repo map và tình trạng tài liệu: [docs index](./docs/README.md). Cấu trúc,
+> cleanup policy và checklist refactor: [project map](docs/project/PROJECT_MAP.md).
+
 **Bimanual Robot Manipulation with Flow Matching, RGB-D Affordances, and Contact-Rich Physics**
 
 Omni-VLA is a research framework for dual-arm Franka Emika Panda manipulation in MuJoCo. It evaluates learned policies (Behavioral Cloning, Conditional Flow Matching, and Direct VLA) on multi-phase contact tasks (drawer opening, bottle transfer, and placement) without non-physical shortcuts (no teleportation or weld constraints).

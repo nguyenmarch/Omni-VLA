@@ -17,7 +17,7 @@ cho 4/6/8 Euler; BC deterministic. Dùng action sau denormalize/clip [-1,1].
 
 MAE dùng normalized action units, không phải mét. Trong các phase trên,
 validation không thấy đảo dấu gripper; CFM vẫn có sai số/biến thiên theo noise.
-[Chi tiết validation](../artifacts/cfm_h16_validation_diagnostics.json).
+[Chi tiết validation](../../artifacts/cfm_h16_validation_diagnostics.json).
 
 Trace CFM H16 Euler8 trên 6 seeds 5000, 5006, 5011, 5026, 7000, 7006 cho
 3 successes/3 failures, và success/step count khớp benchmark đã có. Các seed
@@ -28,7 +28,7 @@ MAE 0.747, grip MAE 0.686; descend xyz MAE 0.548, grip MAE 0.697. Các state
 khác validation và timeout làm failures chiếm nhiều bước, nên không so trực tiếp
 hai con số như cùng phân phối. Quan sát phù hợp với policy đi lệch rồi sai
 mạnh trên states ngoài quỹ đạo expert; chưa chứng minh root cause là chunk16.
-[Chi tiết rollout](../artifacts/cfm_h16_phase_diagnostics.json).
+[Chi tiết rollout](../../artifacts/cfm_h16_phase_diagnostics.json).
 
 ## Thử nghiệm H1
 
@@ -121,7 +121,7 @@ Failure phases H1: 4 Euler same/fresh approach 12/7, place 2/3, retreat 1/1;
 8 Euler approach 13/10, place 6/16, descend 0/1, retreat 1/1.
 Số lượt lớn nhất ở approach/place, không chỉ là timeout của một phase.
 
-[First-action diagnostics](../artifacts/cfm_h1_validation_diagnostics.json)
+[First-action diagnostics](../../artifacts/cfm_h1_validation_diagnostics.json)
 đánh giá cả BC/H16/H1 trên 2,080 fixed validation states với 3 noise draws.
 Approach xyz MAE: BC 0.01034; H1 4/6/8 = 0.01772/0.01817/0.01688. H1
 cải thiện so H16 nhưng còn cao hơn BC. Place xyz MAE H1 4/6/8 =
@@ -132,4 +132,4 @@ minh root cause hoặc ưu thế/phụ thuộc chunk với nhiều training seed
 
 Giữ BC v2 làm baseline cho vision-language integration. Chưa thay controller,
 action schema, success threshold hoặc nối vision/language trong bước này.
-[Report đầy đủ](../artifacts/cfm_h1_kaggle_v2/comparison.json).
+[Report đầy đủ](../../artifacts/cfm_h1_kaggle_v2/comparison.json).

@@ -168,7 +168,7 @@ outcome of this suite.
 ## Completed fresh-seed results
 
 100 IID + 100 OOD visual trials and 100 state-BC trials are complete.
-[Compact results, hashes and per-seed outcomes](RELIABILITY_RESULTS_20261014.json).
+[Compact results, hashes and per-seed outcomes](./RELIABILITY_RESULTS_20261014.json).
 
 | Mode/profile | Success | Wilson 95% interval |
 |---|---|---|

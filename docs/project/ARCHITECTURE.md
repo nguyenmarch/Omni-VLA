@@ -1,11 +1,11 @@
 # Omni-VLA — kiến trúc cho Dell 5421 CPU + Kaggle
 
 **Target architecture cập nhật 10/10/2026:** xem
-[Advanced embodied control design](ADVANCED_CONTROL_DESIGN.md) cho head 256/
+[Advanced embodied control design](./ADVANCED_CONTROL_DESIGN.md) cho head 256/
 wrist 224, robust depth, FK mask, correlated OT-CFM, learned monitor và recovery.
 Phần khảo sát bên dưới là lịch sử trước implementation; xem status cho hiện trạng.
 
-> Tài liệu thiết kế/khảo sát trước implementation. Xem [trạng thái hiện tại](IMPLEMENTATION_STATUS.md) và README cho code, commands và kết quả đo mới.
+> Tài liệu thiết kế/khảo sát trước implementation. Xem [trạng thái hiện tại](./IMPLEMENTATION_STATUS.md) và README cho code, commands và kết quả đo mới.
 Ngày khảo sát: 09/10/2026. Đây là thiết kế đề xuất, chưa phải hệ thống đã triển khai hay kết quả benchmark.
 
 ## 1. Phạm vi và quyết định chính

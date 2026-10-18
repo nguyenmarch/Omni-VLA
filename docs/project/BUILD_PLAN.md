@@ -2,10 +2,10 @@
 
 ## Advanced migration — 10/10/2026
 
-Pilot mới: [P5_PERCEPTION.md](P5_PERCEPTION.md); patch v3 là baseline cũ
-trong [PATCH_GROUNDING_V3.md](PATCH_GROUNDING_V3.md).
+Pilot mới: [P5_PERCEPTION.md](../p5/P5_PERCEPTION.md); patch v3 là baseline cũ
+trong [PATCH_GROUNDING_V3.md](../perception/PATCH_GROUNDING_V3.md).
 
-Đặc tả/gates: [ADVANCED_CONTROL_DESIGN.md](ADVANCED_CONTROL_DESIGN.md).
+Đặc tả/gates: [ADVANCED_CONTROL_DESIGN.md](./ADVANCED_CONTROL_DESIGN.md).
 Mục tiêu >=90% là target mới, chưa đạt. BC giữ làm baseline kiểm soát khi
 migration; production target dùng correlated OT-CFM được nghiệm thu.
 
@@ -24,8 +24,8 @@ không dùng success oracle/expert fallback trong production benchmark.
 
 Các milestone P0–P6 bên dưới giữ lại làm lịch sử kế hoạch ban đầu.
 
-> Tài liệu thiết kế/khảo sát trước implementation. Xem [trạng thái hiện tại](IMPLEMENTATION_STATUS.md) và README cho code, commands và kết quả đo mới.
-Kế hoạch dựa trên khảo sát ngày 09/10/2026 và [architecture](ARCHITECTURE.md). Phần lớn repository hiện là scaffold; khối lượng đầu tiên là dựng simulation/controller/data đúng, không phải chỉ chạy training.
+> Tài liệu thiết kế/khảo sát trước implementation. Xem [trạng thái hiện tại](./IMPLEMENTATION_STATUS.md) và README cho code, commands và kết quả đo mới.
+Kế hoạch dựa trên khảo sát ngày 09/10/2026 và [architecture](./ARCHITECTURE.md). Phần lớn repository hiện là scaffold; khối lượng đầu tiên là dựng simulation/controller/data đúng, không phải chỉ chạy training.
 
 Ước lượng một người làm: **4–6 tuần cho MVP drawer + learned policy**, **thêm 3–6 tuần cho screw-cap + visual-language + recovery**. Đây là khoảng lập kế hoạch, chưa biết tốc độ expert development, Kaggle quota và simulation throughput. Các tuần có thể chồng lấp; chỉ chuyển milestone khi đạt gate. Nếu chỉ có 4 tuần, scope demo là drawer task + CFM/state baseline; phần VLA và uncapping ghi roadmap.
 
@@ -62,7 +62,7 @@ Các ngưỡng trong gate là mục tiêu nghiệm thu đề xuất. Tracking to
 
 P5 đã có teacher segmentation replay-certified, RGB-D student, text encoder,
 ablation, held-out paraphrases và CPU benchmark. Test visible mean **0,29 cm**,
-p95 **0,83 cm**, coverage **423/423**; xem [báo cáo P5](P5_PERCEPTION.md).
+p95 **0,83 cm**, coverage **423/423**; xem [báo cáo P5](../p5/P5_PERCEPTION.md).
 Kết quả này chỉ đóng gate định vị trong scene hiện tại; system success ≥90%,
 OOD và wrist fusion tiếp tục ở các stage sau.
 
@@ -115,8 +115,8 @@ OOD và wrist fusion tiếp tục ở các stage sau.
 Giữ các module hiện tại, thêm file khi milestone cần đến:
 
 ```text
-docs/ARCHITECTURE.md             # đã tạo: thiết kế
-docs/BUILD_PLAN.md               # đã tạo: milestone và gates
+docs/docs/project/ARCHITECTURE.md             # đã tạo: thiết kế
+docs/docs/project/BUILD_PLAN.md               # đã tạo: milestone và gates
 pyproject.toml                  # P0
 configs/eval_cpu.yaml            # P0/P4
 simulation/action_adapter.py    # P2: delta pose → controller targets
@@ -160,4 +160,4 @@ Không cần test mọi dòng code; ưu tiên các lỗi có thể làm benchmar
 
 Ưu tiên ngay: **P0 → P1 → controller/expert P2**. Chạy được 100 expert trials đáng tin cậy là nền tảng để quyết định có nên dành GPU quota cho training. Sau P4 có demo learned control kiểm chứng trên CPU; sau P5 mới có cơ sở đánh giá VLA.
 
-Nguồn cho API, accelerator workflow và model variants nằm trong [architecture](ARCHITECTURE.md#8-nguồn-kỹ-thuật). Các lịch, tốc độ chạy và acceptance targets trên đây là đề xuất kỹ thuật, chưa phải benchmark.
+Nguồn cho API, accelerator workflow và model variants nằm trong [architecture](./ARCHITECTURE.md#8-nguồn-kỹ-thuật). Các lịch, tốc độ chạy và acceptance targets trên đây là đề xuất kỹ thuật, chưa phải benchmark.

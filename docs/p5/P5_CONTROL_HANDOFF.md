@@ -1,15 +1,21 @@
 # P5 control: kế hoạch triển khai và handoff
 
 Ngày lập: **2026-10-15**. Cập nhật: **2026-10-16**.
-Trạng thái: **H0–H4 done; H5–H7 todo**.
-Chứng cứ H0: [P5_H0_RESULTS.md](P5_H0_RESULTS.md).
-Chứng cứ H1: [P5_H1_RESULTS.md](P5_H1_RESULTS.md).
-Chứng cứ H2: [P5_H2_RESULTS.md](P5_H2_RESULTS.md).
-Chứng cứ H3: [P5_H3_RESULTS.md](P5_H3_RESULTS.md).
-Chứng cứ H4: [P5_H4_RESULTS.md](P5_H4_RESULTS.md).
-Nguồn quyết định: [P5_CONTROL_RESEARCH.md](P5_CONTROL_RESEARCH.md).
-Người tiếp nhận bắt đầu ở **H5** sau khi đọc kết quả H0–H4, thực hiện theo các dependency, ghi kết quả
-vào artifact riêng cho từng lần chạy.
+Trạng thái: **H0–H4 done; H5 failed_gate; H6–H7 todo**.
+H5 development, regression replay và diagnostic holdout: [P5_H5_RESULTS.md](./P5_H5_RESULTS.md).
+TF failed the old IID cohort (46/100 vs B 71/100); diagnostic holdout cũng
+không cải thiện paired success (59/100 vs B 63/100 IID; 3/20 vs 4/20 Position).
+H5 vẫn `failed_gate/incomplete`; TF không được xem là deployment-approved.
+Do not treat TF as deployment-approved.
+Chứng cứ H0: [P5_H0_RESULTS.md](./P5_H0_RESULTS.md).
+Chứng cứ H1: [P5_H1_RESULTS.md](./P5_H1_RESULTS.md).
+Chứng cứ H2: [P5_H2_RESULTS.md](./P5_H2_RESULTS.md).
+Chứng cứ H3: [P5_H3_RESULTS.md](./P5_H3_RESULTS.md).
+Chứng cứ H4: [P5_H4_RESULTS.md](./P5_H4_RESULTS.md).
+Nguồn quyết định: [P5_CONTROL_RESEARCH.md](./P5_CONTROL_RESEARCH.md).
+Tiếp tục H5 bằng development trace audit để xử lý placement calibration/guard
+timeouts theo [P5_H5_RESULTS.md](./P5_H5_RESULTS.md). Chỉ tạo holdout sau khi một
+candidate mới vượt development và regression replay gates.
 
 **Mục tiêu và tiêu chí hoàn thành**
 
@@ -76,7 +82,7 @@ manifest. Giữ các thay đổi có sẵn trong workspace; không reset chúng 
 | H2 — Terminal transfer ổn định — done | H1 | Candidate T, guards và paired development 4/5 vs B 3/5; xem kết quả H2 |
 | H3 — Calibrated placement force — done | H1 | Observer shadow, 15 trial calibration/audit, known false positive và visual regression; xem H3 results |
 | H4 — Verified release và retreat — done | H3 | Candidate F/TF opt-in, 112 tests, original-scene physics/paired audit; xem H4 results |
-| H5 — Chọn candidate và nghiệm thu controller | H2, H4 | Development ablations, regression replay, fresh holdout |
+| H5 — Chọn candidate và nghiệm thu controller — failed gate/incomplete | H2, H4 | Development, replay và diagnostic holdout complete; TF rejected; cần candidate mới, replay đạt gate rồi holdout mới |
 | H6 — Visual DAgger cho lỗi trước transfer | H1; dùng controller đã đóng băng từ H5 | Dataset/BC mới, CPU smoke và notebook Kaggle |
 | H7 — Nghiệm thu sau training | H6 | Paired report checkpoint mới trên holdout riêng |
 
@@ -104,7 +110,7 @@ không đổi tiêu chí success để vượt gate.
 
 Hoàn tất khi cờ off thực sự không phát contact transition, các state reset theo
 episode, và baseline replay khớp. Nếu drift, giải thích và xử lý trước H5.
-H0 đã đạt các điều kiện này; xem [P5_H0_RESULTS.md](P5_H0_RESULTS.md) và
+H0 đã đạt các điều kiện này; xem [P5_H0_RESULTS.md](./P5_H0_RESULTS.md) và
 `artifacts/p5_h0_20261015/summary.json`. Chưa chạy lại cohort IID 100/Position 20
 trong H0; đó là phần nghiệm thu H5.
 
@@ -133,7 +139,7 @@ manifest và report; không thể resume bằng option khác. Test paired report
 phải tính rescue bằng success vật lý cuối episode, không bằng transition.
 H1 đã đạt: 51 tests và panel B/T/raw-debug trên 2 seed replay, kèm kiểm tra
 resume không rerun physics. B/T chỉ khác transfer tolerance; T này là ablation
-debug, chưa phải terminal servo H2. Xem [P5_H1_RESULTS.md](P5_H1_RESULTS.md).
+debug, chưa phải terminal servo H2. Xem [P5_H1_RESULTS.md](./P5_H1_RESULTS.md).
 
 **H2 — Terminal transfer ổn định**
 
@@ -163,7 +169,7 @@ baseline mặc định `legacy`; 62 tests pass. Replay paired 76000–76004 có 
 T 4/5, cứu seed 76003, không regression trong 3 success cũ; cả 5 transition
 đạt guards và command bounds. Không dùng force trigger. Seed 76002 còn timeout
 retreat, tổng thời gian trên success cũ tăng; chưa có nghiệm thu IID/OOD H5.
-Xem [P5_H2_RESULTS.md](P5_H2_RESULTS.md), config
+Xem [P5_H2_RESULTS.md](./P5_H2_RESULTS.md), config
 `configs/p5_controller_h2_dev.json` và
 `artifacts/p5_h2_final_20261015/{summary,verification}.json`.
 
@@ -194,7 +200,7 @@ hiện contact đáy thật và báo detection latency/missed contacts. Không g
 false positive bằng detector luôn trả false. Reset/bad sensor/calibration
 unknown không được dẫn tới release.
 
-H3 đã đạt gate development, xem [P5_H3_RESULTS.md](P5_H3_RESULTS.md).
+H3 đã đạt gate development, xem [P5_H3_RESULTS.md](./P5_H3_RESULTS.md).
 Observer cục bộ tại `simulation/placement_contact.py` cập nhật độc lập camera
 và có raw/filtered agreement, variance/speed guard, side-force/moment veto,
 load-restored re-arm, reset và unknown handling. **84 tests pass**.
@@ -240,7 +246,7 @@ ideal landmarks để cô lập cơ học và ca joint-stop jam. Paired learned-
 76000–76004 có **B 3/5, T 4/5, F 4/5, TF 5/5**; F cứu 76002 và giữ 3 success
 cũ; TF giữ 4 success của T, cứu thêm 76002. Không release ngoài envelope,
 retreat trước aperture mở hoặc close trước clearance trong audit. Không đổi
-H0 contract/scene/H3 thresholds. Xem [P5_H4_RESULTS.md](P5_H4_RESULTS.md) và
+H0 contract/scene/H3 thresholds. Xem [P5_H4_RESULTS.md](./P5_H4_RESULTS.md) và
 `artifacts/p5_h4_verification_20261016.json`.
 
 Panel này pin `--startup-hold-steps 5 --observation-age-clock simulation`
@@ -331,8 +337,8 @@ git diff --check
 
 Lệnh tái tạo raw-force và tolerance-only hiện có nằm trong tài liệu nghiên cứu.
 Lệnh prepare/run manifest v3 đã được kiểm chứng ở
-[P5_H1_RESULTS.md](P5_H1_RESULTS.md) và
-[P5_H2_RESULTS.md](P5_H2_RESULTS.md). Dùng interface v3 cho B/T/F/TF;
+[P5_H1_RESULTS.md](./P5_H1_RESULTS.md) và
+[P5_H2_RESULTS.md](./P5_H2_RESULTS.md). Dùng interface v3 cho B/T/F/TF;
 không dùng report từ interface paired cũ để thay thế phép đo có config riêng.
 
 **Bộ bàn giao cuối cùng**
@@ -341,7 +347,7 @@ không dùng report từ interface paired cũ để thay thế phép đo có con
 - Config B/T/F/TF, immutable manifests, calibration data và dependency record.
 - JSON/JSONL mỗi variant/profile; contact audit và danh sách rescued/regressed
   seeds có lý do. Artifact lớn kèm đường dẫn/hash và hướng dẫn khôi phục trên máy mới.
-- Báo cáo `docs/P5_CONTROL_RESULTS.md`: IID/OOD success, Wilson CI, paired
+- Báo cáo `docs/p5/P5_CONTROL_RESULTS.md`: IID/OOD success, Wilson CI, paired
   McNemar, failure breakdown, release false positives, phản ứng lực và deadline.
 - Với vòng training: dataset provenance, CPU smoke, notebook Kaggle,
   checkpoint/stats/splits và báo cáo BC v2/v3 trên holdout riêng.
@@ -351,12 +357,12 @@ không dùng report từ interface paired cũ để thay thế phép đo có con
 
 **Nội dung có thể chuyển nguyên cho người tiếp nhận**
 
-> H0–H4 đã hoàn tất; đọc `docs/P5_H0_RESULTS.md`, `docs/P5_H1_RESULTS.md`,
-> `docs/P5_H2_RESULTS.md`, `docs/P5_H3_RESULTS.md`, `docs/P5_H4_RESULTS.md`,
+> H0–H4 đã hoàn tất; đọc `docs/docs/p5/P5_H0_RESULTS.md`, `docs/docs/p5/P5_H1_RESULTS.md`,
+> `docs/docs/p5/P5_H2_RESULTS.md`, `docs/docs/p5/P5_H3_RESULTS.md`, `docs/docs/p5/P5_H4_RESULTS.md`,
 > sau đó triển khai H5 theo
-> `docs/P5_CONTROL_HANDOFF.md`. Harness v3 đã
+> `docs/docs/p5/P5_CONTROL_HANDOFF.md`. Harness v3 đã
 > có config riêng theo variant. Baseline đã khóa bằng `configs/p5_control_baseline.json`.
-> Dùng `docs/P5_CONTROL_RESEARCH.md` cùng `artifacts/p5_control_research/` làm
+> Dùng `docs/docs/p5/P5_CONTROL_RESEARCH.md` cùng `artifacts/p5_control_research/` làm
 > bằng chứng đầu vào. Raw Fz 8 N và tolerance-only 25 mm đã có regression, cần
 > giữ các guard verified release/retreat và geometry khi nghiệm thu.
 > Terminal servo H2 đã có, bật bằng `transfer_mode=terminal`; panel development

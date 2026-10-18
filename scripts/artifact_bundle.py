@@ -29,7 +29,7 @@ def safe_path(name):
 
 
 def pack(output, manifest_path):
-    frozen = json.loads((ROOT/'docs/REPRO_BASELINE.json').read_text())
+    frozen = json.loads((ROOT/'docs/operations/REPRO_BASELINE.json').read_text())
     files = set(frozen['files_sha256']) | set(P5_FILES)
     # Verify the historical artifacts without replacing the frozen baseline.
     for path, expected in frozen['files_sha256'].items():
@@ -38,7 +38,7 @@ def pack(output, manifest_path):
     manifest = {'schema': 'omni-artifact-bundle-v1', 'source_sha256': source_hash(),
                 'files': {path: {'sha256': file_hash(ROOT/path), 'size': (ROOT/path).stat().st_size}
                           for path in sorted(files)},
-                'baseline_manifest_sha256': file_hash(ROOT/'docs/REPRO_BASELINE.json')}
+                'baseline_manifest_sha256': file_hash(ROOT/'docs/operations/REPRO_BASELINE.json')}
     output = Path(output)
     if output.exists() or Path(manifest_path).exists():
         raise FileExistsError('Bundle output or manifest already exists')
@@ -112,7 +112,7 @@ def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('action', choices=['pack', 'verify', 'restore'])
     p.add_argument('--archive', required=True)
-    p.add_argument('--manifest', default='docs/ARTIFACT_BUNDLE.json')
+    p.add_argument('--manifest', default='docs/operations/ARTIFACT_BUNDLE.json')
     p.add_argument('--destination', default='.')
     p.add_argument('--sha256', help='Trusted archive checksum, required for restore')
     args = p.parse_args()

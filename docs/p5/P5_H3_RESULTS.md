@@ -2,23 +2,23 @@
 
 Ngày: **2026-10-15**. Trạng thái: **H3 done — đạt gate development**.
 Cập nhật 2026-10-16: H4 đã mở calibrated release/retreat opt-in; xem
-[P5_H4_RESULTS.md](P5_H4_RESULTS.md). Các mô tả shadow/fail-fast bên dưới là
+[P5_H4_RESULTS.md](./P5_H4_RESULTS.md). Các mô tả shadow/fail-fast bên dưới là
 snapshot tại thời điểm nghiệm thu H3; `off --placement-observer` vẫn là shadow.
-Phạm vi: observer và audit H3 trong [P5_CONTROL_HANDOFF.md](P5_CONTROL_HANDOFF.md).
+Phạm vi: observer và audit H3 trong [P5_CONTROL_HANDOFF.md](./P5_CONTROL_HANDOFF.md).
 Đây là kiểm chứng detector trên development, không phải nghiệm thu success IID/OOD.
 
 **Code và cách dùng**
 
-- [simulation/placement_contact.py](../simulation/placement_contact.py):
+- [simulation/placement_contact.py](../../simulation/placement_contact.py):
   `PlacementContactObserver`, API `reset_episode()` và `update(robot, dt)`.
-- [scripts/evaluate_placement_contact.py](../scripts/evaluate_placement_contact.py):
+- [scripts/evaluate_placement_contact.py](../../scripts/evaluate_placement_contact.py):
   thu dữ liệu có tiếp xúc thật, audit replay, tái hiện false positive đã biết
   và replay action của visual rollout trong physics.
-- [configs/p5_placement_observer.json](../configs/p5_placement_observer.json):
+- [configs/p5_placement_observer.json](../../configs/p5_placement_observer.json):
   các tham số development đã pin, trùng defaults dùng bởi visual runtime.
 - Evaluator hỗ trợ `--placement-observer`: chạy **shadow**, thêm telemetry,
   không thay action, không cấp quyền nhả kẹp. Cờ mặc định tắt; input BC vẫn 67-D.
-- [p5_controller_h3_shadow.json](../configs/p5_controller_h3_shadow.json):
+- [p5_controller_h3_shadow.json](../../configs/p5_controller_h3_shadow.json):
   B/S chỉ khác boolean `placement_observer`; cùng checkpoints, perception và
   baseline controller H0, contact mode `off`.
 
@@ -177,14 +177,14 @@ poisoning, config validation, sensor tick độc lập camera freshness; cùng c
 regression tests H0/H1/H2. Audit offline tái chạy prediction từ `robot` đã lưu,
 không đưa nhãn scoring vào observer.
 
-- [Calibration manifest](../artifacts/p5_h3_final_calibration_20261015/manifest.json),
-  [report](../artifacts/p5_h3_final_calibration_20261015/report.json),
-  [sensor samples](../artifacts/p5_h3_final_calibration_20261015/samples.jsonl).
-- [Known-case report](../artifacts/p5_h3_final_known_76000_20261015/report.json).
-- [10 frozen-action replays](../artifacts/p5_h3_frozen_action_audit_20261015/summary.json).
-- [Runtime paired summary](../artifacts/p5_h3_final_shadow_20261015/summary.json),
-  [shadow trace](../artifacts/p5_h3_final_shadow_20261015/S_shadow/iid.jsonl).
-- [Verification tổng](../artifacts/p5_h3_verification_20261015.json): 84 tests,
+- [Calibration manifest](../../artifacts/p5_h3_final_calibration_20261015/manifest.json),
+  [report](../../artifacts/p5_h3_final_calibration_20261015/report.json),
+  [sensor samples](../../artifacts/p5_h3_final_calibration_20261015/samples.jsonl).
+- [Known-case report](../../artifacts/p5_h3_final_known_76000_20261015/report.json).
+- [10 frozen-action replays](../../artifacts/p5_h3_frozen_action_audit_20261015/summary.json).
+- [Runtime paired summary](../../artifacts/p5_h3_final_shadow_20261015/summary.json),
+  [shadow trace](../../artifacts/p5_h3_final_shadow_20261015/S_shadow/iid.jsonl).
+- [Verification tổng](../../artifacts/p5_h3_verification_20261015.json): 84 tests,
   exact sensor replay trên 15 trial, known-case, 10 frozen-action trajectory,
   paired runtime, source hash thống nhất, H0 config không đổi và resume không
   chạy lại physics.

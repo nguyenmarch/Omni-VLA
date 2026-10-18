@@ -1,6 +1,6 @@
 # Vision-language CPU pilot — 10/10/2026
 
-Đã chạy thêm [pilot 256×256](GROUNDING_256_PILOT.md): paired test mean XYZ
+Đã chạy thêm [pilot 256×256](./GROUNDING_256_PILOT.md): paired test mean XYZ
 20.44 → 15.40 cm; xem tài liệu đó để lấy checkpoint, closed-loop results và
 lệnh GUI của bản mới. Báo cáo bên dưới giữ nguyên làm baseline 128.
 
@@ -66,8 +66,8 @@ lấy depth tại một pixel peak là các điểm cần kiểm tra tiếp. L�
 bảo đảm peak nằm trên đúng bề mặt vật thể. Đây là hướng chẩn đoán, chưa phải
 ablation chứng minh nguyên nhân riêng của từng thành phần.
 
-Report chi tiết: [test ablations](../artifacts/vision_language_pilot/test_ablations.json),
-[training metrics](../weights/grounding_rgbd_v2_cpu_pilot/metrics.jsonl).
+Report chi tiết: [test ablations](../../artifacts/vision_language_pilot/test_ablations.json),
+[training metrics](../../weights/grounding_rgbd_v2_cpu_pilot/metrics.jsonl).
 
 ## Closed-loop trên Dell
 
@@ -93,8 +93,8 @@ Tests kiểm tra stripping oracle fields, condition 67 chiều dùng perceived
 landmarks, ảnh hưởng của finite instruction tới chọn tay, camera/depth decoding,
 lọc invalid depth và split leakage. Toàn bộ suite: 24 tests pass.
 
-Xem [bảng kết quả/latency](../artifacts/vision_language_pilot/comparison.md) và
-[từng episode](../artifacts/vision_language_pilot/closed_loop_comparison.json).
+Xem [bảng kết quả/latency](../../artifacts/vision_language_pilot/comparison.md) và
+[từng episode](../../artifacts/vision_language_pilot/closed_loop_comparison.json).
 Report từng setting ghi perceived landmark error theo phase và camera refresh.
 Latencies gồm capture+grounding và BC riêng; EGL không pace thời gian thực.
 5 seeds là diagnostic pilot, chưa là acceptance benchmark 50+50 seeds.
@@ -188,10 +188,10 @@ Max roundtrip GT ~1.94e-7m, prediction reprojection ~1.08e-5px: phép toán
 project/unproject nhất quán. Đây **không** phải chứng nhận calibration độc lập;
 vẫn cần đối chiếu markers với ảnh và hình học scene.
 
-Artifacts: [audit report](../artifacts/camera_label_audit_full/audit.json),
-[frame approach](../artifacts/camera_label_audit_full/snapshot_00.html),
-[frame transfer bị flag](../artifacts/camera_label_audit_full/snapshot_05.html),
-[RGB overlay](../artifacts/camera_label_audit_full/snapshot_00_rgb.png).
+Artifacts: [audit report](../../artifacts/camera_label_audit_full/audit.json),
+[frame approach](../../artifacts/camera_label_audit_full/snapshot_00.html),
+[frame transfer bị flag](../../artifacts/camera_label_audit_full/snapshot_05.html),
+[RGB overlay](../../artifacts/camera_label_audit_full/snapshot_00_rgb.png).
 Headless closed-loop với diagnostics seed 9000 vẫn 0/1 timeout approach, khớp
 pilot trước. 27 tests pass; PNG encoder, snapshot flush, depth/geometry audit
 và HTTP localhost đã được kiểm tra. JS của dashboard đã qua syntax check.

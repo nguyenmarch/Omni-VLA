@@ -59,10 +59,10 @@ frame test; đây chỉ là finite-vocabulary paraphrase check, không chứng m
 khả năng hiểu ngôn ngữ mở. Ablation bỏ depth đo cả cơ chế từ chối an toàn,
 không tách riêng đóng góp của depth cho network.
 
-[Validation report](../artifacts/p5_student/val_refined/report.json),
-[test report và ablations](../artifacts/p5_student/test/report.json),
-[test error atlas](../artifacts/p5_student/test/error_atlas.html),
-[teacher replay report](../data/grounding_p5_labels.report.json).
+[Validation report](../../artifacts/p5_student/val_refined/report.json),
+[test report và ablations](../../artifacts/p5_student/test/report.json),
+[test error atlas](../../artifacts/p5_student/test/error_atlas.html),
+[teacher replay report](../../data/grounding_p5_labels.report.json).
 
 ## CPU và closed-loop
 
@@ -71,7 +71,7 @@ frame từ HDF5 p50 **25,65 ms**, p95 **28,66 ms** (không tính HDF5 I/O/render
 30 reset seeds 11000–11029, sau 3 warmup, head capture + inference p50
 **66,69 ms**, p95 **76,30 ms**, trung bình **14,87 Hz**; 30/30 cặp landmarks
 được chấp nhận. Reset-frame benchmark không tính physics, BC, queue hay ROS2,
-vì vậy không phải deadline guarantee. [CPU report](../artifacts/p5_student/cpu_throughput.json).
+vì vậy không phải deadline guarantee. [CPU report](../../artifacts/p5_student/cpu_throughput.json).
 
 Frozen BC v2 dùng hai landmarks P5 và finite task manager, không nhận oracle
 object/phase. Pilot seeds 10000–10004: **4/5** full drawer tasks thành công;
@@ -83,8 +83,8 @@ perception từ chối vì support/text/workspace gate. Trong 1.906 lần địn
 chẩn đoán sau dự đoán. Capture+infer trong rollout p50/p95 70,37/78,94 ms.
 Gate 3D đã qua nhưng **system success ≥90% chưa đạt**; cần sửa lỗi
 task-manager/BC theo pha và xử lý occlusion/rejection có kiểm soát trước khi
-coi pipeline hoàn chỉnh. [Pilot report](../artifacts/p5_student/closed_loop.json),
-[20-seed report](../artifacts/p5_student/closed_loop_20.json).
+coi pipeline hoàn chỉnh. [Pilot report](../../artifacts/p5_student/closed_loop.json),
+[20-seed report](../../artifacts/p5_student/closed_loop_20.json).
 
 ## Tái hiện trên workspace có sẵn RGB-D v2 và BC v2
 
@@ -103,13 +103,13 @@ MUJOCO_GL=egl .venv/bin/python -m scripts.eval_visual_policy \
 ```
 
 Các script tạo output mới và từ chối ghi đè đường dẫn đã tồn tại. Để tái tạo
-RGB-D v2 từ scene, xem [pilot 256](GROUNDING_256_PILOT.md); lưu ý teacher
+RGB-D v2 từ scene, xem [pilot 256](../perception/GROUNDING_256_PILOT.md); lưu ý teacher
 replay yêu cầu source hash và scene hash khớp. Nếu thay scene/mesh/camera,
 phải collect lại, tạo lại teacher và train lại.
 
 ## Reliability follow-up — 14/10/2026
 
-Xem [visual reliability](VISUAL_RELIABILITY.md) cho failure traces, observation
+Xem [visual reliability](../operations/VISUAL_RELIABILITY.md) cho failure traces, observation
 age, train-state shift, bounded rejection handling, async snapshot inference và
 immutable IID/OOD evaluation plan. Các số P5 ở trên vẫn là frozen historical
 results; runtime mới và async phải đọc report riêng. Không dùng thành công
@@ -117,7 +117,7 @@ results; runtime mới và async phải đọc report riêng. Không dùng thàn
 
 ## Direct VLA successor pilot
 
-[Direct VLA](DIRECT_VLA.md) là nhánh mới nhận trực tiếp RGB-D, instruction và
+[Direct VLA](../policies/DIRECT_VLA.md) là nhánh mới nhận trực tiếp RGB-D, instruction và
 lịch sử robot để dự đoán action chunks; không dùng P5 landmarks/phase oracle
 làm condition. P5 + BC ở tài liệu này vẫn là frozen baseline. Nhánh mới chỉ
 đã CPU smoke, chưa full GPU training hoặc đạt closed-loop gate.

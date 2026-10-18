@@ -1,13 +1,13 @@
 # P5 H4: verified release và retreat
 
 Ngày: **2026-10-16**. Trạng thái: **H4 done — đạt gate development và physics audit**.
-Phạm vi: H4 trong [P5_CONTROL_HANDOFF.md](P5_CONTROL_HANDOFF.md).
+Phạm vi: H4 trong [P5_CONTROL_HANDOFF.md](./P5_CONTROL_HANDOFF.md).
 Checkpoint BC/P5, input 67-D, 10 phase token, impedance gains, scene production
 và scoring success vật lý giữ nguyên. Chưa phải nghiệm thu IID/OOD H5.
 
 **Triển khai**
 
-[simulation/verified_placement.py](../simulation/verified_placement.py) thêm
+[simulation/verified_placement.py](../../simulation/verified_placement.py) thêm
 `VerifiedPlacement`, chỉ bật bằng `--place-contact-mode calibrated`.
 Baseline `off` tiếp tục dùng release/retreat legacy; `raw_debug` chỉ để tái hiện
 trigger raw-force lỗi. Calibrated mode tự bật H3 observer qua normalized options.
@@ -181,14 +181,14 @@ riêng bên dưới dùng landmark P5 học được, không dùng ideal/GT land
 
 Chứng cứ:
 
-- [Plan](../artifacts/p5_h4_dev_v4/plan.json),
-  [paired summary](../artifacts/p5_h4_dev_v4/summary.json),
-  [physics audit](../artifacts/p5_h4_dev_v4/h4_audit.json).
-- [TF report](../artifacts/p5_h4_dev_v4/TF/iid.json),
-  [TF trace](../artifacts/p5_h4_dev_v4/TF/iid.jsonl),
-  [test log](../artifacts/p5_h4_dev_v4/tests.log).
-- [Both-clock smoke](../artifacts/p5_h4_both_clock_smoke_20261016.json).
-- [Verification tổng](../artifacts/p5_h4_verification_20261016.json): guards,
+- [Plan](../../artifacts/p5_h4_dev_v4/plan.json),
+  [paired summary](../../artifacts/p5_h4_dev_v4/summary.json),
+  [physics audit](../../artifacts/p5_h4_dev_v4/h4_audit.json).
+- [TF report](../../artifacts/p5_h4_dev_v4/TF/iid.json),
+  [TF trace](../../artifacts/p5_h4_dev_v4/TF/iid.jsonl),
+  [test log](../../artifacts/p5_h4_dev_v4/tests.log).
+- [Both-clock smoke](../../artifacts/p5_h4_both_clock_smoke_20261016.json).
+- [Verification tổng](../../artifacts/p5_h4_verification_20261016.json): guards,
   H0 contract/scene/H3 thresholds không đổi, replay sensor H3 15 trial còn
   giống hệt, source/hash/receipt và resume không chạy lại physics.
 

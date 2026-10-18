@@ -79,7 +79,7 @@ GPU checkpoint đã có ở `weights/cfm_kaggle_v2/best.pt`; benchmark đầy đ
 ## Kết quả GPU và benchmark CPU
 
 Checkpoint tốt nhất ở epoch 133/150, validation sampled chunk MSE 0.021087.
-Dataset/config khớp experiment. [Import metadata](../artifacts/cfm_kaggle_v2_import.json).
+Dataset/config khớp experiment. [Import metadata](../../artifacts/cfm_kaggle_v2_import.json).
 ONNX/PyTorch Euler parity max abs error 1.19e-06 trên inputs/noise đã kiểm tra.
 
 | Policy | Set | Success | Sampler p50/p95 ms | Delta vs BC (pp) |
@@ -103,4 +103,4 @@ Giữ BC v2 làm policy chính. Đây là kết quả một checkpoint CFM chunk
 vs BC chunk1/hidden128, không kết luận CFM nói chung kém BC. Nếu tiếp tục tuning,
 ưu tiên ablation CFM H=1 và kiểm tra first-action error theo phase để tách ảnh
 hưởng chunk/policy khỏi sampler, rồi dùng protocol seed giữ nguyên. Chưa thực
-hiện ablation này. Reports đầy đủ: [comparison](../artifacts/cfm_kaggle_v2/comparison.json).
+hiện ablation này. Reports đầy đủ: [comparison](../../artifacts/cfm_kaggle_v2/comparison.json).

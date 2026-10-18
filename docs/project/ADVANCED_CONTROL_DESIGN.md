@@ -1,6 +1,6 @@
 # Omni-VLA advanced embodied control — 10/10/2026
 
-Update 11/10/2026: [PATCH_GROUNDING_V3.md](PATCH_GROUNDING_V3.md) records migrated
+Update 11/10/2026: [PATCH_GROUNDING_V3.md](../perception/PATCH_GROUNDING_V3.md) records migrated
 supervision, CPU retraining/coverage and fail-closed runtime. Accuracy is still
 insufficient. Sync wrist224/MuJoCo FK mask audit exists; Pinocchio/fusion/async
 remain pending. The implementation/audit paragraphs below describe the original
@@ -117,9 +117,9 @@ and gripper topics. Long tasks use Actions with cancel/feedback.
 
 ## 3. Concrete implementation and migration
 
-New [robust_depth.py](../utils/robust_depth.py): vectorized patch gather,
+New [robust_depth.py](../../utils/robust_depth.py): vectorized patch gather,
 masked quantile, support/IQR/workspace checks, shape/calibration guards, no
-single-pixel fallback. [audit_robust_depth.py](../scripts/audit_robust_depth.py)
+single-pixel fallback. [audit_robust_depth.py](../../scripts/audit_robust_depth.py)
 evaluates both variants on all validation frames including occlusion.
 
 The component is experimental and **not wired into the legacy runtime yet**.
@@ -138,7 +138,7 @@ Validation audit, 458 targets with old offsets:
 
 These conditional means cannot be compared directly to the visible-only
 15.40cm benchmark. Rejected targets count as failures for overall coverage;
-neither variant is deployment-ready. [Audit report](../artifacts/advanced_perception/robust_depth_val.json).
+neither variant is deployment-ready. [Audit report](../../artifacts/advanced_perception/robust_depth_val.json).
 Tests: 33 passed, including center outlier, invalid depths, mixed surfaces,
 all-robot mask, image border and rejection of workspace-invalid coordinates.
 

@@ -5,7 +5,7 @@ controller mới trong lượt này. Các khuyến nghị dưới đây chưa ph
 IID ≥80%. Không thay đổi checkpoint hay logic success của môi trường.
 
 Cập nhật 2026-10-15: H0 đã thêm contact mode tường minh và khôi phục mặc định
-baseline; xem [P5_H0_RESULTS.md](P5_H0_RESULTS.md). Số liệu dưới đây là nghiên
+baseline; xem [P5_H0_RESULTS.md](./P5_H0_RESULTS.md). Số liệu dưới đây là nghiên
 cứu ngày 2026-10-14; lệnh cuối tài liệu đã thêm mode để tái tạo với API hiện tại.
 
 **1. Bằng chứng từ code và dữ liệu hiện tại**
@@ -62,11 +62,11 @@ regression. Audit vật lý xác nhận một false contact trigger; cần ghi t
 gripper và pose lúc release để quy nguyên nhân từng episode. Năm seed này là
 tập development, không dùng 3/5 hoặc 2/5 để ước lượng tỷ lệ IID toàn hệ thống.
 
-Artifacts: [research_summary.json](../artifacts/p5_control_research/research_summary.json),
-[contact_audit_76000.json](../artifacts/p5_control_research/contact_audit_76000.json),
-[baseline](../artifacts/p5_control_research/baseline_76000.json),
-[transfer-only](../artifacts/p5_control_research/transfer_only_76000.json),
-[transfer + raw force](../artifacts/p5_control_research/transfer_raw_contact_76000.json).
+Artifacts: [research_summary.json](../../artifacts/p5_control_research/research_summary.json),
+[contact_audit_76000.json](../../artifacts/p5_control_research/contact_audit_76000.json),
+[baseline](../../artifacts/p5_control_research/baseline_76000.json),
+[transfer-only](../../artifacts/p5_control_research/transfer_only_76000.json),
+[transfer + raw force](../../artifacts/p5_control_research/transfer_raw_contact_76000.json).
 Summary chứa hash source liên quan và audit theo từng seed transfer cũ.
 
 **3. Phương pháp ưu tiên: hoàn tất transfer ổn định trước khi xuống**

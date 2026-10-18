@@ -26,7 +26,7 @@ A wheel build and a state-only environment reset from an extracted wheel under
 
 ## Local artifact handoff
 
-`docs/ARTIFACT_BUNDLE.json` records hashes/sizes for 42 frozen-baseline and P5
+`docs/docs/operations/ARTIFACT_BUNDLE.json` records hashes/sizes for 42 frozen-baseline and P5
 artifacts, source hash and the archive checksum. The prepared archive is
 `artifacts/bundles/omni_vla_artifacts_20261014.zip` (ignored by Git).
 Transfer this archive alongside a checkout of the reviewed source and manifest.
@@ -37,7 +37,7 @@ are separate from this historical bundle.
 ```bash
 # Create a new bundle after deliberate artifact changes; outputs are exclusive.
 .venv/bin/python -m scripts.artifact_bundle pack \
-  --archive artifacts/bundles/new_baseline.zip --manifest docs/NEW_BUNDLE.json
+  --archive artifacts/bundles/new_baseline.zip --manifest docs/operations/NEW_BUNDLE.json
 
 # Verify before restoring; take the checksum from the trusted manifest.
 .venv/bin/python -m scripts.artifact_bundle verify \

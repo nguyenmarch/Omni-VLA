@@ -54,7 +54,7 @@ python -m scripts.train_vla --dataset /path/direct_vla_v1.h5 \
 ```
 
 CPU smoke results, hashes and verification are recorded in
-`docs/DIRECT_VLA_HANDOFF.json` after the local checks complete.
+`docs/docs/policies/DIRECT_VLA_HANDOFF.json` after the local checks complete.
 
 ## Kaggle GPU handoff
 
@@ -67,7 +67,7 @@ CPU smoke results, hashes and verification are recorded in
 Kaggle GPU training has completed for the first candidate: 100 epochs, best
 checkpoint at epoch 99 with validation action MSE 0.002865. Dataset hash, splits,
 normalization and CPU forward were verified on import. See
-[GPU candidate report](DIRECT_VLA_KAGGLE_RESULTS.md) for closed-loop results.
+[GPU candidate report](./DIRECT_VLA_KAGGLE_RESULTS.md) for closed-loop results.
 The notebook detects CUDA, trains the full 100 epochs and packages checkpoints/metrics. It can resume from
 `last.pt` using the CLI above. Local artifacts are ignored by Git; transfer them
 using the handoff checksums. Never replace the frozen P5/BC checkpoint.

@@ -23,12 +23,12 @@ different robot or an uncalibrated real camera.
 
 Historical protocol v2: the commands in this section describe the recorded
 fallback experiment. The current suite uses controller protocol v3; see
-[P5_H1_RESULTS.md](P5_H1_RESULTS.md) for current prepare/run commands. Existing
+[P5_H1_RESULTS.md](./P5_H1_RESULTS.md) for current prepare/run commands. Existing
 v2 plans/reports remain read-only evidence and must not be reinterpreted as
 controller ablations or prepared again with v3 defaults.
 
 The immutable manifest is
-[`artifacts/p5_temporal_fallback_suite/plan.json`](../artifacts/p5_temporal_fallback_suite/plan.json).
+[`artifacts/p5_temporal_fallback_suite/plan.json`](../../artifacts/p5_temporal_fallback_suite/plan.json).
 It reserves 100 IID seeds and 20 seeds each for camera, lighting, and position
 profiles. Each seed runs once through baseline and once through candidate, with
 the same BC checkpoint, P5 checkpoint, scene, and policy settings. Results
@@ -79,7 +79,7 @@ increased task success or demonstrated OOD generalization.
 
 The JSON reports contain per-seed traces, phase transitions, observation ages,
 failure reasons, and fallback counts:
-[`summary.json`](../artifacts/p5_temporal_fallback_suite/summary.json), with
+[`summary.json`](../../artifacts/p5_temporal_fallback_suite/summary.json), with
 profile reports under `baseline/` and `candidate/`. To rerun the exact paired
 benchmark, use the `run` command above; it resumes from the immutable plan and
 retains the same seeds/checkpoints.

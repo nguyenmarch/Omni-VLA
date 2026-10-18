@@ -1,0 +1,10 @@
+{
+  "schema": "omni-visual-variants-v1",
+  "description": "Provisional H5 TF candidate replay against frozen baseline; not deployment-approved.",
+  "baseline": "B",
+  "controller_options": {"place_contact_mode": "off"},
+  "variants": {
+    "B": {},
+    "TF": {"controller_options": {"transfer_mode": "terminal", "place_contact_mode": "calibrated"}}
+  }
+}
